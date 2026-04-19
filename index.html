@@ -67,7 +67,15 @@
       display: flex; align-items: center; gap: 10px;
       font-weight: 800; font-size: 1.3rem;
     }
-    .nav-logo .duck { font-size: 1.6rem; }
+    .nav-logo .logo-img {
+      width: 36px; height: 36px; object-fit: contain;
+      filter: drop-shadow(0 0 8px rgba(124,92,252,0.3));
+      transition: transform 0.3s, filter 0.3s;
+    }
+    .nav-logo:hover .logo-img {
+      transform: scale(1.1) rotate(-5deg);
+      filter: drop-shadow(0 0 14px rgba(124,92,252,0.5));
+    }
     .nav-logo .highlight { color: var(--accent-light); }
     .nav-links {
       display: flex; list-style: none; gap: 36px;
@@ -621,6 +629,138 @@
       text-align: center; font-size: 0.78rem; color: var(--text-3);
     }
 
+    /* ===== CART BUTTON (NAV) ===== */
+    .nav-cart {
+      position: relative; background: none; border: none; cursor: pointer;
+      color: var(--text-2); transition: color 0.3s; padding: 6px;
+      display: flex; align-items: center;
+    }
+    .nav-cart:hover { color: #fff; }
+    .nav-cart svg { width: 22px; height: 22px; }
+    .cart-badge {
+      position: absolute; top: -2px; right: -6px;
+      width: 18px; height: 18px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #9333ea);
+      color: #fff; font-size: 0.6rem; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transform: scale(0); transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+      box-shadow: 0 2px 10px var(--accent-glow);
+    }
+    .cart-badge.show { opacity: 1; transform: scale(1); }
+    .cart-badge.bump { animation: cartBump 0.4s ease; }
+    @keyframes cartBump {
+      0% { transform: scale(1); } 50% { transform: scale(1.35); } 100% { transform: scale(1); }
+    }
+
+    /* ===== CART DRAWER ===== */
+    .cart-overlay {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(0,0,0,0.6); backdrop-filter: blur(6px);
+      opacity: 0; visibility: hidden;
+      transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+    .cart-overlay.open { opacity: 1; visibility: visible; }
+    .cart-drawer {
+      position: fixed; top: 0; right: 0; bottom: 0; z-index: 510;
+      width: 420px; max-width: 92vw;
+      background: var(--bg-2); border-left: 1px solid var(--glass-border);
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+      display: flex; flex-direction: column;
+    }
+    .cart-overlay.open + .cart-drawer,
+    .cart-drawer.open { transform: translateX(0); }
+    .cart-head {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 24px 28px; border-bottom: 1px solid var(--glass-border);
+    }
+    .cart-head h3 {
+      font-size: 1.1rem; font-weight: 800; display: flex; align-items: center; gap: 10px;
+    }
+    .cart-head-count {
+      padding: 3px 10px; border-radius: 50px; font-size: 0.68rem;
+      font-weight: 700; font-family: var(--mono);
+      background: rgba(124,92,252,0.1); color: var(--accent-light);
+    }
+    .cart-close {
+      background: var(--surface); border: 1px solid var(--glass-border);
+      border-radius: 10px; padding: 8px; cursor: pointer;
+      color: var(--text-2); transition: all 0.3s; display: flex;
+    }
+    .cart-close:hover { color: #fff; border-color: rgba(255,255,255,0.15); }
+    .cart-body {
+      flex: 1; overflow-y: auto; padding: 20px 28px;
+      scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.08) transparent;
+    }
+    .cart-empty {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; height: 100%; gap: 16px;
+      color: var(--text-3); text-align: center;
+    }
+    .cart-empty-icon { font-size: 3rem; opacity: 0.5; }
+    .cart-empty p { font-size: 0.9rem; }
+    .cart-item {
+      display: flex; gap: 16px; padding: 20px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      animation: fadeUp 0.3s ease;
+    }
+    .cart-item-img {
+      width: 72px; height: 72px; border-radius: 14px;
+      background: var(--surface); border: 1px solid var(--glass-border);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; flex-shrink: 0;
+    }
+    .cart-item-img img {
+      width: 52px; height: 52px; object-fit: contain;
+      filter: drop-shadow(0 0 6px rgba(124,92,252,0.2));
+    }
+    .cart-item-info { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+    .cart-item-name { font-weight: 700; font-size: 0.92rem; }
+    .cart-item-variant { font-size: 0.75rem; color: var(--text-3); }
+    .cart-item-bottom { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+    .cart-item-price { font-family: var(--mono); font-weight: 700; font-size: 0.9rem; color: var(--accent-light); }
+    .cart-qty {
+      display: flex; align-items: center; gap: 0; border-radius: 10px;
+      border: 1px solid var(--glass-border); overflow: hidden;
+    }
+    .cart-qty button {
+      background: var(--surface); border: none; color: var(--text);
+      width: 32px; height: 32px; cursor: pointer; font-size: 1rem;
+      transition: background 0.2s; display: flex; align-items: center; justify-content: center;
+    }
+    .cart-qty button:hover { background: var(--surface-hover); }
+    .cart-qty span {
+      width: 36px; text-align: center; font-family: var(--mono);
+      font-size: 0.82rem; font-weight: 700;
+    }
+    .cart-footer {
+      padding: 24px 28px; border-top: 1px solid var(--glass-border);
+      background: rgba(5,5,8,0.6);
+    }
+    .cart-total {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 8px;
+    }
+    .cart-total-label { font-size: 0.85rem; color: var(--text-2); }
+    .cart-total-val { font-family: var(--mono); font-size: 1.3rem; font-weight: 900; }
+    .cart-shipping { font-size: 0.72rem; color: var(--text-3); margin-bottom: 20px; }
+    .cart-checkout {
+      width: 100%; padding: 16px; border-radius: 14px; border: none;
+      background: linear-gradient(135deg, var(--accent), #9333ea);
+      color: #fff; font-weight: 700; font-size: 0.95rem;
+      cursor: pointer; font-family: var(--font);
+      transition: all 0.3s;
+      box-shadow: 0 4px 20px var(--accent-glow);
+    }
+    .cart-checkout:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(124,92,252,0.4);
+    }
+    .cart-checkout:disabled {
+      opacity: 0.4; cursor: not-allowed; transform: none;
+      box-shadow: none;
+    }
+
     /* ===== SCROLL PROGRESS ===== */
     .scroll-progress {
       position: fixed; top: 0; left: 0; height: 3px; z-index: 200;
@@ -685,6 +825,8 @@
     @media (max-width: 768px) {
       .nav-links, .nav-btn { display: none; }
       .nav-hamburger { display: flex; }
+      .nav-cart { order: 1; }
+      .nav-hamburger { order: 2; }
       .nav-links.open {
         display: flex; flex-direction: column;
         position: absolute; top: 100%; left: 0; right: 0;
@@ -724,7 +866,7 @@
   <nav class="nav" id="nav">
     <div class="nav-inner">
       <a href="#" class="nav-logo">
-        <span class="duck">🦆</span>
+        <img src="logo.jpg" alt="Tech Ducky Logo" class="logo-img" />
         <span>Tech<span class="highlight">Ducky</span></span>
       </a>
       <ul class="nav-links" id="navLinks">
@@ -735,11 +877,40 @@
         <li><a href="#faq">FAQ</a></li>
       </ul>
       <a href="#buy" class="nav-btn">Pre-Order</a>
+      <button class="nav-cart" id="cartToggle" aria-label="Cart">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-badge" id="cartBadge">0</span>
+      </button>
       <button class="nav-hamburger" id="hamburger" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
+
+  <!-- CART DRAWER -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-head">
+      <h3>Warenkorb <span class="cart-head-count" id="cartHeadCount">0</span></h3>
+      <button class="cart-close" id="cartClose">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="cart-body" id="cartBody">
+      <div class="cart-empty" id="cartEmpty">
+        <div class="cart-empty-icon">🛒</div>
+        <p>Dein Warenkorb ist leer</p>
+      </div>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span class="cart-total-label">Total</span>
+        <span class="cart-total-val" id="cartTotal">CHF 0.00</span>
+      </div>
+      <div class="cart-shipping">Kostenloser Versand in der Schweiz</div>
+      <button class="cart-checkout" id="cartCheckout" disabled>Zur Kasse</button>
+    </div>
+  </aside>
 
   <!-- HERO -->
   <header class="hero">
@@ -755,11 +926,11 @@
         </h1>
         <p class="hero-sub">Ducky V1 packs CC1101 Sub-GHz, NRF24L01 2.4 GHz, WiFi &amp; IR into one pocket-sized device. Analyze, transmit, and explore wireless signals — from the palm of your hand.</p>
         <div class="hero-btns">
-          <a href="#buy" class="btn-primary">
-            Get Ducky V1
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-          <a href="#features" class="btn-outline">Explore Features</a>
+          <button class="btn-primary add-to-cart-btn" data-product="ducky-v1" data-name="Ducky V1" data-price="79">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            Ducky V1 — CHF 79
+          </button>
+          <a href="#features" class="btn-outline">Alle Features</a>
         </div>
         <div class="hero-metrics">
           <div class="metric"><span class="metric-val">4</span><span class="metric-label">RF Modules</span></div>
@@ -1151,14 +1322,17 @@
           <h2 class="cta-title">Ready to <span class="grad">Get Yours?</span></h2>
           <p class="cta-desc">Limited first batch available now. Secure your Ducky V1 and join the community of wireless explorers.</p>
           <div class="cta-price">
-            <span class="cta-price-val">€89</span>
-            <span class="cta-price-note">incl. shipping (EU) · Tax may apply</span>
+            <span class="cta-price-val">CHF 79</span>
+            <span class="cta-price-note">inkl. Versand (CH) · MwSt. kann anfallen</span>
           </div>
-          <a href="#" class="btn-primary">
-            Order Ducky V1
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-          <p class="cta-secure">🔒 Secure payment · 30-day return policy</p>
+          <div class="hero-btns" style="justify-content:center">
+            <button class="btn-primary add-to-cart-btn" data-product="ducky-v1" data-name="Ducky V1" data-price="79">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+              In den Warenkorb
+            </button>
+            <a href="#features" class="btn-outline">Mehr erfahren</a>
+          </div>
+          <p class="cta-secure">🔒 Sichere Zahlung · 30 Tage Rückgaberecht</p>
         </div>
       </div>
     </div>
@@ -1180,7 +1354,7 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a href="#" class="nav-logo"><span class="duck">🦆</span><span>Tech<span class="highlight">Ducky</span></span></a>
+          <a href="#" class="nav-logo"><img src="logo.jpg" alt="Tech Ducky Logo" class="logo-img" /><span>Tech<span class="highlight">Ducky</span></span></a>
           <p>Building tools for the curious. Explore wireless — responsibly.</p>
         </div>
         <div class="footer-col">
@@ -1295,6 +1469,124 @@
         const t = document.querySelector(h); if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
       });
     });
+
+    // ===== SHOPPING CART =====
+    const cart = { items: [] };
+    const cartOverlay = document.getElementById('cartOverlay');
+    const cartDrawer = document.getElementById('cartDrawer');
+    const cartToggle = document.getElementById('cartToggle');
+    const cartClose = document.getElementById('cartClose');
+    const cartBody = document.getElementById('cartBody');
+    const cartEmpty = document.getElementById('cartEmpty');
+    const cartBadge = document.getElementById('cartBadge');
+    const cartHeadCount = document.getElementById('cartHeadCount');
+    const cartTotal = document.getElementById('cartTotal');
+    const cartCheckout = document.getElementById('cartCheckout');
+
+    function openCart() {
+      cartOverlay.classList.add('open');
+      cartDrawer.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeCart() {
+      cartOverlay.classList.remove('open');
+      cartDrawer.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    cartToggle.addEventListener('click', openCart);
+    cartClose.addEventListener('click', closeCart);
+    cartOverlay.addEventListener('click', closeCart);
+
+    function getTotalQty() { return cart.items.reduce((s, i) => s + i.qty, 0); }
+    function getTotalPrice() { return cart.items.reduce((s, i) => s + i.price * i.qty, 0); }
+
+    function renderCart() {
+      const qty = getTotalQty();
+      const total = getTotalPrice();
+
+      // Badge
+      cartBadge.textContent = qty;
+      cartBadge.classList.toggle('show', qty > 0);
+      cartHeadCount.textContent = qty;
+      cartTotal.textContent = 'CHF ' + total.toFixed(2);
+      cartCheckout.disabled = qty === 0;
+
+      // Items
+      const existingItems = cartBody.querySelectorAll('.cart-item');
+      existingItems.forEach(el => el.remove());
+
+      if (qty === 0) {
+        cartEmpty.style.display = 'flex';
+      } else {
+        cartEmpty.style.display = 'none';
+        cart.items.forEach((item, idx) => {
+          const div = document.createElement('div');
+          div.className = 'cart-item';
+          div.innerHTML = `
+            <div class="cart-item-img"><img src="logo.jpg" alt="${item.name}" /></div>
+            <div class="cart-item-info">
+              <span class="cart-item-name">${item.name}</span>
+              <span class="cart-item-variant">All-in-One Hacking Gadget</span>
+              <div class="cart-item-bottom">
+                <div class="cart-qty">
+                  <button data-action="dec" data-idx="${idx}">\u2212</button>
+                  <span>${item.qty}</span>
+                  <button data-action="inc" data-idx="${idx}">+</button>
+                </div>
+                <span class="cart-item-price">CHF ${(item.price * item.qty).toFixed(2)}</span>
+              </div>
+            </div>`;
+          cartBody.appendChild(div);
+        });
+      }
+    }
+
+    function addToCart(productId, name, price) {
+      const existing = cart.items.find(i => i.id === productId);
+      if (existing) {
+        existing.qty++;
+      } else {
+        cart.items.push({ id: productId, name, price: parseFloat(price), qty: 1 });
+      }
+      renderCart();
+      // Badge bump animation
+      cartBadge.classList.remove('bump');
+      void cartBadge.offsetWidth;
+      cartBadge.classList.add('bump');
+      openCart();
+    }
+
+    // Quantity buttons (event delegation)
+    cartBody.addEventListener('click', e => {
+      const btn = e.target.closest('[data-action]');
+      if (!btn) return;
+      const idx = parseInt(btn.dataset.idx);
+      const action = btn.dataset.action;
+      if (action === 'inc') {
+        cart.items[idx].qty++;
+      } else if (action === 'dec') {
+        cart.items[idx].qty--;
+        if (cart.items[idx].qty <= 0) cart.items.splice(idx, 1);
+      }
+      renderCart();
+    });
+
+    // Add-to-cart buttons
+    document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        addToCart(btn.dataset.product, btn.dataset.name, btn.dataset.price);
+      });
+    });
+
+    // Checkout placeholder
+    cartCheckout.addEventListener('click', () => {
+      if (getTotalQty() === 0) return;
+      alert('Checkout kommt bald! Total: CHF ' + getTotalPrice().toFixed(2));
+    });
+
+    renderCart();
   })();
   </script>
 </body>
