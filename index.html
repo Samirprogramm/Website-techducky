@@ -7,7 +7,7 @@
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <meta http-equiv="X-Frame-Options" content="DENY" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <title>Tech Ducky â€” Ducky V1</title>
+  <title>Tech Ducky — Ducky V1</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -66,6 +66,57 @@
       --particle-dot: rgba(109,74,237,0.3);
       --particle-line: rgba(109,74,237,0.06);
       --hamburger-color: #1a1a2e;
+    }
+
+    /* ===== LIGHT MODE OVERRIDES ===== */
+    [data-theme="light"] .device-card {
+      background: linear-gradient(165deg, rgba(255,255,255,0.95), rgba(240,240,248,0.95));
+      border: 1px solid rgba(0,0,0,0.1);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    }
+    [data-theme="light"] .device-screen {
+      background: #e8e8f0;
+    }
+    [data-theme="light"] .chip {
+      background: rgba(255,255,255,0.95);
+      border-color: rgba(0,0,0,0.1);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    }
+    [data-theme="light"] .gal {
+      background: linear-gradient(145deg, rgba(255,255,255,0.9), rgba(240,240,248,0.9));
+      border-color: rgba(0,0,0,0.08);
+    }
+    [data-theme="light"] .cta-wrap {
+      background: linear-gradient(160deg, rgba(255,255,255,0.95), rgba(240,240,248,0.95));
+      border-color: rgba(0,0,0,0.08);
+    }
+    [data-theme="light"] .cart-footer {
+      background: rgba(245,245,250,0.9);
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
+    [data-theme="light"] .btn-outline {
+      border-color: rgba(0,0,0,0.15);
+    }
+    [data-theme="light"] .footer {
+      border-top-color: rgba(0,0,0,0.08);
+    }
+    [data-theme="light"] .footer-bottom {
+      border-top-color: rgba(0,0,0,0.08);
+    }
+    [data-theme="light"] .cart-item {
+      border-bottom-color: rgba(0,0,0,0.06);
+    }
+    [data-theme="light"] .hero-badge::after {
+      background: linear-gradient(90deg, transparent, rgba(0,0,0,0.06), transparent);
+    }
+    [data-theme="light"] .metric-sep {
+      background: rgba(0,0,0,0.08);
+    }
+    [data-theme="light"] .cart-body {
+      scrollbar-color: rgba(0,0,0,0.1) transparent;
+    }
+    [data-theme="light"] .feat:hover {
+      box-shadow: 0 20px 60px var(--accent-glow), inset 0 1px 0 rgba(0,0,0,0.04);
     }
 
     html { scroll-behavior: smooth; }
@@ -646,7 +697,7 @@
       content: '+'; font-size: 1.4rem; color: var(--text-3);
       transition: all 0.4s cubic-bezier(0.4,0,0.2,1); font-weight: 300;
     }
-    .faq-item[open] summary::after { content: 'âˆ’'; color: var(--accent-light); transform: rotate(180deg); }
+    .faq-item[open] summary::after { content: '−'; color: var(--accent-light); transform: rotate(180deg); }
     .faq-item[open] summary { color: var(--accent-light); }
     .faq-body {
       padding: 0 28px 24px;
@@ -1333,7 +1384,7 @@
     </div>
     <div class="cart-body" id="cartBody">
       <div class="cart-empty" id="cartEmpty">
-        <div class="cart-empty-icon">ðŸ›’</div>
+        <div class="cart-empty-icon">🛒</div>
         <p>Dein Warenkorb ist leer</p>
       </div>
     </div>
@@ -1353,17 +1404,17 @@
     <div class="hero-orb hero-orb-2"></div>
     <div class="container">
       <div class="hero-left">
-        <div class="hero-badge"><span class="dot"></span> Limited First Batch â€” Now Available</div>
+        <div class="hero-badge"><span class="dot"></span> Limited First Batch — Now Available</div>
         <h1 class="hero-title">
           <span class="line">The Ultimate</span>
           <span class="line grad">All-in-One</span>
           <span class="line">Hacking Gadget.</span>
         </h1>
-        <p class="hero-sub">Ducky V1 packs CC1101 Sub-GHz, NRF24L01 2.4 GHz, WiFi &amp; IR into one pocket-sized device. Analyze, transmit, and explore wireless signals â€” from the palm of your hand.</p>
+        <p class="hero-sub">Ducky V1 packs CC1101 Sub-GHz, NRF24L01 2.4 GHz, WiFi &amp; IR into one pocket-sized device. Analyze, transmit, and explore wireless signals — from the palm of your hand.</p>
         <div class="hero-btns">
           <button class="btn-primary add-to-cart-btn" data-product="ducky-v1" data-name="Ducky V1" data-price="79">
             <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-            Ducky V1 â€” CHF 79
+            Ducky V1 — CHF 79
           </button>
           <a href="#features" class="btn-outline">Alle Features</a>
         </div>
@@ -1385,18 +1436,18 @@
             <div class="device-screen">
               <div class="ln"><span class="pr">$</span> ducky scan --freq 433</div>
               <div class="ln dim">Scanning Sub-GHz band...</div>
-              <div class="ln ok">â–  Found 3 devices</div>
+              <div class="ln ok">■ Found 3 devices</div>
               <div class="ln"><span class="pr">$</span> ducky capture --save</div>
               <div class="ln dim">Recording signal...</div>
-              <div class="ln ok">â–  Saved to /signals/</div>
-              <div class="ln warn">â–¸ Battery: 87%</div>
+              <div class="ln ok">■ Saved to /signals/</div>
+              <div class="ln warn">▸ Battery: 87%</div>
             </div>
             <div class="device-label">DUCKY V1</div>
           </div>
-          <div class="chip chip-1"><span class="chip-icon">ðŸ“¡</span>CC1101</div>
-          <div class="chip chip-2"><span class="chip-icon">ðŸ“¶</span>NRF24</div>
-          <div class="chip chip-3"><span class="chip-icon">ðŸ“º</span>IR Blaster</div>
-          <div class="chip chip-4"><span class="chip-icon">ðŸŒ</span>WiFi</div>
+          <div class="chip chip-1"><span class="chip-icon">📡</span>CC1101</div>
+          <div class="chip chip-2"><span class="chip-icon">📶</span>NRF24</div>
+          <div class="chip chip-3"><span class="chip-icon">📺</span>IR Blaster</div>
+          <div class="chip chip-4"><span class="chip-icon">🌐</span>WiFi</div>
         </div>
       </div>
     </div>
@@ -1412,25 +1463,25 @@
       </div>
       <div class="features-grid">
         <div class="feat" data-anim>
-          <div class="feat-icon">ðŸ“¡</div>
+          <div class="feat-icon">📡</div>
           <h3>Sub-GHz Transceiver</h3>
-          <p>CC1101 covers 300â€“928 MHz. Capture, replay, and analyze signals from garage doors, weather stations, and IoT sensors.</p>
+          <p>CC1101 covers 300–928 MHz. Capture, replay, and analyze signals from garage doors, weather stations, and IoT sensors.</p>
           <span class="feat-chip">CC1101</span>
         </div>
         <div class="feat" data-anim>
-          <div class="feat-icon">ðŸ“¶</div>
+          <div class="feat-icon">📶</div>
           <h3>2.4 GHz Radio</h3>
           <p>NRF24L01 for high-frequency wireless communication, device pairing analysis, and protocol research.</p>
           <span class="feat-chip">NRF24L01</span>
         </div>
         <div class="feat" data-anim>
-          <div class="feat-icon">ðŸŒ</div>
+          <div class="feat-icon">🌐</div>
           <h3>WiFi Module</h3>
           <p>Network scanning, packet analysis, and connecting to your local network for remote operation.</p>
           <span class="feat-chip">802.11 b/g/n</span>
         </div>
         <div class="feat" data-anim>
-          <div class="feat-icon">ðŸ“º</div>
+          <div class="feat-icon">📺</div>
           <h3>Infrared Blaster</h3>
           <p>Transmit and receive IR signals. Control TVs, ACs, and appliances. Learn and replay remote codes.</p>
           <span class="feat-chip">IR TX/RX</span>
@@ -1450,14 +1501,14 @@
         </div>
         <div class="specs-list">
           <div class="spec" data-anim><span class="spec-k">Processor</span><span class="spec-v">ESP32-S3 Dual-Core 240 MHz</span></div>
-          <div class="spec" data-anim><span class="spec-k">Sub-GHz</span><span class="spec-v">CC1101 â€” 300â€“928 MHz</span></div>
-          <div class="spec" data-anim><span class="spec-k">2.4 GHz</span><span class="spec-v">NRF24L01 â€” 2.4 GHz ISM</span></div>
-          <div class="spec" data-anim><span class="spec-k">WiFi</span><span class="spec-v">802.11 b/g/n â€” 2.4 GHz</span></div>
-          <div class="spec" data-anim><span class="spec-k">IR</span><span class="spec-v">38 kHz TX + RX â€” Universal</span></div>
-          <div class="spec" data-anim><span class="spec-k">Display</span><span class="spec-v">1.3" OLED â€” 128Ã—64 px</span></div>
-          <div class="spec" data-anim><span class="spec-k">Battery</span><span class="spec-v">1200 mAh LiPo â€” USB-C</span></div>
-          <div class="spec" data-anim><span class="spec-k">Storage</span><span class="spec-v">MicroSD â€” up to 64 GB</span></div>
-          <div class="spec" data-anim><span class="spec-k">Dimensions</span><span class="spec-v">85 Ã— 55 Ã— 18 mm</span></div>
+          <div class="spec" data-anim><span class="spec-k">Sub-GHz</span><span class="spec-v">CC1101 — 300–928 MHz</span></div>
+          <div class="spec" data-anim><span class="spec-k">2.4 GHz</span><span class="spec-v">NRF24L01 — 2.4 GHz ISM</span></div>
+          <div class="spec" data-anim><span class="spec-k">WiFi</span><span class="spec-v">802.11 b/g/n — 2.4 GHz</span></div>
+          <div class="spec" data-anim><span class="spec-k">IR</span><span class="spec-v">38 kHz TX + RX — Universal</span></div>
+          <div class="spec" data-anim><span class="spec-k">Display</span><span class="spec-v">1.3" OLED — 128×64 px</span></div>
+          <div class="spec" data-anim><span class="spec-k">Battery</span><span class="spec-v">1200 mAh LiPo — USB-C</span></div>
+          <div class="spec" data-anim><span class="spec-k">Storage</span><span class="spec-v">MicroSD — up to 64 GB</span></div>
+          <div class="spec" data-anim><span class="spec-k">Dimensions</span><span class="spec-v">85 × 55 × 18 mm</span></div>
           <div class="spec" data-anim><span class="spec-k">Weight</span><span class="spec-v">~48 g (with battery)</span></div>
         </div>
       </div>
@@ -1470,68 +1521,68 @@
       <div class="section-head">
         <span class="tag">All Features</span>
         <h2 class="section-title">Everything <span class="grad">Ducky V1 Can Do</span></h2>
-        <p class="section-sub">40+ features across wireless, IR, Bluetooth, built-in apps, games, and more â€” all in one device.</p>
+        <p class="section-sub">40+ features across wireless, IR, Bluetooth, built-in apps, games, and more — all in one device.</p>
         <div class="total-badge"><span class="count">34</span> features &middot; <span class="count">5</span> categories</div>
       </div>
 
       <!-- WIRELESS & RF -->
       <div class="cat-block cat-wireless">
         <div class="cat-header" data-anim>
-          <h3 class="cat-title">ðŸ“¡ Wireless &amp; RF</h3>
+          <h3 class="cat-title">📡 Wireless &amp; RF</h3>
           <span class="cat-count">10 FEATURES</span>
         </div>
         <div class="cat-grid">
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">ðŸ“²</div>
+            <div class="cat-card-icon">📲</div>
             <h3>BLE Spam</h3>
             <p>Flood devices with spoofed BLE signals. Choose Android, Windows, iOS, general devices, or all at once.</p>
           </div>
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">ðŸ”</div>
+            <div class="cat-card-icon">🔍</div>
             <h3>Advanced BLE Scanner</h3>
             <p>Deep BLE scanning with RSSI, service data, manufacturer data, and integrated OUI vendor lookups.</p>
           </div>
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">ðŸ“¶</div>
+            <div class="cat-card-icon">📶</div>
             <h3>Advanced Wi-Fi Scanner</h3>
             <p>Comprehensive 2.4 GHz scanning with channel distribution graphs, RSSI analysis, encryption detection, and live metrics.</p>
           </div>
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">ðŸ“¡</div>
+            <div class="cat-card-icon">📡</div>
             <h3>Wi-Fi AP Spam</h3>
             <p>Create hundreds of fake Wi-Fi networks easily, from custom names to rickrolls.</p>
           </div>
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">ðŸ“´</div>
+            <div class="cat-card-icon">📴</div>
             <h3>Deauth Testing</h3>
             <p>Perform 2.4 GHz deauth attacks on controlled networks (note: for EU, this is not enabled).</p>
           </div>
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">ðŸ›¡ï¸</div>
+            <div class="cat-card-icon">🛡️</div>
             <h3>Deauth Attack Checker</h3>
             <p>Scan for deauth attacks performed under the 2.4 GHz band. Monitor your network in real-time.</p>
           </div>
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">ðŸŒ</div>
+            <div class="cat-card-icon">🌐</div>
             <h3>Captive Portals</h3>
             <p>Deploy custom captive portals instantly with the Ducky V1's Wi-Fi network.</p>
           </div>
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">âŒ¨ï¸</div>
+            <div class="cat-card-icon">⌨️</div>
             <h3>Bad-BT</h3>
             <p>Emulate a Bluetooth keyboard like a USB Rubber Ducky, supporting Ducky scripts.</p>
           </div>
           <div class="cat-card warn-card" data-anim>
-            <div class="cat-card-icon">ðŸ”Š</div>
+            <div class="cat-card-icon">🔊</div>
             <h3>RF Signal Jammer</h3>
             <p>Jam RF signals across Sub-GHz bands for research and testing in controlled environments.</p>
-            <span class="edu-badge">âš ï¸ Educational purposes only</span>
+            <span class="edu-badge">⚠️ Educational purposes only</span>
           </div>
           <div class="cat-card warn-card" data-anim>
-            <div class="cat-card-icon">âš¡</div>
-            <h3>NRF Jammer â€” 500 mW</h3>
+            <div class="cat-card-icon">⚡</div>
+            <h3>NRF Jammer — 500 mW</h3>
             <p>High-power 500 mW NRF24-based jammer for 2.4 GHz band research and interference testing.</p>
-            <span class="edu-badge">âš ï¸ Educational purposes only</span>
+            <span class="edu-badge">⚠️ Educational purposes only</span>
           </div>
         </div>
       </div>
@@ -1539,27 +1590,27 @@
       <!-- INFRARED -->
       <div class="cat-block cat-ir">
         <div class="cat-header" data-anim>
-          <h3 class="cat-title">ðŸ“º Infrared (IR)</h3>
+          <h3 class="cat-title">📺 Infrared (IR)</h3>
           <span class="cat-count">4 FEATURES</span>
         </div>
         <div class="cat-grid">
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">ðŸ“º</div>
+            <div class="cat-card-icon">📺</div>
             <h3>TV-B-Gone</h3>
             <p>Turn off almost any TV with a single button press using a large IR code database.</p>
           </div>
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">ðŸŽ›ï¸</div>
+            <div class="cat-card-icon">🎛️</div>
             <h3>Remote</h3>
             <p>Replace your TV remote with customizable buttons and broad IR compatibility.</p>
           </div>
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">ðŸ“¡</div>
+            <div class="cat-card-icon">📡</div>
             <h3>Receiver</h3>
             <p>Detect and decode infrared signals from remotes and controllers.</p>
           </div>
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">ðŸ“¤</div>
+            <div class="cat-card-icon">📤</div>
             <h3>Transmit App</h3>
             <p>Send up to 8 IR commands across 5 remotes for precise control.</p>
           </div>
@@ -1569,42 +1620,42 @@
       <!-- BUILT-IN APPS -->
       <div class="cat-block cat-apps">
         <div class="cat-header" data-anim>
-          <h3 class="cat-title">ðŸ› ï¸ Built-in Apps</h3>
+          <h3 class="cat-title">🛠️ Built-in Apps</h3>
           <span class="cat-count">7 FEATURES</span>
         </div>
         <div class="cat-grid">
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">ðŸ¦¥</div>
+            <div class="cat-card-icon">🦥</div>
             <h3>Scroller</h3>
             <p>Control short videos via BLE: scroll, pause, or like seamlessly.</p>
           </div>
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">ðŸ“</div>
+            <div class="cat-card-icon">📝</div>
             <h3>TXT Viewer</h3>
             <p>View text files with smooth scrolling and word wrapping.</p>
           </div>
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">âŒ¨ï¸</div>
+            <div class="cat-card-icon">⌨️</div>
             <h3>Mini Keypad</h3>
             <p>Use the Ducky V1 as a customizable Bluetooth mini keypad.</p>
           </div>
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">ðŸŽµ</div>
+            <div class="cat-card-icon">🎵</div>
             <h3>Media Controls</h3>
-            <p>Control media and system functions â€” play/pause, next/previous track, volume, and more.</p>
+            <p>Control media and system functions — play/pause, next/previous track, volume, and more.</p>
           </div>
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">ðŸ–¥ï¸</div>
+            <div class="cat-card-icon">🖥️</div>
             <h3>PC Monitor</h3>
             <p>Monitor CPU, GPU, and memory stats in real-time.</p>
           </div>
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">â±ï¸</div>
+            <div class="cat-card-icon">⏱️</div>
             <h3>Stopwatch</h3>
             <p>Start, stop, and reset with precision.</p>
           </div>
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">â²ï¸</div>
+            <div class="cat-card-icon">⏲️</div>
             <h3>Timer</h3>
             <p>Set fully customizable timers with flashing screen alerts.</p>
           </div>
@@ -1614,37 +1665,37 @@
       <!-- GAMES -->
       <div class="cat-block cat-games">
         <div class="cat-header" data-anim>
-          <h3 class="cat-title">ðŸŽ® Games</h3>
+          <h3 class="cat-title">🎮 Games</h3>
           <span class="cat-count">6 FEATURES</span>
         </div>
         <div class="cat-grid">
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">ðŸ¦</div>
+            <div class="cat-card-icon">🐦</div>
             <h3>Flappy Bird</h3>
             <p>Tap to keep your bird flying and avoid pipes.</p>
           </div>
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">ðŸ‘¾</div>
+            <div class="cat-card-icon">👾</div>
             <h3>Space Invaders</h3>
             <p>Defend the galaxy by shooting down alien invaders.</p>
           </div>
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">ðŸ“</div>
+            <div class="cat-card-icon">🏓</div>
             <h3>Pong</h3>
             <p>Classic arcade game: battle the AI in Pong.</p>
           </div>
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">ðŸ§±</div>
+            <div class="cat-card-icon">🧱</div>
             <h3>Breakout</h3>
             <p>Break bricks with a paddle and ball.</p>
           </div>
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">ðŸ¦–</div>
+            <div class="cat-card-icon">🦖</div>
             <h3>T-Rex</h3>
             <p>Jump and duck obstacles in the endless runner game.</p>
           </div>
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">ðŸŽï¸</div>
+            <div class="cat-card-icon">🏎️</div>
             <h3>Racer</h3>
             <p>Navigate sharp turns and dodge obstacles at high speeds.</p>
           </div>
@@ -1654,42 +1705,42 @@
       <!-- OTHER FEATURES -->
       <div class="cat-block cat-other">
         <div class="cat-header" data-anim>
-          <h3 class="cat-title">âš™ï¸ Other Features</h3>
+          <h3 class="cat-title">⚙️ Other Features</h3>
           <span class="cat-count">7 FEATURES</span>
         </div>
         <div class="cat-grid">
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">ðŸ˜Š</div>
+            <div class="cat-card-icon">😊</div>
             <h3>Easy &amp; Simple Setup</h3>
             <p>Setup is very fast and effortless.</p>
           </div>
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">âš™ï¸</div>
+            <div class="cat-card-icon">⚙️</div>
             <h3>Extra Settings Mode</h3>
             <p>Fine-tune settings, Wi-Fi, BLE Spam delays, keypad configs, and much more.</p>
           </div>
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">ðŸ”„</div>
+            <div class="cat-card-icon">🔄</div>
             <h3>Auto Firmware Updates</h3>
             <p>Automatic updates bring new features and improvements.</p>
           </div>
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">ðŸš¨</div>
+            <div class="cat-card-icon">🚨</div>
             <h3>Emergency Mode</h3>
             <p>Exit pentesting features instantly by launching Flappy Bird.</p>
           </div>
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">ðŸ“Š</div>
+            <div class="cat-card-icon">📊</div>
             <h3>Signal Analytics</h3>
             <p>Visualize RF activity with real-time line and bar graphs for network density and signal strength analysis.</p>
           </div>
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">ðŸ’¾</div>
+            <div class="cat-card-icon">💾</div>
             <h3>Storage Viewer</h3>
             <p>Browse internal storage, inspect saved files, and analyze captured data directly on-device.</p>
           </div>
           <div class="cat-card" data-anim>
-            <div class="cat-card-icon">ðŸ“€</div>
+            <div class="cat-card-icon">📀</div>
             <h3>Screensavers</h3>
             <p>Choose from Matrix, 3D cube, or the classic DVD screensaver!</p>
           </div>
@@ -1707,10 +1758,10 @@
         <h2 class="section-title">See It <span class="grad">In Action</span></h2>
       </div>
       <div class="gallery-grid">
-        <div class="gal gal-1" data-anim><span class="gal-emoji">ðŸ¦†</span><span>Ducky V1 â€” Front View</span></div>
-        <div class="gal gal-2" data-anim><span class="gal-emoji">ðŸ“¡</span><span>Sub-GHz Scanning</span></div>
-        <div class="gal gal-3" data-anim><span class="gal-emoji">âš™ï¸</span><span>Internal PCB</span></div>
-        <div class="gal gal-4" data-anim><span class="gal-emoji">ðŸ“º</span><span>OLED Interface</span></div>
+        <div class="gal gal-1" data-anim><span class="gal-emoji">🦆</span><span>Ducky V1 — Front View</span></div>
+        <div class="gal gal-2" data-anim><span class="gal-emoji">📡</span><span>Sub-GHz Scanning</span></div>
+        <div class="gal gal-3" data-anim><span class="gal-emoji">⚙️</span><span>Internal PCB</span></div>
+        <div class="gal gal-4" data-anim><span class="gal-emoji">📺</span><span>OLED Interface</span></div>
       </div>
     </div>
   </section>
@@ -1741,7 +1792,7 @@
         </details>
         <details class="faq-item" data-anim>
           <summary>Do you ship internationally?</summary>
-          <div class="faq-body">Yes! Worldwide shipping. EU/US: 5â€“7 days. International: 10â€“20 days depending on customs.</div>
+          <div class="faq-body">Yes! Worldwide shipping. EU/US: 5–7 days. International: 10–20 days depending on customs.</div>
         </details>
       </div>
     </div>
@@ -1758,7 +1809,7 @@
           <p class="cta-desc">Limited first batch available now. Secure your Ducky V1 and join the community of wireless explorers.</p>
           <div class="cta-price">
             <span class="cta-price-val">CHF 79</span>
-            <span class="cta-price-note">inkl. Versand (CH) Â· MwSt. kann anfallen</span>
+            <span class="cta-price-note">inkl. Versand (CH) · MwSt. kann anfallen</span>
           </div>
           <div class="hero-btns" style="justify-content:center">
             <button class="btn-primary add-to-cart-btn" data-product="ducky-v1" data-name="Ducky V1" data-price="79">
@@ -1767,7 +1818,7 @@
             </button>
             <a href="#features" class="btn-outline">Mehr erfahren</a>
           </div>
-          <p class="cta-secure">ðŸ”’ Sichere Zahlung Â· 30 Tage RÃ¼ckgaberecht</p>
+          <p class="cta-secure">🔒 Sichere Zahlung · 30 Tage Rückgaberecht</p>
         </div>
       </div>
     </div>
@@ -1777,7 +1828,7 @@
   <div class="legal">
     <div class="container">
       <div class="legal-box" data-anim>
-        <div class="legal-warn">âš ï¸</div>
+        <div class="legal-warn">⚠️</div>
         <h3>Legal Disclaimer</h3>
         <p>Ducky V1 is intended for <strong>authorized security research, education, and personal use only</strong>. Users are solely responsible for ensuring compliance with all applicable laws. Unauthorized interception, jamming, or manipulation of wireless signals is illegal. Tech Ducky assumes no liability for misuse.</p>
       </div>
@@ -1789,13 +1840,13 @@
     <div class="container">
       <div class="section-head">
         <span class="tag">Info</span>
-        <h2 class="section-title">Ãœber <span class="grad">das Projekt</span></h2>
+        <h2 class="section-title">Über <span class="grad">das Projekt</span></h2>
       </div>
       <div class="about-card" data-anim>
-        <div class="about-avatar">ðŸ‘¨â€ðŸ’»</div>
+        <div class="about-avatar">👨‍💻</div>
         <h3>Samir</h3>
-        <p class="about-age">15 Jahre alt Â· Solo Developer & Designer</p>
-        <p>Ich bin Samir, 15 Jahre alt, und habe Ducky V1 komplett alleine entwickelt â€” von der Hardware Ã¼ber die Firmware bis hin zu diesem Website-Design. Alles wurde von mir selbst programmiert und designt. Ducky V1 ist mein Herzensprojekt, geboren aus meiner Leidenschaft fÃ¼r Cybersecurity, Elektronik und kreatives Engineering. Kein Team, kein Unternehmen â€” nur ich und meine Vision, ein mÃ¤chtiges Hacking-Tool fÃ¼r Enthusiasten und Lernende zu schaffen.</p>
+        <p class="about-age">15 Jahre alt · Solo Developer & Designer</p>
+        <p>Ich bin Samir, 15 Jahre alt, und habe Ducky V1 komplett alleine entwickelt — von der Hardware über die Firmware bis hin zu diesem Website-Design. Alles wurde von mir selbst programmiert und designt. Ducky V1 ist mein Herzensprojekt, geboren aus meiner Leidenschaft für Cybersecurity, Elektronik und kreatives Engineering. Kein Team, kein Unternehmen — nur ich und meine Vision, ein mächtiges Hacking-Tool für Enthusiasten und Lernende zu schaffen.</p>
         <div class="about-badges">
           <span class="about-badge">Hardware Design</span>
           <span class="about-badge">Firmware Development</span>
@@ -1814,7 +1865,7 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <a href="#" class="nav-logo"><img src="logo.jpg" alt="Tech Ducky Logo" class="logo-img" /><span>Tech<span class="highlight">Ducky</span></span></a>
-          <p>Building tools for the curious. Explore wireless â€” responsibly.</p>
+          <p>Building tools for the curious. Explore wireless — responsibly.</p>
         </div>
         <div class="footer-col">
           <h4>Product</h4>
@@ -1839,14 +1890,14 @@
   <div class="page-modal-overlay" id="privacyOverlay"></div>
   <div class="page-modal" id="privacyModal">
     <button class="page-modal-close" data-close-modal="privacy">&times;</button>
-    <h2>ðŸ”’ Privacy Policy</h2>
+    <h2>🔒 Privacy Policy</h2>
     <p class="modal-subtitle">Zuletzt aktualisiert: April 2026</p>
     <h3>1. Allgemein</h3>
-    <p>Tech Ducky nimmt den Schutz deiner persÃ¶nlichen Daten sehr ernst. Diese DatenschutzerklÃ¤rung informiert dich darÃ¼ber, welche Daten wir erheben, wie wir sie verwenden und welche Rechte du hast.</p>
+    <p>Tech Ducky nimmt den Schutz deiner persönlichen Daten sehr ernst. Diese Datenschutzerklärung informiert dich darüber, welche Daten wir erheben, wie wir sie verwenden und welche Rechte du hast.</p>
     <h3>2. Erhobene Daten</h3>
     <ul>
       <li><strong>Bestelldaten:</strong> Name, E-Mail-Adresse, Lieferadresse und Zahlungsinformationen bei einer Bestellung.</li>
-      <li><strong>Technische Daten:</strong> IP-Adresse, Browsertyp und GerÃ¤teinformationen beim Besuch der Website (anonymisiert).</li>
+      <li><strong>Technische Daten:</strong> IP-Adresse, Browsertyp und Geräteinformationen beim Besuch der Website (anonymisiert).</li>
       <li><strong>Kommunikation:</strong> E-Mail-Inhalte bei Support-Anfragen.</li>
     </ul>
     <h3>3. Verwendungszweck</h3>
@@ -1854,7 +1905,7 @@
     <h3>4. Cookies</h3>
     <p>Wir verwenden nur technisch notwendige Cookies (z.B. Theme-Einstellung). Es werden keine Tracking-Cookies oder Analyse-Tools von Drittanbietern eingesetzt.</p>
     <h3>5. Deine Rechte</h3>
-    <p>Du hast jederzeit das Recht auf Auskunft, Berichtigung und LÃ¶schung deiner Daten. Kontaktiere uns unter <strong>support@techducky.ch</strong>.</p>
+    <p>Du hast jederzeit das Recht auf Auskunft, Berichtigung und Löschung deiner Daten. Kontaktiere uns unter <strong>support@techducky.ch</strong>.</p>
     <h3>6. Kontakt</h3>
     <p>Bei Fragen zum Datenschutz erreichst du uns unter <strong>support@techducky.ch</strong>.</p>
   </div>
@@ -1863,22 +1914,22 @@
   <div class="page-modal-overlay" id="termsOverlay"></div>
   <div class="page-modal" id="termsModal">
     <button class="page-modal-close" data-close-modal="terms">&times;</button>
-    <h2>ðŸ“‹ Terms of Service</h2>
+    <h2>📋 Terms of Service</h2>
     <p class="modal-subtitle">Zuletzt aktualisiert: April 2026</p>
     <h3>1. Geltungsbereich</h3>
-    <p>Diese AGB gelten fÃ¼r alle Bestellungen und KÃ¤ufe Ã¼ber die Website techducky.ch. Mit der Bestellung akzeptierst du diese Bedingungen.</p>
+    <p>Diese AGB gelten für alle Bestellungen und Käufe über die Website techducky.ch. Mit der Bestellung akzeptierst du diese Bedingungen.</p>
     <h3>2. Produkt</h3>
-    <p>Ducky V1 ist ein Lern- und Forschungstool fÃ¼r autorisierte Sicherheitsforschung. Der KÃ¤ufer ist allein verantwortlich fÃ¼r den legalen Einsatz des GerÃ¤ts gemÃ¤ss den Gesetzen seines Landes.</p>
+    <p>Ducky V1 ist ein Lern- und Forschungstool für autorisierte Sicherheitsforschung. Der Käufer ist allein verantwortlich für den legalen Einsatz des Geräts gemäss den Gesetzen seines Landes.</p>
     <h3>3. Preise & Zahlung</h3>
     <ul>
       <li>Alle Preise sind in CHF angegeben.</li>
       <li>Versand innerhalb der Schweiz ist im Preis inbegriffen.</li>
-      <li>Internationale Lieferungen kÃ¶nnen zusÃ¤tzliche Zoll- und Versandkosten verursachen.</li>
+      <li>Internationale Lieferungen können zusätzliche Zoll- und Versandkosten verursachen.</li>
     </ul>
-    <h3>4. RÃ¼ckgaberecht</h3>
-    <p>Du kannst das Produkt innerhalb von 30 Tagen nach Erhalt zurÃ¼ckgeben, sofern es unbenutzt und in der Originalverpackung ist. Die RÃ¼cksendekosten trÃ¤gt der KÃ¤ufer.</p>
+    <h3>4. Rückgaberecht</h3>
+    <p>Du kannst das Produkt innerhalb von 30 Tagen nach Erhalt zurückgeben, sofern es unbenutzt und in der Originalverpackung ist. Die Rücksendekosten trägt der Käufer.</p>
     <h3>5. Haftungsausschluss</h3>
-    <p>Tech Ducky Ã¼bernimmt keine Haftung fÃ¼r SchÃ¤den, die durch unsachgemÃ¤ssen, illegalen oder nicht autorisierten Gebrauch des Produkts entstehen. Das GerÃ¤t ist ausschliesslich fÃ¼r legale Zwecke bestimmt.</p>
+    <p>Tech Ducky übernimmt keine Haftung für Schäden, die durch unsachgemässen, illegalen oder nicht autorisierten Gebrauch des Produkts entstehen. Das Gerät ist ausschliesslich für legale Zwecke bestimmt.</p>
     <h3>6. Gerichtsstand</h3>
     <p>Es gilt Schweizer Recht. Gerichtsstand ist der Wohnort des Betreibers.</p>
   </div>
@@ -1887,20 +1938,20 @@
   <div class="page-modal-overlay" id="firmwareOverlay"></div>
   <div class="page-modal" id="firmwareModal">
     <button class="page-modal-close" data-close-modal="firmware">&times;</button>
-    <h2>âš™ï¸ Firmware</h2>
+    <h2>⚙️ Firmware</h2>
     <p class="modal-subtitle">Ducky V1 Firmware-Informationen</p>
     <h3>Closed Source</h3>
-    <p>Die Firmware von Ducky V1 ist <strong>Closed Source</strong> und proprietÃ¤r. Der Quellcode wird nicht Ã¶ffentlich zur VerfÃ¼gung gestellt. Dies schÃ¼tzt die IntegritÃ¤t des Produkts und verhindert die Erstellung von bÃ¶sartigen Firmware-Modifikationen.</p>
+    <p>Die Firmware von Ducky V1 ist <strong>Closed Source</strong> und proprietär. Der Quellcode wird nicht öffentlich zur Verfügung gestellt. Dies schützt die Integrität des Produkts und verhindert die Erstellung von bösartigen Firmware-Modifikationen.</p>
     <h3>Firmware-Updates</h3>
-    <p>Updates werden regelmÃ¤ssig verÃ¶ffentlicht und kÃ¶nnen direkt Ã¼ber USB-C auf das GerÃ¤t geflasht werden. Alle Updates sind kostenlos und fÃ¼gen neue Features, Bugfixes und Sicherheitsverbesserungen hinzu.</p>
+    <p>Updates werden regelmässig veröffentlicht und können direkt über USB-C auf das Gerät geflasht werden. Alle Updates sind kostenlos und fügen neue Features, Bugfixes und Sicherheitsverbesserungen hinzu.</p>
     <h3>Custom Plugins</h3>
-    <p>Obwohl die Kern-Firmware Closed Source ist, unterstÃ¼tzt Ducky V1 ein Plugin-System, mit dem du eigene Erweiterungen und Scripts schreiben kannst. Die Plugin-API-Dokumentation wird mit dem GerÃ¤t bereitgestellt.</p>
+    <p>Obwohl die Kern-Firmware Closed Source ist, unterstützt Ducky V1 ein Plugin-System, mit dem du eigene Erweiterungen und Scripts schreiben kannst. Die Plugin-API-Dokumentation wird mit dem Gerät bereitgestellt.</p>
     <h3>Warum Closed Source?</h3>
     <ul>
-      <li>Schutz vor missbrÃ¤uchlichen Modifikationen</li>
-      <li>QualitÃ¤tssicherung und StabilitÃ¤t</li>
-      <li>RegelmÃ¤ssige geprÃ¼fte Updates vom Entwickler</li>
-      <li>Sicherheit fÃ¼r den Endnutzer</li>
+      <li>Schutz vor missbräuchlichen Modifikationen</li>
+      <li>Qualitätssicherung und Stabilität</li>
+      <li>Regelmässige geprüfte Updates vom Entwickler</li>
+      <li>Sicherheit für den Endnutzer</li>
     </ul>
   </div>
 
@@ -1908,18 +1959,18 @@
   <div class="page-modal-overlay" id="communityOverlay"></div>
   <div class="page-modal" id="communityModal">
     <button class="page-modal-close" data-close-modal="community">&times;</button>
-    <h2>ðŸŒ Community</h2>
+    <h2>🌍 Community</h2>
     <p class="modal-subtitle">Werde Teil der Tech Ducky Community</p>
     <h3>Discord Server</h3>
-    <p>Tritt unserem Discord-Server bei und tausche dich mit anderen Ducky V1-Besitzern aus. Teile deine Projekte, frage nach Hilfe und bleibe Ã¼ber die neusten Updates informiert.</p>
+    <p>Tritt unserem Discord-Server bei und tausche dich mit anderen Ducky V1-Besitzern aus. Teile deine Projekte, frage nach Hilfe und bleibe über die neusten Updates informiert.</p>
     <h3>Teile deine Projekte</h3>
-    <p>Hast du etwas Cooles mit Ducky V1 gebaut? Zeig es der Community! Wir featuren regelmÃ¤ssig kreative Projekte aus der Community auf unserer Website und auf Social Media.</p>
+    <p>Hast du etwas Cooles mit Ducky V1 gebaut? Zeig es der Community! Wir featuren regelmässig kreative Projekte aus der Community auf unserer Website und auf Social Media.</p>
     <h3>Beta-Tester werden</h3>
-    <p>Melde dich als Beta-Tester an und erhalte frÃ¼hzeitigen Zugang zu neuen Firmware-Versionen und Features. Dein Feedback hilft uns, Ducky V1 noch besser zu machen.</p>
+    <p>Melde dich als Beta-Tester an und erhalte frühzeitigen Zugang zu neuen Firmware-Versionen und Features. Dein Feedback hilft uns, Ducky V1 noch besser zu machen.</p>
     <h3>Mitmachen</h3>
     <ul>
-      <li>Discord Server fÃ¼r Echtzeit-Austausch</li>
-      <li>GitHub fÃ¼r Bug Reports und Feature Requests</li>
+      <li>Discord Server für Echtzeit-Austausch</li>
+      <li>GitHub für Bug Reports und Feature Requests</li>
       <li>Support via <strong>support@techducky.ch</strong></li>
     </ul>
   </div>
@@ -1928,74 +1979,74 @@
   <div class="page-modal-overlay" id="checkoutLegalOverlay"></div>
   <div class="page-modal checkout-legal-modal" id="checkoutLegalModal">
     <button class="page-modal-close" id="checkoutLegalClose">&times;</button>
-    <h2>âš–ï¸ Kaufvertrag & Haftungsausschluss</h2>
-    <p class="modal-subtitle">Bitte lies die folgenden Bedingungen sorgfÃ¤ltig durch, bevor du fortfÃ¤hrst.</p>
+    <h2>⚖️ Kaufvertrag & Haftungsausschluss</h2>
+    <p class="modal-subtitle">Bitte lies die folgenden Bedingungen sorgfältig durch, bevor du fortfährst.</p>
     <div class="legal-scroll">
       <h3>1. Zweckbestimmung des Produkts</h3>
-      <p>Das Produkt <strong>"Ducky V1"</strong> (nachfolgend "das GerÃ¤t") ist ein elektronisches Multifunktionswerkzeug, das <strong>ausschliesslich fÃ¼r legale Zwecke</strong> entwickelt und vertrieben wird. Dazu zÃ¤hlen insbesondere: autorisierte Sicherheitsforschung, Penetrationstests mit schriftlicher Genehmigung des SystemeigentÃ¼mers, akademische und bildungsbezogene Zwecke im Bereich der Cybersicherheit, Funkfrequenzanalyse im Rahmen geltender Gesetze, persÃ¶nliche Elektronikprojekte sowie die Erforschung und das Erlernen von Kommunikationsprotokollen.</p>
+      <p>Das Produkt <strong>"Ducky V1"</strong> (nachfolgend "das Gerät") ist ein elektronisches Multifunktionswerkzeug, das <strong>ausschliesslich für legale Zwecke</strong> entwickelt und vertrieben wird. Dazu zählen insbesondere: autorisierte Sicherheitsforschung, Penetrationstests mit schriftlicher Genehmigung des Systemeigentümers, akademische und bildungsbezogene Zwecke im Bereich der Cybersicherheit, Funkfrequenzanalyse im Rahmen geltender Gesetze, persönliche Elektronikprojekte sowie die Erforschung und das Erlernen von Kommunikationsprotokollen.</p>
 
-      <h3>2. VollstÃ¤ndiger Haftungsausschluss</h3>
-      <p>Der VerkÃ¤ufer, Entwickler und Betreiber von Tech Ducky (nachfolgend "der Anbieter") Ã¼bernimmt <strong>keinerlei Haftung, Verantwortung oder Schuld</strong> fÃ¼r jegliche Handlungen, die der KÃ¤ufer oder Dritte mit dem GerÃ¤t durchfÃ¼hren. Dies umfasst, ist aber nicht beschrÃ¤nkt auf:</p>
+      <h3>2. Vollständiger Haftungsausschluss</h3>
+      <p>Der Verkäufer, Entwickler und Betreiber von Tech Ducky (nachfolgend "der Anbieter") übernimmt <strong>keinerlei Haftung, Verantwortung oder Schuld</strong> für jegliche Handlungen, die der Käufer oder Dritte mit dem Gerät durchführen. Dies umfasst, ist aber nicht beschränkt auf:</p>
       <ul>
-        <li>Unbefugtes Abfangen, Aufzeichnen, Manipulieren oder StÃ¶ren von drahtlosen Signalen, Funkkommunikation oder Netzwerken</li>
-        <li>Jamming (StÃ¶rung) von Funkfrequenzen, WiFi-Netzwerken, Bluetooth-Verbindungen oder sonstigen drahtlosen Kommunikationssystemen</li>
-        <li>Unbefugter Zugriff auf fremde Computersysteme, Netzwerke, GerÃ¤te oder Infrastrukturen</li>
+        <li>Unbefugtes Abfangen, Aufzeichnen, Manipulieren oder Stören von drahtlosen Signalen, Funkkommunikation oder Netzwerken</li>
+        <li>Jamming (Störung) von Funkfrequenzen, WiFi-Netzwerken, Bluetooth-Verbindungen oder sonstigen drahtlosen Kommunikationssystemen</li>
+        <li>Unbefugter Zugriff auf fremde Computersysteme, Netzwerke, Geräte oder Infrastrukturen</li>
         <li>Verletzung von Datenschutzgesetzen, einschliesslich des Schweizer Datenschutzgesetzes (DSG), der EU-Datenschutz-Grundverordnung (DSGVO) und aller anwendbaren nationalen und internationalen Datenschutzvorschriften</li>
-        <li>VerstÃ¶sse gegen das Fernmeldegesetz (FMG), das Strafgesetzbuch (StGB) oder gleichwertige Gesetze in anderen Jurisdiktionen</li>
-        <li>Jede Form von Cyberangriffen, einschliesslich aber nicht beschrÃ¤nkt auf Denial-of-Service-Angriffe, Man-in-the-Middle-Angriffe, Replay-Angriffe oder Social Engineering</li>
-        <li>SachschÃ¤den, finanzielle Verluste, Datenverlust oder immaterielle SchÃ¤den, die direkt oder indirekt durch die Nutzung des GerÃ¤ts entstehen</li>
-        <li>KÃ¶rperliche SchÃ¤den oder gesundheitliche BeeintrÃ¤chtigungen, die durch den Missbrauch des GerÃ¤ts oder seiner Funkmodule verursacht werden kÃ¶nnten</li>
-        <li>SchÃ¤den an DrittgerÃ¤ten, -systemen oder -infrastrukturen</li>
-        <li>Jegliche Bussgelder, Strafen, Gerichtskosten oder sonstige finanzielle Konsequenzen, die dem KÃ¤ufer oder Dritten durch die Nutzung des GerÃ¤ts entstehen</li>
+        <li>Verstösse gegen das Fernmeldegesetz (FMG), das Strafgesetzbuch (StGB) oder gleichwertige Gesetze in anderen Jurisdiktionen</li>
+        <li>Jede Form von Cyberangriffen, einschliesslich aber nicht beschränkt auf Denial-of-Service-Angriffe, Man-in-the-Middle-Angriffe, Replay-Angriffe oder Social Engineering</li>
+        <li>Sachschäden, finanzielle Verluste, Datenverlust oder immaterielle Schäden, die direkt oder indirekt durch die Nutzung des Geräts entstehen</li>
+        <li>Körperliche Schäden oder gesundheitliche Beeinträchtigungen, die durch den Missbrauch des Geräts oder seiner Funkmodule verursacht werden könnten</li>
+        <li>Schäden an Drittgeräten, -systemen oder -infrastrukturen</li>
+        <li>Jegliche Bussgelder, Strafen, Gerichtskosten oder sonstige finanzielle Konsequenzen, die dem Käufer oder Dritten durch die Nutzung des Geräts entstehen</li>
       </ul>
 
-      <h3>3. Eigenverantwortung des KÃ¤ufers</h3>
-      <p>Mit dem Kauf dieses GerÃ¤ts bestÃ¤tigt der KÃ¤ufer ausdrÃ¼cklich, dass er die <strong>volle und alleinige Verantwortung</strong> fÃ¼r jegliche Nutzung des GerÃ¤ts Ã¼bernimmt. Der KÃ¤ufer verpflichtet sich:</p>
+      <h3>3. Eigenverantwortung des Käufers</h3>
+      <p>Mit dem Kauf dieses Geräts bestätigt der Käufer ausdrücklich, dass er die <strong>volle und alleinige Verantwortung</strong> für jegliche Nutzung des Geräts übernimmt. Der Käufer verpflichtet sich:</p>
       <ul>
-        <li>Das GerÃ¤t ausschliesslich in Ãœbereinstimmung mit allen geltenden Gesetzen und Vorschriften seines Landes, Bundesstaates, Kantons oder seiner Gemeinde zu verwenden</li>
-        <li>Vor jeder Nutzung die lokale Rechtslage bezÃ¼glich Funkfrequenzen, Cybersicherheit und Datenschutz zu prÃ¼fen</li>
-        <li>Penetrationstests und Sicherheitsanalysen nur mit ausdrÃ¼cklicher schriftlicher Genehmigung des EigentÃ¼mers der betroffenen Systeme durchzufÃ¼hren</li>
-        <li>Das GerÃ¤t nicht an Personen weiterzugeben, die es fÃ¼r illegale Zwecke nutzen kÃ¶nnten</li>
-        <li>Keine Firmware-Modifikationen vorzunehmen, die die Nutzung des GerÃ¤ts fÃ¼r illegale AktivitÃ¤ten erleichtern oder ermÃ¶glichen</li>
-        <li>Das GerÃ¤t nicht in der NÃ¤he von kritischer Infrastruktur, FlughÃ¤fen, KrankenhÃ¤usern, MilitÃ¤reinrichtungen oder anderen geschÃ¼tzten Bereichen einzusetzen, es sei denn, dies ist ausdrÃ¼cklich genehmigt</li>
+        <li>Das Gerät ausschliesslich in Übereinstimmung mit allen geltenden Gesetzen und Vorschriften seines Landes, Bundesstaates, Kantons oder seiner Gemeinde zu verwenden</li>
+        <li>Vor jeder Nutzung die lokale Rechtslage bezüglich Funkfrequenzen, Cybersicherheit und Datenschutz zu prüfen</li>
+        <li>Penetrationstests und Sicherheitsanalysen nur mit ausdrücklicher schriftlicher Genehmigung des Eigentümers der betroffenen Systeme durchzuführen</li>
+        <li>Das Gerät nicht an Personen weiterzugeben, die es für illegale Zwecke nutzen könnten</li>
+        <li>Keine Firmware-Modifikationen vorzunehmen, die die Nutzung des Geräts für illegale Aktivitäten erleichtern oder ermöglichen</li>
+        <li>Das Gerät nicht in der Nähe von kritischer Infrastruktur, Flughäfen, Krankenhäusern, Militäreinrichtungen oder anderen geschützten Bereichen einzusetzen, es sei denn, dies ist ausdrücklich genehmigt</li>
       </ul>
 
-      <h3>4. AltersbestÃ¤tigung</h3>
-      <p>Der KÃ¤ufer bestÃ¤tigt, dass er <strong>mindestens 18 Jahre alt</strong> ist oder die ausdrÃ¼ckliche Einwilligung eines Erziehungsberechtigten hat. Bei minderjÃ¤hrigen KÃ¤ufern Ã¼bernimmt der Erziehungsberechtigte die volle Verantwortung fÃ¼r die Nutzung des GerÃ¤ts.</p>
+      <h3>4. Altersbestätigung</h3>
+      <p>Der Käufer bestätigt, dass er <strong>mindestens 18 Jahre alt</strong> ist oder die ausdrückliche Einwilligung eines Erziehungsberechtigten hat. Bei minderjährigen Käufern übernimmt der Erziehungsberechtigte die volle Verantwortung für die Nutzung des Geräts.</p>
 
-      <h3>5. Keine Garantie fÃ¼r spezifische Zwecke</h3>
-      <p>Das GerÃ¤t wird <strong>"wie besehen" (as-is)</strong> verkauft. Der Anbieter gibt keine Garantie, dass das GerÃ¤t fÃ¼r einen bestimmten Zweck geeignet ist. Funkreichweite, KompatibilitÃ¤t und Leistung kÃ¶nnen je nach Umgebung, Gesetzgebung und anderen Faktoren variieren.</p>
+      <h3>5. Keine Garantie für spezifische Zwecke</h3>
+      <p>Das Gerät wird <strong>"wie besehen" (as-is)</strong> verkauft. Der Anbieter gibt keine Garantie, dass das Gerät für einen bestimmten Zweck geeignet ist. Funkreichweite, Kompatibilität und Leistung können je nach Umgebung, Gesetzgebung und anderen Faktoren variieren.</p>
 
       <h3>6. Internationale Rechtslage</h3>
-      <p>Der KÃ¤ufer nimmt zur Kenntnis, dass die Rechtslage bezÃ¼glich des Besitzes und der Nutzung von Funk- und Sicherheitstools <strong>von Land zu Land unterschiedlich</strong> ist. Es liegt in der alleinigen Verantwortung des KÃ¤ufers, sicherzustellen, dass der Besitz, Import und die Nutzung des GerÃ¤ts in seinem Land legal ist. Der Anbieter Ã¼bernimmt keine Verantwortung fÃ¼r Zollbeschlagnahmungen, Importverbote oder rechtliche Konsequenzen im Zielland des KÃ¤ufers.</p>
+      <p>Der Käufer nimmt zur Kenntnis, dass die Rechtslage bezüglich des Besitzes und der Nutzung von Funk- und Sicherheitstools <strong>von Land zu Land unterschiedlich</strong> ist. Es liegt in der alleinigen Verantwortung des Käufers, sicherzustellen, dass der Besitz, Import und die Nutzung des Geräts in seinem Land legal ist. Der Anbieter übernimmt keine Verantwortung für Zollbeschlagnahmungen, Importverbote oder rechtliche Konsequenzen im Zielland des Käufers.</p>
 
       <h3>7. Freistellungsklausel (Indemnification)</h3>
-      <p>Der KÃ¤ufer erklÃ¤rt sich bereit, den Anbieter, dessen Mitarbeiter, Partner und verbundene Unternehmen von <strong>sÃ¤mtlichen AnsprÃ¼chen, Klagen, Forderungen, Verlusten, SchÃ¤den, Kosten und Ausgaben</strong> (einschliesslich Anwaltskosten) freizustellen, die sich aus oder in Verbindung mit der Nutzung des GerÃ¤ts durch den KÃ¤ufer oder Dritte ergeben, unabhÃ¤ngig davon, ob diese Nutzung autorisiert war oder nicht.</p>
+      <p>Der Käufer erklärt sich bereit, den Anbieter, dessen Mitarbeiter, Partner und verbundene Unternehmen von <strong>sämtlichen Ansprüchen, Klagen, Forderungen, Verlusten, Schäden, Kosten und Ausgaben</strong> (einschliesslich Anwaltskosten) freizustellen, die sich aus oder in Verbindung mit der Nutzung des Geräts durch den Käufer oder Dritte ergeben, unabhängig davon, ob diese Nutzung autorisiert war oder nicht.</p>
 
       <h3>8. Keine Aufforderung zu illegalen Handlungen</h3>
-      <p>Weder die Website, noch die Produktbeschreibung, noch die Firmware oder sonstige Materialien des Anbieters stellen eine <strong>Aufforderung, Anleitung oder Ermutigung zu illegalen Handlungen</strong> dar. Alle Funktionsbeschreibungen dienen ausschliesslich informativen und bildungsbezogenen Zwecken. Der Anbieter distanziert sich ausdrÃ¼cklich von jeder missbrÃ¤uchlichen Verwendung des GerÃ¤ts.</p>
+      <p>Weder die Website, noch die Produktbeschreibung, noch die Firmware oder sonstige Materialien des Anbieters stellen eine <strong>Aufforderung, Anleitung oder Ermutigung zu illegalen Handlungen</strong> dar. Alle Funktionsbeschreibungen dienen ausschliesslich informativen und bildungsbezogenen Zwecken. Der Anbieter distanziert sich ausdrücklich von jeder missbräuchlichen Verwendung des Geräts.</p>
 
       <h3>9. Salvatorische Klausel</h3>
-      <p>Sollte eine Bestimmung dieses Haftungsausschlusses unwirksam oder undurchsetzbar sein, bleiben die Ã¼brigen Bestimmungen davon <strong>unberÃ¼hrt und vollstÃ¤ndig wirksam</strong>. Die unwirksame Bestimmung wird durch eine wirksame Bestimmung ersetzt, die dem wirtschaftlichen Zweck der ursprÃ¼nglichen Bestimmung am nÃ¤chsten kommt.</p>
+      <p>Sollte eine Bestimmung dieses Haftungsausschlusses unwirksam oder undurchsetzbar sein, bleiben die übrigen Bestimmungen davon <strong>unberührt und vollständig wirksam</strong>. Die unwirksame Bestimmung wird durch eine wirksame Bestimmung ersetzt, die dem wirtschaftlichen Zweck der ursprünglichen Bestimmung am nächsten kommt.</p>
 
       <h3>10. Anwendbares Recht und Gerichtsstand</h3>
-      <p>Dieser Haftungsausschluss unterliegt <strong>Schweizer Recht</strong>. FÃ¼r alle Streitigkeiten, die sich aus oder in Verbindung mit diesem Haftungsausschluss ergeben, sind ausschliesslich die Gerichte am Wohnsitz des Anbieters zustÃ¤ndig, sofern zwingende gesetzliche Vorschriften nichts anderes bestimmen.</p>
+      <p>Dieser Haftungsausschluss unterliegt <strong>Schweizer Recht</strong>. Für alle Streitigkeiten, die sich aus oder in Verbindung mit diesem Haftungsausschluss ergeben, sind ausschliesslich die Gerichte am Wohnsitz des Anbieters zuständig, sofern zwingende gesetzliche Vorschriften nichts anderes bestimmen.</p>
 
-      <h3>11. Ã„nderungen</h3>
-      <p>Der Anbieter behÃ¤lt sich das Recht vor, diesen Haftungsausschluss jederzeit und ohne VorankÃ¼ndigung zu Ã¤ndern. Die jeweils aktuelle Version ist auf der Website einsehbar. Durch die fortgesetzte Nutzung des GerÃ¤ts nach einer Ã„nderung akzeptiert der KÃ¤ufer die geÃ¤nderten Bedingungen.</p>
+      <h3>11. Änderungen</h3>
+      <p>Der Anbieter behält sich das Recht vor, diesen Haftungsausschluss jederzeit und ohne Vorankündigung zu ändern. Die jeweils aktuelle Version ist auf der Website einsehbar. Durch die fortgesetzte Nutzung des Geräts nach einer Änderung akzeptiert der Käufer die geänderten Bedingungen.</p>
     </div>
     <div class="checkout-accept-row" id="checkoutAcceptRow">
       <input type="checkbox" id="checkoutAcceptBox" />
-      <label for="checkoutAcceptBox">Ich habe den vollstÃ¤ndigen Haftungsausschluss gelesen und verstanden. Ich akzeptiere <strong>alle oben genannten Bedingungen</strong> und bestÃ¤tige, dass ich die <strong>volle und alleinige Verantwortung</strong> fÃ¼r die Nutzung des GerÃ¤ts Ã¼bernehme. Ich bin mir bewusst, dass der Anbieter <strong>keinerlei Haftung</strong> fÃ¼r illegale, unbefugte oder missbrÃ¤uchliche Nutzung des GerÃ¤ts Ã¼bernimmt.</label>
+      <label for="checkoutAcceptBox">Ich habe den vollständigen Haftungsausschluss gelesen und verstanden. Ich akzeptiere <strong>alle oben genannten Bedingungen</strong> und bestätige, dass ich die <strong>volle und alleinige Verantwortung</strong> für die Nutzung des Geräts übernehme. Ich bin mir bewusst, dass der Anbieter <strong>keinerlei Haftung</strong> für illegale, unbefugte oder missbräuchliche Nutzung des Geräts übernimmt.</label>
     </div>
-    <button class="checkout-proceed-btn" id="checkoutProceedBtn" disabled>âœ… Ich akzeptiere â€” Weiter zur Bezahlung</button>
+    <button class="checkout-proceed-btn" id="checkoutProceedBtn" disabled>✅ Ich akzeptiere — Weiter zur Bezahlung</button>
   </div>
 
   <!-- CHECKOUT FORM -->
   <div class="page-modal-overlay" id="checkoutFormOverlay"></div>
   <div class="page-modal checkout-form-modal" id="checkoutFormModal">
     <button class="page-modal-close" id="checkoutFormClose">&times;</button>
-    <h2>ðŸ›’ Checkout</h2>
+    <h2>🛒 Checkout</h2>
     <p class="modal-subtitle">Lieferadresse & Bezahlung</p>
     <div class="checkout-steps">
       <div class="checkout-step done"></div>
@@ -2032,18 +2083,18 @@
         </div>
         <div class="co-form-group">
           <label for="coCity">Ort *</label>
-          <input type="text" id="coCity" name="city" placeholder="ZÃ¼rich" required autocomplete="address-level2" />
+          <input type="text" id="coCity" name="city" placeholder="Zürich" required autocomplete="address-level2" />
         </div>
       </div>
       <div class="co-form-group">
         <label for="coCountry">Land *</label>
         <select id="coCountry" name="country" required autocomplete="country">
-          <option value="CH" selected>ðŸ‡¨ðŸ‡­ Schweiz</option>
-          <option value="DE">ðŸ‡©ðŸ‡ª Deutschland</option>
-          <option value="AT">ðŸ‡¦ðŸ‡¹ Ã–sterreich</option>
-          <option value="FR">ðŸ‡«ðŸ‡· Frankreich</option>
-          <option value="IT">ðŸ‡®ðŸ‡¹ Italien</option>
-          <option value="OTHER">ðŸŒ Anderes Land</option>
+          <option value="CH" selected>🇨🇭 Schweiz</option>
+          <option value="DE">🇩🇪 Deutschland</option>
+          <option value="AT">🇦🇹 Österreich</option>
+          <option value="FR">🇫🇷 Frankreich</option>
+          <option value="IT">🇮🇹 Italien</option>
+          <option value="OTHER">🌍 Anderes Land</option>
         </select>
       </div>
       <div class="co-form-group">
@@ -2051,7 +2102,7 @@
         <input type="tel" id="coPhone" name="phone" placeholder="+41 79 123 45 67" autocomplete="tel" />
       </div>
 
-      <div class="co-divider">Bezahlmethode wÃ¤hlen</div>
+      <div class="co-divider">Bezahlmethode wählen</div>
 
       <div class="pay-buttons">
         <button type="button" class="pay-btn pay-btn-apple" id="payApple">
@@ -2067,17 +2118,17 @@
       <div class="co-divider">oder</div>
 
       <button type="submit" class="co-submit-btn" id="coSubmitBtn">
-        ðŸ’³ Jetzt bestellen â€” <span id="coTotalBtn">CHF 0.00</span>
+        💳 Jetzt bestellen — <span id="coTotalBtn">CHF 0.00</span>
       </button>
     </form>
 
-    <p class="co-secure">ðŸ”’ Sichere Verbindung Â· Deine Daten werden verschlÃ¼sselt Ã¼bertragen</p>
+    <p class="co-secure">🔒 Sichere Verbindung · Deine Daten werden verschlüsselt übertragen</p>
 
     <!-- Success state (hidden by default) -->
     <div class="co-success" id="coSuccess" style="display:none">
-      <div class="success-icon">âœ…</div>
+      <div class="success-icon">✅</div>
       <h3>Bestellung aufgegeben!</h3>
-      <p>Vielen Dank fÃ¼r deine Bestellung. Du erhÃ¤ltst eine BestÃ¤tigung per E-Mail. Wir werden uns so schnell wie mÃ¶glich bei dir melden.</p>
+      <p>Vielen Dank für deine Bestellung. Du erhältst eine Bestätigung per E-Mail. Wir werden uns so schnell wie möglich bei dir melden.</p>
       <div class="order-id" id="coOrderId"></div>
     </div>
   </div>
@@ -2088,16 +2139,16 @@
     // Um echte Zahlungen zu empfangen (Apple Pay, Google Pay, Kreditkarte):
     // 1. Erstelle ein Konto auf https://stripe.com
     // 2. Gehe zu "Payment Links" im Stripe Dashboard
-    // 3. Erstelle einen Payment Link fÃ¼r "Ducky V1" (CHF 79)
-    //    â†’ Aktiviere Apple Pay & Google Pay in den Dashboard-Einstellungen
-    //    â†’ Lieferadresse kann Ã¼ber Stripe gesammelt werden
-    // 4. FÃ¼ge die Payment Link URL unten ein
-    // 5. Apple Pay & Google Pay funktionieren automatisch Ã¼ber Stripe!
-    // 6. Das Geld kommt direkt auf dein Stripe-Konto (â†’ Bankverbindung einrichten)
+    // 3. Erstelle einen Payment Link für "Ducky V1" (CHF 79)
+    //    → Aktiviere Apple Pay & Google Pay in den Dashboard-Einstellungen
+    //    → Lieferadresse kann über Stripe gesammelt werden
+    // 4. Füge die Payment Link URL unten ein
+    // 5. Apple Pay & Google Pay funktionieren automatisch über Stripe!
+    // 6. Das Geld kommt direkt auf dein Stripe-Konto (→ Bankverbindung einrichten)
     const LOGO_BASE64 = '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ESAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAESAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgkAAAAAAAAAAAAAAAAAAAAAAgkAAAAAAAAAAAAAAAAAAAAACJACJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACJAAAAAAAAAAAAAAAAAgkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEJH/9oADAMBAAIAAwAAACEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACyyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABTAAhkPUjcQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADcOA3zSx0EgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABpi0Hu0ZvZiwgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADTw3EhXZn0x/bQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAByACdyR/wD88E9VEc98oAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2w5BAAx2QAvcFOjAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU1EgjBAAHG3ZsRYtTJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ9T45ABBBOMXx+ug0BUrAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAAAAAAIEpRctAIB88usCRXGYMTtvgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA0AUPSlEPCZjipjExLjW3rL6gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAAAAAAxIJ1lUvOLrglvkjnBLagAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU9AAAAAAAAAAAAAEzTW4a08k8O7aaE42xgAAAAAAAAAAAAAAAAAAAAAAAAAAAAEI9wKPIAAAAAAAAAAA5HetauAkjQ9NfIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAWgwt68+fFMEAAIEAXH0a1gRFtxPZ4t9fIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQpc6RMyAsNuywCz99r35zDZtLBuTZq+thIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA987g646eu00892P1u83260Q001eBnuoaoMIAAAAAAAAAAAAAAAAAAAAAAAAAAAAFgQsFwAVRm7Indu2c7m0V+8EOB01J8dOq48AIAAAAAAAAAAAAAAAAAAAAAAAAAgABAGOpb9leQbfC13s3gQEsnIDBTC03KBAicM9LAAAAAAAAAAAAAAAAAAAAAAAAAAAVZn7Z3w7zwuCueO+2Sc8rMieLfjZkAyooDJenIAAAAAAAAAAAAAAAAAAAAAAAAAAQVGsSLs88oQDjbW6tnEwCMs+2nTDKdxoI9eA81AAAAAAAAAAAAAAAAAAAAAAAAAAwjC8YKm+d0zq6CVM2VENIFx0y+okt6TQctucM9gAAAAAAAAAAAAAAAAAAAAAAAEAAs+VWS8ZpOvhVG/19885C38+X6CutEgodfLzs8bAAAAAAAAAAAAAAAAAAAAAAQ4AAi9pb3s/Cs8/Fuv+888hrQAwPCODG1hksHrzY+sAAAAAAAAAAAAAAAAAAAAAAAAAEAs8sad888JGSA4y888eLIMA6C/+G8JzkRvRsVyAAAAAAAAAAAAAAAAAAAAAAAAAQAQe+eLsX08PkQrE888sp88/DH//ALePNujsv+tkgAAAAAAAAAAAAAAAAAAAAAAAAAAALxOeo09Pt/uTu9fPPKK/Ehv/AOJ+FxOvf8IFBwAAAAAAAAAAAAAAAAAAAAAAAAAABxRwgXxD+jQbfjAHzzzkBx1P77vxdsB72L3ZQMAAAAAAAAAAAAAAAAAAAAAAAAAADyBAqgCoLnmshkCjDzz2Dznbz7y/Q5+tKqrz+gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFRzwb3ULwaWxSV3gCzy7Xp1+/MQKQCKVD8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABHTBFQeyDiK1GyK9sCJc4Uj9stu9XwQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABCfMwpVlzw+gRXQTO1CdQLlHTjX7giAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATzgDSk7Cz31zAk//wB8kw1b3XpG8hrAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAQAKZQ8ZD20C4OrX3NfbJAHw4gAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAnwXLTB36JQnxgkXP+mJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQVX8PlQdUrXbc8H5gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQDkHRKvTRxwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAEAAAAQPcXAAAAAAgAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAQAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAw/9oADAMBAAIAAwAAABDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzTzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzTzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzyzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxzzzzzzzzzyzzzzTzzzjDzzzjzzzzxTzzxDzzzBTzzjzzzzzTzzjTzzzzzzzzTzzjzzzzwhzzwTzzzxzzzzzzzzzhzzzhzzyxBzzyixzzjCzzzxDzzxTTzzxzzzzzzzzzzzzzzzzyzzzzxxzzzxzzzzzzzyyzzzzzzzzzxzzwwzzzzxzzywxzzzzzzzxzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzBzzzzzzzzzzzzzzzzzzzzzzzzzzzzxzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzDAABDgCADxzBDzzzTzzzzzzzzzzzzzzzxzzzzzzzzzjBzzjzzzzyzzzzjzzzzDDgCyyQyiAjzyABTzjCjzzDDzzzDzzzjTzzzzzzzzzzzyzzzzQzzzyBzzzxzzzyAgxBTQzDNPgmr4AzzgADzzxRzzzQRzzxjzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzwAzyZsfzf9tQ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';
     const STRIPE_PAYMENT_LINK = ''; // z.B. 'https://buy.stripe.com/test_xxxxx'
 
-    // ===== LOGO (Base64 embedded â€“ kein externes Bild nÃ¶tig) =====
+    // ===== LOGO (Base64 embedded – kein externes Bild nötig) =====
     const LOGO_SRC = 'data:image/jpeg;base64,' + LOGO_BASE64;
     document.querySelectorAll('img[src="logo.jpg"]').forEach(img => img.src = LOGO_SRC);
 
@@ -2395,7 +2446,7 @@
       });
     });
 
-    // Checkout â€” opens legal disclaimer modal
+    // Checkout — opens legal disclaimer modal
     const checkoutOverlay = document.getElementById('checkoutLegalOverlay');
     const checkoutModal = document.getElementById('checkoutLegalModal');
     const checkoutClose = document.getElementById('checkoutLegalClose');
@@ -2452,9 +2503,9 @@
 
     function openCheckoutForm() {
       // Render order summary
-      let html = '<h4>BestellÃ¼bersicht</h4>';
+      let html = '<h4>Bestellübersicht</h4>';
       cart.items.forEach(item => {
-        html += `<div class="co-order-item"><span>${esc(item.name)} <span class="item-qty">×${item.qty}</span></span><span>CHF ${(item.price * item.qty).toFixed(2)}</span></div>`;
+        html += `<div class="co-order-item"><span>${esc(item.name)} <span class="item-qty">�${item.qty}</span></span><span>CHF ${(item.price * item.qty).toFixed(2)}</span></div>`;
       });
       html += `<div class="co-order-total"><span>Total</span><span>CHF ${getTotalPrice().toFixed(2)}</span></div>`;
       coOrderSummary.innerHTML = html;
@@ -2464,7 +2515,7 @@
       coForm.style.display = '';
       coSuccess.style.display = 'none';
       coSubmitBtn.disabled = false;
-      coSubmitBtn.innerHTML = 'ðŸ’³ Jetzt bestellen â€” <span id="coTotalBtn">CHF ' + getTotalPrice().toFixed(2) + '</span>';
+      coSubmitBtn.innerHTML = '💳 Jetzt bestellen — <span id="coTotalBtn">CHF ' + getTotalPrice().toFixed(2) + '</span>';
 
       coFormOverlay.classList.add('open');
       coFormModal.classList.add('open');
@@ -2489,7 +2540,7 @@
       const YOUR_EMAIL = 'samir.sali207@gmail.com';
 
       // Country code to full name
-      const countryNames = { CH: 'Schweiz', DE: 'Deutschland', AT: 'Ã–sterreich', FR: 'Frankreich', IT: 'Italien', OTHER: 'International' };
+      const countryNames = { CH: 'Schweiz', DE: 'Deutschland', AT: 'Österreich', FR: 'Frankreich', IT: 'Italien', OTHER: 'International' };
       const countryFull = countryNames[orderData.country] || orderData.country;
       const payLabels = { standard: 'Standardzahlung', apple_pay: 'Apple Pay', google_pay: 'Google Pay' };
       const payLabel = payLabels[orderData.payMethod] || 'Standard';
@@ -2503,7 +2554,7 @@
   <!-- Header with logo -->
   <div style="background:#0a0a14;padding:36px 32px;text-align:center;">
     <table style="margin:0 auto;"><tr>
-      <td style="padding-right:10px;vertical-align:middle;"><img src="https://i.imgur.com/placeholder.png" alt="ðŸ¦†" width="36" height="36" style="border-radius:8px;background:#fff;padding:2px;" /></td>
+      <td style="padding-right:10px;vertical-align:middle;"><img src="https://i.imgur.com/placeholder.png" alt="🦆" width="36" height="36" style="border-radius:8px;background:#fff;padding:2px;" /></td>
       <td style="vertical-align:middle;"><span style="font-size:22px;font-weight:800;color:#fff;">Tech</span><span style="font-size:22px;font-weight:800;color:#a78bfa;">Ducky</span></td>
     </tr></table>
     <p style="color:rgba(255,255,255,0.5);font-size:12px;margin:10px 0 0;letter-spacing:1px;text-transform:uppercase;">Bestellbest\u00e4tigung</p>
@@ -2605,10 +2656,10 @@
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify({
-            _subject: 'ðŸ›’ Neue Bestellung: ' + orderData.orderId + ' â€” CHF ' + orderData.subtotal,
+            _subject: '🛒 Neue Bestellung: ' + orderData.orderId + ' — CHF ' + orderData.subtotal,
             _captcha: 'false',
             _template: 'box',
-            _autoresponse: 'Danke fÃ¼r deine Bestellung bei Tech Ducky! Deine Bestellnummer: ' + orderData.orderId + '. Wir melden uns bald bei dir. ðŸ¦†',
+            _autoresponse: 'Danke für deine Bestellung bei Tech Ducky! Deine Bestellnummer: ' + orderData.orderId + '. Wir melden uns bald bei dir. 🦆',
             _replyto: orderData.email,
             message: html
           })
@@ -2632,13 +2683,13 @@
       const phone = document.getElementById('coPhone').value.trim();
 
       if (!email || !first || !last || !address || !zip || !city) {
-        alert('Bitte fÃ¼lle alle Pflichtfelder aus.');
+        alert('Bitte fülle alle Pflichtfelder aus.');
         return;
       }
 
       // Email format validation
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        alert('Bitte gib eine gültige E-Mail-Adresse ein.');
+        alert('Bitte gib eine g�ltige E-Mail-Adresse ein.');
         return;
       }
 
@@ -2652,19 +2703,19 @@
 
       // ===== SECURITY: Input Length Validation =====
       if (first.length > 100 || last.length > 100 || address.length > 300 || city.length > 100 || zip.length > 20 || phone.length > 30) {
-        alert('Eingabe zu lang. Bitte überprüfe deine Daten.');
+        alert('Eingabe zu lang. Bitte �berpr�fe deine Daten.');
         return;
       }
 
       // ZIP format validation
       if (!/^[a-zA-Z0-9\s\-]{2,20}$/.test(zip)) {
-        alert('Bitte gib eine gültige PLZ ein.');
+        alert('Bitte gib eine g�ltige PLZ ein.');
         return;
       }
 
       // Phone validation (optional, if filled)
       if (phone && !/^[+\d\s\-()]{6,30}$/.test(phone)) {
-        alert('Bitte gib eine gültige Telefonnummer ein.');
+        alert('Bitte gib eine g�ltige Telefonnummer ein.');
         return;
       }
 
@@ -2695,7 +2746,7 @@
       }
 
       const orderId = generateOrderId();
-      const itemsText = cart.items.map(i => i.name + ' Ã—' + i.qty + ' = CHF ' + (i.price * i.qty).toFixed(2)).join(' | ');
+      const itemsText = cart.items.map(i => i.name + ' ×' + i.qty + ' = CHF ' + (i.price * i.qty).toFixed(2)).join(' | ');
       const totalText = 'CHF ' + getTotalPrice().toFixed(2);
 
       // Show loading
@@ -2727,7 +2778,7 @@
       document.querySelector('.checkout-form-modal .co-secure').style.display = 'none';
       coSuccess.style.display = '';
       coOrderId.textContent = 'Bestellnummer: ' + orderId;
-      document.querySelector('.checkout-form-modal h2').textContent = 'ðŸŽ‰ Danke, ' + first + '!';
+      document.querySelector('.checkout-form-modal h2').textContent = '🎉 Danke, ' + first + '!';
 
       // Update steps
       const steps = document.querySelectorAll('.checkout-form-modal .checkout-step');
@@ -2744,13 +2795,13 @@
       processOrder('standard');
     });
 
-    // Apple Pay button â€” uses Payment Request API if available
+    // Apple Pay button — uses Payment Request API if available
     document.getElementById('payApple').addEventListener('click', async () => {
       if (!coForm.reportValidity()) return;
       if (window.PaymentRequest) {
         try {
           const methods = [{ supportedMethods: 'https://apple.com/apple-pay', data: { version: 3, merchantIdentifier: 'merchant.ch.techducky', merchantCapabilities: ['supports3DS'], supportedNetworks: ['visa','masterCard','amex'], countryCode: 'CH', currencyCode: 'CHF' } }];
-          const details = { total: { label: 'Tech Ducky â€” Ducky V1', amount: { currency: 'CHF', value: getTotalPrice().toFixed(2) } } };
+          const details = { total: { label: 'Tech Ducky — Ducky V1', amount: { currency: 'CHF', value: getTotalPrice().toFixed(2) } } };
           const request = new PaymentRequest(methods, details);
           const canMake = await request.canMakePayment();
           if (canMake) {
@@ -2764,13 +2815,13 @@
       processOrder('apple_pay');
     });
 
-    // Google Pay button â€” uses Payment Request API if available
+    // Google Pay button — uses Payment Request API if available
     document.getElementById('payGoogle').addEventListener('click', async () => {
       if (!coForm.reportValidity()) return;
       if (window.PaymentRequest) {
         try {
           const methods = [{ supportedMethods: 'https://google.com/pay', data: { environment: 'PRODUCTION', apiVersion: 2, apiVersionMinor: 0, allowedPaymentMethods: [{ type: 'CARD', parameters: { allowedAuthMethods: ['PAN_ONLY','CRYPTOGRAM_3DS'], allowedCardNetworks: ['VISA','MASTERCARD','AMEX'] }, tokenizationSpecification: { type: 'PAYMENT_GATEWAY', parameters: { gateway: 'example', gatewayMerchantId: 'techducky' } } }], merchantInfo: { merchantId: 'techducky', merchantName: 'Tech Ducky' }, transactionInfo: { totalPriceStatus: 'FINAL', totalPrice: getTotalPrice().toFixed(2), currencyCode: 'CHF', countryCode: 'CH' } } }];
-          const details = { total: { label: 'Tech Ducky â€” Ducky V1', amount: { currency: 'CHF', value: getTotalPrice().toFixed(2) } } };
+          const details = { total: { label: 'Tech Ducky — Ducky V1', amount: { currency: 'CHF', value: getTotalPrice().toFixed(2) } } };
           const request = new PaymentRequest(methods, details);
           const canMake = await request.canMakePayment();
           if (canMake) {
