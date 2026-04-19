@@ -69,6 +69,8 @@
     }
     .nav-logo .logo-img {
       width: 36px; height: 36px; object-fit: contain;
+      border-radius: 8px;
+      mix-blend-mode: screen;
       filter: drop-shadow(0 0 8px rgba(124,92,252,0.3));
       transition: transform 0.3s, filter 0.3s;
     }
@@ -712,6 +714,7 @@
     }
     .cart-item-img img {
       width: 52px; height: 52px; object-fit: contain;
+      mix-blend-mode: screen;
       filter: drop-shadow(0 0 6px rgba(124,92,252,0.2));
     }
     .cart-item-info { flex: 1; display: flex; flex-direction: column; gap: 6px; }
@@ -1483,15 +1486,30 @@
     const cartTotal = document.getElementById('cartTotal');
     const cartCheckout = document.getElementById('cartCheckout');
 
+    let scrollPos = 0;
     function openCart() {
+      scrollPos = window.scrollY;
       cartOverlay.classList.add('open');
       cartDrawer.classList.add('open');
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.top = -scrollPos + 'px';
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.width = '100%';
     }
     function closeCart() {
       cartOverlay.classList.remove('open');
       cartDrawer.classList.remove('open');
       document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.width = '';
+      window.scrollTo(0, scrollPos);
     }
 
     cartToggle.addEventListener('click', openCart);
