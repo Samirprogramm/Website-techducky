@@ -101,8 +101,9 @@
     }
     .nav-logo .logo-img {
       width: 36px; height: 36px; object-fit: contain;
-      border-radius: 8px;
-      mix-blend-mode: var(--logo-blend);
+      border-radius: 10px;
+      background: #fff;
+      padding: 2px;
       filter: drop-shadow(0 0 8px rgba(124,92,252,0.3));
       transition: transform 0.3s, filter 0.3s;
     }
@@ -136,7 +137,7 @@
     .nav-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--accent-glow); }
     .nav-hamburger {
       display: none; background: none; border: none; cursor: pointer;
-      flex-direction: column; gap: 5px; padding: 4px;
+      flex-direction: column; gap: 5px; padding: 4px; z-index: 10003;
     }
     .nav-hamburger span {
       display: block; width: 24px; height: 2px; background: var(--hamburger-color);
@@ -145,6 +146,70 @@
     .nav-hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
     .nav-hamburger.open span:nth-child(2) { opacity: 0; }
     .nav-hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+    /* ===== FULLSCREEN MOBILE MENU ===== */
+    .mobile-menu-overlay {
+      position: fixed; inset: 0;
+      background: var(--bg);
+      z-index: 10002;
+      display: flex; flex-direction: column;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    .mobile-menu-overlay.open {
+      opacity: 1; pointer-events: auto;
+    }
+    .mobile-menu-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .mobile-menu-close {
+      background: none; border: none; cursor: pointer;
+      color: var(--text); font-size: 1.8rem; line-height: 1;
+      padding: 4px; transition: opacity 0.3s;
+    }
+    .mobile-menu-close:hover { opacity: 0.6; }
+    .mobile-menu-header .nav-logo .logo-img {
+      width: 40px; height: 40px;
+    }
+    .mobile-menu-actions {
+      display: flex; align-items: center; gap: 16px;
+    }
+    .mobile-menu-actions button {
+      background: none; border: none; cursor: pointer;
+      color: var(--text); display: flex; align-items: center;
+    }
+    .mobile-menu-actions svg { width: 22px; height: 22px; }
+    .mobile-menu-body {
+      flex: 1; display: flex; flex-direction: column;
+      justify-content: center;
+      padding: 0 32px;
+    }
+    .mobile-menu-body a {
+      display: block;
+      font-size: 1.5rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text); padding: 18px 0;
+      border-bottom: 1px solid var(--glass-border);
+      transition: color 0.3s, padding-left 0.3s;
+    }
+    .mobile-menu-body a:first-child {
+      border-top: 1px solid var(--glass-border);
+    }
+    .mobile-menu-body a:hover {
+      color: var(--accent-light); padding-left: 12px;
+    }
+    .mobile-menu-footer {
+      padding: 24px 32px 40px;
+      border-top: 1px solid var(--glass-border);
+    }
+    .mobile-menu-footer p {
+      font-size: 0.78rem; color: var(--text-3);
+    }
+    .mobile-menu-footer a {
+      color: var(--accent-light);
+    }
 
     /* ===== HERO ===== */
     .hero {
@@ -952,13 +1017,6 @@
       .theme-toggle { order: 0; }
       .nav-cart { order: 1; }
       .nav-hamburger { order: 2; }
-      .nav-links.open {
-        display: flex; flex-direction: column;
-        position: absolute; top: 100%; left: 0; right: 0;
-        background: var(--mobile-menu-bg); backdrop-filter: blur(24px);
-        padding: 28px; gap: 22px;
-        border-bottom: 1px solid var(--glass-border);
-      }
       .hero { padding: 110px 0 60px; min-height: auto; }
       .features-grid { grid-template-columns: 1fr; }
       .cat-grid { grid-template-columns: 1fr; }
@@ -1016,6 +1074,35 @@
       </button>
     </div>
   </nav>
+
+  <!-- FULLSCREEN MOBILE MENU -->
+  <div class="mobile-menu-overlay" id="mobileMenu">
+    <div class="mobile-menu-header">
+      <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close">&times;</button>
+      <a href="#" class="nav-logo"><img src="logo.jpg" alt="Tech Ducky Logo" class="logo-img" /><span>Tech<span class="highlight">Ducky</span></span></a>
+      <div class="mobile-menu-actions">
+        <button id="mobileThemeToggle" aria-label="Toggle theme">
+          <svg class="icon-moon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/></svg>
+        </button>
+        <button id="mobileCartToggle" aria-label="Cart">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-menu-body">
+      <a href="#" class="mm-link">Home</a>
+      <a href="#features" class="mm-link">Features</a>
+      <a href="#specs" class="mm-link">Specs</a>
+      <a href="#uses" class="mm-link">All Features</a>
+      <a href="#gallery" class="mm-link">Gallery</a>
+      <a href="#faq" class="mm-link">FAQ</a>
+      <a href="#info" class="mm-link">Info</a>
+      <a href="#buy" class="mm-link">Pre-Order</a>
+    </div>
+    <div class="mobile-menu-footer">
+      <p>support@techducky.ch &middot; <a href="https://github.com/samir" target="_blank" rel="noopener">GitHub</a></p>
+    </div>
+  </div>
 
   <!-- CART DRAWER -->
   <div class="cart-overlay" id="cartOverlay"></div>
@@ -1692,10 +1779,49 @@
       if (docH > 0) progressBar.style.width = (scrollY / docH * 100) + '%';
     }, { passive: true });
 
-    // ===== HAMBURGER =====
-    const hb = document.getElementById('hamburger'), nl = document.getElementById('navLinks');
-    hb.addEventListener('click', () => { hb.classList.toggle('open'); nl.classList.toggle('open'); });
-    nl.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { hb.classList.remove('open'); nl.classList.remove('open'); }));
+    // ===== FULLSCREEN MOBILE MENU =====
+    const hb = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileMenuClose = document.getElementById('mobileMenuClose');
+    const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+    const mobileCartToggle = document.getElementById('mobileCartToggle');
+    let mmScrollPos = 0;
+
+    function openMobileMenu() {
+      mmScrollPos = window.scrollY;
+      mobileMenu.classList.add('open');
+      hb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+    }
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('open');
+      hb.classList.remove('open');
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    }
+
+    hb.addEventListener('click', () => {
+      if (mobileMenu.classList.contains('open')) closeMobileMenu();
+      else openMobileMenu();
+    });
+    mobileMenuClose.addEventListener('click', closeMobileMenu);
+
+    // Close on link click
+    mobileMenu.querySelectorAll('.mm-link').forEach(a => {
+      a.addEventListener('click', closeMobileMenu);
+    });
+
+    // Mobile theme toggle
+    mobileThemeToggle.addEventListener('click', () => {
+      document.getElementById('themeToggle').click();
+    });
+
+    // Mobile cart toggle
+    mobileCartToggle.addEventListener('click', () => {
+      closeMobileMenu();
+      document.getElementById('cartToggle').click();
+    });
 
     // ===== SCROLL REVEAL (STAGGERED) =====
     const obs = new IntersectionObserver(entries => {
