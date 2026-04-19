@@ -332,7 +332,7 @@
     .metric { display: flex; flex-direction: column; }
     .metric-val {
       font-size: 1.5rem; font-weight: 800; font-family: var(--mono);
-      background: linear-gradient(135deg, #fff, var(--text-2));
+      background: linear-gradient(135deg, var(--text), var(--text-2));
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
     .metric-label {
@@ -911,16 +911,13 @@
     }
     .pay-btn svg { width: 22px; height: 22px; flex-shrink: 0; }
     .pay-btn-apple {
-      background: #fff; color: #000;
+      background: var(--text); color: var(--bg);
     }
-    .pay-btn-apple:hover { background: #f0f0f0; transform: translateY(-1px); }
+    .pay-btn-apple:hover { opacity: 0.85; transform: translateY(-1px); }
     .pay-btn-google {
-      background: #000; color: #fff; border: 1px solid rgba(255,255,255,0.15);
+      background: var(--bg); color: var(--text); border: 1px solid var(--glass-border);
     }
-    [data-theme="light"] .pay-btn-google {
-      background: #1a1a2e; color: #fff;
-    }
-    .pay-btn-google:hover { background: #222; transform: translateY(-1px); }
+    .pay-btn-google:hover { opacity: 0.85; transform: translateY(-1px); }
     .co-submit-btn {
       width: 100%; padding: 16px; border-radius: 14px;
       background: linear-gradient(135deg, var(--accent), #9333ea);
@@ -1085,7 +1082,7 @@
     }
     .cart-item-img img {
       width: 52px; height: 52px; object-fit: contain;
-      mix-blend-mode: var(--logo-blend);
+      border-radius: 8px; background: #fff; padding: 2px;
       filter: drop-shadow(0 0 6px rgba(124,92,252,0.2));
     }
     .cart-item-info { flex: 1; display: flex; flex-direction: column; gap: 6px; }
@@ -1285,7 +1282,7 @@
       <a href="#buy" class="mm-link">Pre-Order</a>
     </div>
     <div class="mobile-menu-footer">
-      <p>support@techducky.ch &middot; <a href="https://github.com/samir" target="_blank" rel="noopener">GitHub</a></p>
+      <p>support@techducky.ch</p>
     </div>
   </div>
 
@@ -1789,7 +1786,7 @@
         </div>
         <div class="footer-col">
           <h4>Resources</h4>
-          <ul><li><a href="#" data-modal="firmware">Firmware</a></li><li><a href="#" data-modal="community">Community</a></li><li><a href="https://github.com/samir" target="_blank" rel="noopener">GitHub</a></li></ul>
+          <ul><li><a href="#" data-modal="firmware">Firmware</a></li><li><a href="#" data-modal="community">Community</a></li></ul>
         </div>
         <div class="footer-col">
           <h4>Legal</h4>
@@ -2026,7 +2023,7 @@
           Apple Pay
         </button>
         <button type="button" class="pay-btn pay-btn-google" id="payGoogle">
-          <svg viewBox="0 0 24 24"><path d="M12.24 10.285V14.4h6.806c-.275 1.765-2.056 5.174-6.806 5.174-4.095 0-7.439-3.389-7.439-7.574s3.345-7.574 7.439-7.574c2.33 0 3.891.989 4.785 1.849l3.254-3.138C18.189 1.186 15.479 0 12.24 0c-6.635 0-12 5.365-12 12s5.365 12 12 12c6.926 0 11.52-4.869 11.52-11.726 0-.788-.085-1.39-.189-1.989H12.24z" fill="#fff"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12.24 10.285V14.4h6.806c-.275 1.765-2.056 5.174-6.806 5.174-4.095 0-7.439-3.389-7.439-7.574s3.345-7.574 7.439-7.574c2.33 0 3.891.989 4.785 1.849l3.254-3.138C18.189 1.186 15.479 0 12.24 0c-6.635 0-12 5.365-12 12s5.365 12 12 12c6.926 0 11.52-4.869 11.52-11.726 0-.788-.085-1.39-.189-1.989H12.24z" fill="currentColor"/></svg>
           Google Pay
         </button>
       </div>
@@ -2435,86 +2432,108 @@
 
       // Build detailed HTML email
       const html = `
-<div style="max-width:600px;margin:0 auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#1a1a2e;background:#ffffff;">
-  <!-- Header -->
-  <div style="background:linear-gradient(135deg,#7c5cfc,#9333ea);padding:40px 32px;text-align:center;border-radius:12px 12px 0 0;">
-    <h1 style="color:#fff;font-size:22px;margin:0 0 4px;">Tech<span style="color:#a78bfa;">Ducky</span></h1>
-    <p style="color:rgba(255,255,255,0.8);font-size:13px;margin:0;">Ducky V1 — Hardware Hacking Gadget</p>
+<div style="max-width:620px;margin:0 auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#f4f4f8;">
+  <!-- Top accent bar -->
+  <div style="height:4px;background:linear-gradient(90deg,#7c5cfc,#9333ea,#22d3ee,#34d399);"></div>
+
+  <!-- Header with logo -->
+  <div style="background:#0a0a14;padding:36px 32px;text-align:center;">
+    <table style="margin:0 auto;"><tr>
+      <td style="padding-right:10px;vertical-align:middle;"><img src="https://i.imgur.com/placeholder.png" alt="🦆" width="36" height="36" style="border-radius:8px;background:#fff;padding:2px;" /></td>
+      <td style="vertical-align:middle;"><span style="font-size:22px;font-weight:800;color:#fff;">Tech</span><span style="font-size:22px;font-weight:800;color:#a78bfa;">Ducky</span></td>
+    </tr></table>
+    <p style="color:rgba(255,255,255,0.5);font-size:12px;margin:10px 0 0;letter-spacing:1px;text-transform:uppercase;">Bestellbest\u00e4tigung</p>
   </div>
 
-  <!-- Order ID Banner -->
-  <div style="background:#f8f7ff;padding:20px 32px;border-bottom:1px solid #e8e6f0;text-align:center;">
-    <p style="margin:0;font-size:12px;color:#888;text-transform:uppercase;letter-spacing:1px;">BESTELLUNG</p>
-    <p style="margin:4px 0 0;font-size:20px;font-weight:700;color:#7c5cfc;">${orderData.orderId}</p>
+  <!-- Order ID + Status -->
+  <div style="background:#fff;padding:28px 32px;text-align:center;border-bottom:1px solid #eee;">
+    <div style="display:inline-block;background:#f0ecff;border:1px solid #ddd5ff;border-radius:99px;padding:6px 20px;margin-bottom:14px;">
+      <span style="font-size:12px;font-weight:700;color:#7c5cfc;letter-spacing:0.5px;">ORDER ${orderData.orderId}</span>
+    </div>
+    <h2 style="margin:0 0 6px;font-size:20px;color:#1a1a2e;">Neue Bestellung eingegangen! \ud83c\udf89</h2>
+    <p style="margin:0;font-size:13px;color:#888;">${new Date().toLocaleString('de-CH')} \u00b7 ${payLabel}</p>
   </div>
 
-  <!-- Thank you message -->
-  <div style="padding:28px 32px 20px;text-align:center;">
-    <p style="font-size:16px;font-weight:600;color:#1a1a2e;margin:0 0 6px;">Neue Bestellung eingegangen! 🎉</p>
-    <p style="font-size:13px;color:#666;margin:0;">${new Date().toLocaleString('de-CH')} · Zahlungsmethode: ${payLabel}</p>
-  </div>
-
-  <!-- Order Summary -->
-  <div style="margin:0 32px;border:1px solid #e8e6f0;border-radius:10px;overflow:hidden;">
-    <div style="background:#f8f7ff;padding:14px 20px;border-bottom:1px solid #e8e6f0;">
-      <p style="margin:0;font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:1px;">📦 Bestellübersicht</p>
+  <!-- Order Items -->
+  <div style="background:#fff;margin:16px;border-radius:12px;border:1px solid #eee;overflow:hidden;">
+    <div style="padding:16px 20px;background:#fafafe;border-bottom:1px solid #eee;">
+      <table style="width:100%;"><tr>
+        <td style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:1px;">\ud83d\udce6 Bestellung</td>
+        <td style="text-align:right;font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:1px;">Preis</td>
+      </tr></table>
     </div>
     ${orderData.cartItems.map(item => `
-    <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid #f0eef5;">
-      <div>
-        <p style="margin:0;font-size:14px;font-weight:600;color:#1a1a2e;">${item.name} × ${item.qty}</p>
-        <p style="margin:2px 0 0;font-size:12px;color:#888;">All-in-One Hacking Gadget</p>
-      </div>
-      <p style="margin:0;font-size:14px;font-weight:700;color:#1a1a2e;">CHF ${(item.price * item.qty).toFixed(2)}</p>
+    <div style="padding:16px 20px;border-bottom:1px solid #f5f5f5;">
+      <table style="width:100%;"><tr>
+        <td style="vertical-align:top;">
+          <p style="margin:0;font-size:14px;font-weight:700;color:#1a1a2e;">${item.name}</p>
+          <p style="margin:3px 0 0;font-size:12px;color:#999;">All-in-One Hacking Gadget \u00b7 Menge: ${item.qty}</p>
+        </td>
+        <td style="text-align:right;vertical-align:top;white-space:nowrap;">
+          <p style="margin:0;font-size:15px;font-weight:700;color:#1a1a2e;">CHF ${(item.price * item.qty).toFixed(2)}</p>
+        </td>
+      </tr></table>
     </div>`).join('')}
-    <div style="padding:14px 20px;background:#f8f7ff;">
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <p style="margin:0;font-size:11px;color:#888;text-transform:uppercase;">Subtotal</p>
-        <p style="margin:0;font-size:13px;color:#555;">CHF ${orderData.subtotal}</p>
-      </div>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;">
-        <p style="margin:0;font-size:11px;color:#888;text-transform:uppercase;">Versand (CH)</p>
-        <p style="margin:0;font-size:13px;color:#555;">Inkl.</p>
-      </div>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:10px;border-top:2px solid #7c5cfc;">
-        <p style="margin:0;font-size:15px;font-weight:800;color:#1a1a2e;">TOTAL</p>
-        <p style="margin:0;font-size:18px;font-weight:800;color:#7c5cfc;">${orderData.total}</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Customer Info -->
-  <div style="margin:20px 32px 0;border:1px solid #e8e6f0;border-radius:10px;overflow:hidden;">
-    <div style="background:#f8f7ff;padding:14px 20px;border-bottom:1px solid #e8e6f0;">
-      <p style="margin:0;font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:1px;">👤 Kundeninformationen</p>
-    </div>
-    <div style="padding:16px 20px;">
-      <table style="width:100%;border-collapse:collapse;font-size:13px;">
-        <tr><td style="padding:6px 0;color:#888;width:120px;">Name</td><td style="padding:6px 0;color:#1a1a2e;font-weight:600;">${orderData.firstName} ${orderData.lastName}</td></tr>
-        <tr><td style="padding:6px 0;color:#888;">E-Mail</td><td style="padding:6px 0;color:#1a1a2e;font-weight:600;">${orderData.email}</td></tr>
-        <tr><td style="padding:6px 0;color:#888;">Telefon</td><td style="padding:6px 0;color:#1a1a2e;font-weight:600;">${orderData.phone || 'Nicht angegeben'}</td></tr>
+    <div style="padding:16px 20px;background:#fafafe;">
+      <table style="width:100%;">
+        <tr><td style="padding:4px 0;font-size:13px;color:#888;">Subtotal</td><td style="text-align:right;padding:4px 0;font-size:13px;color:#555;">CHF ${orderData.subtotal}</td></tr>
+        <tr><td style="padding:4px 0;font-size:13px;color:#888;">Versand</td><td style="text-align:right;padding:4px 0;font-size:13px;color:#16a34a;font-weight:600;">Kostenlos (CH)</td></tr>
+        <tr><td style="padding:4px 0;font-size:13px;color:#888;">MwSt.</td><td style="text-align:right;padding:4px 0;font-size:13px;color:#555;">Inkl.</td></tr>
       </table>
+      <div style="margin-top:12px;padding-top:12px;border-top:2px solid #7c5cfc;">
+        <table style="width:100%;"><tr>
+          <td style="font-size:16px;font-weight:800;color:#1a1a2e;">Total</td>
+          <td style="text-align:right;font-size:20px;font-weight:800;color:#7c5cfc;">${orderData.total}</td>
+        </tr></table>
+      </div>
     </div>
   </div>
 
-  <!-- Shipping Address -->
-  <div style="margin:20px 32px 0;border:1px solid #e8e6f0;border-radius:10px;overflow:hidden;">
-    <div style="background:#f8f7ff;padding:14px 20px;border-bottom:1px solid #e8e6f0;">
-      <p style="margin:0;font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:1px;">📍 Lieferadresse</p>
-    </div>
-    <div style="padding:16px 20px;font-size:14px;line-height:1.8;color:#1a1a2e;">
-      <strong>${orderData.firstName} ${orderData.lastName}</strong><br>
-      ${orderData.address}<br>
-      ${orderData.zip} ${orderData.city}<br>
-      ${countryFull}
-    </div>
+  <!-- Two-column: Customer + Address -->
+  <div style="margin:0 16px;display:flex;gap:12px;">
+    <table style="width:100%;border-spacing:12px 0;"><tr>
+      <!-- Customer Info -->
+      <td style="width:50%;vertical-align:top;background:#fff;border-radius:12px;border:1px solid #eee;padding:0;">
+        <div style="padding:14px 18px;background:#fafafe;border-bottom:1px solid #eee;border-radius:12px 12px 0 0;">
+          <p style="margin:0;font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:1px;">\ud83d\udc64 Kunde</p>
+        </div>
+        <div style="padding:14px 18px;font-size:13px;line-height:1.9;color:#1a1a2e;">
+          <strong>${orderData.firstName} ${orderData.lastName}</strong><br>
+          ${orderData.email}<br>
+          ${orderData.phone || 'Kein Telefon'}
+        </div>
+      </td>
+      <!-- Shipping Address -->
+      <td style="width:50%;vertical-align:top;background:#fff;border-radius:12px;border:1px solid #eee;padding:0;">
+        <div style="padding:14px 18px;background:#fafafe;border-bottom:1px solid #eee;border-radius:12px 12px 0 0;">
+          <p style="margin:0;font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:1px;">\ud83d\udce8 Lieferadresse</p>
+        </div>
+        <div style="padding:14px 18px;font-size:13px;line-height:1.9;color:#1a1a2e;">
+          <strong>${orderData.firstName} ${orderData.lastName}</strong><br>
+          ${orderData.address}<br>
+          ${orderData.zip} ${orderData.city}<br>
+          ${countryFull}
+        </div>
+      </td>
+    </tr></table>
+  </div>
+
+  <!-- Payment Info -->
+  <div style="margin:12px 16px;background:#fff;border-radius:12px;border:1px solid #eee;padding:16px 20px;">
+    <table style="width:100%;font-size:13px;">
+      <tr><td style="color:#888;padding:4px 0;">Zahlungsmethode</td><td style="text-align:right;color:#1a1a2e;font-weight:600;padding:4px 0;">${payLabel}</td></tr>
+      <tr><td style="color:#888;padding:4px 0;">Status</td><td style="text-align:right;padding:4px 0;"><span style="background:#dcfce7;color:#16a34a;padding:3px 12px;border-radius:99px;font-size:11px;font-weight:700;">Bestellt</span></td></tr>
+    </table>
   </div>
 
   <!-- Footer -->
-  <div style="padding:28px 32px;text-align:center;margin-top:20px;">
-    <p style="font-size:12px;color:#aaa;margin:0;">© 2026 Tech Ducky · Ducky V1</p>
-    <p style="font-size:11px;color:#ccc;margin:6px 0 0;">Diese E-Mail wurde automatisch generiert.</p>
+  <div style="padding:28px 32px;text-align:center;">
+    <p style="font-size:11px;color:#aaa;margin:0;">\u00a9 2026 Tech Ducky \u00b7 Alle Rechte vorbehalten</p>
+    <p style="font-size:10px;color:#ccc;margin:6px 0 0;">Diese E-Mail wurde automatisch generiert. Nicht antworten.</p>
   </div>
+
+  <!-- Bottom accent bar -->
+  <div style="height:4px;background:linear-gradient(90deg,#34d399,#22d3ee,#9333ea,#7c5cfc);border-radius:0 0 4px 4px;"></div>
 </div>`;
 
       try {
@@ -2609,16 +2628,43 @@
       processOrder('standard');
     });
 
-    // Apple Pay button
-    document.getElementById('payApple').addEventListener('click', () => {
-      // Validate form first
+    // Apple Pay button — uses Payment Request API if available
+    document.getElementById('payApple').addEventListener('click', async () => {
       if (!coForm.reportValidity()) return;
+      if (window.PaymentRequest) {
+        try {
+          const methods = [{ supportedMethods: 'https://apple.com/apple-pay', data: { version: 3, merchantIdentifier: 'merchant.ch.techducky', merchantCapabilities: ['supports3DS'], supportedNetworks: ['visa','masterCard','amex'], countryCode: 'CH', currencyCode: 'CHF' } }];
+          const details = { total: { label: 'Tech Ducky — Ducky V1', amount: { currency: 'CHF', value: getTotalPrice().toFixed(2) } } };
+          const request = new PaymentRequest(methods, details);
+          const canMake = await request.canMakePayment();
+          if (canMake) {
+            const response = await request.show();
+            await response.complete('success');
+            processOrder('apple_pay');
+            return;
+          }
+        } catch (e) { console.log('Apple Pay not available, using standard flow'); }
+      }
       processOrder('apple_pay');
     });
 
-    // Google Pay button
-    document.getElementById('payGoogle').addEventListener('click', () => {
+    // Google Pay button — uses Payment Request API if available
+    document.getElementById('payGoogle').addEventListener('click', async () => {
       if (!coForm.reportValidity()) return;
+      if (window.PaymentRequest) {
+        try {
+          const methods = [{ supportedMethods: 'https://google.com/pay', data: { environment: 'PRODUCTION', apiVersion: 2, apiVersionMinor: 0, allowedPaymentMethods: [{ type: 'CARD', parameters: { allowedAuthMethods: ['PAN_ONLY','CRYPTOGRAM_3DS'], allowedCardNetworks: ['VISA','MASTERCARD','AMEX'] }, tokenizationSpecification: { type: 'PAYMENT_GATEWAY', parameters: { gateway: 'example', gatewayMerchantId: 'techducky' } } }], merchantInfo: { merchantId: 'techducky', merchantName: 'Tech Ducky' }, transactionInfo: { totalPriceStatus: 'FINAL', totalPrice: getTotalPrice().toFixed(2), currencyCode: 'CHF', countryCode: 'CH' } } }];
+          const details = { total: { label: 'Tech Ducky — Ducky V1', amount: { currency: 'CHF', value: getTotalPrice().toFixed(2) } } };
+          const request = new PaymentRequest(methods, details);
+          const canMake = await request.canMakePayment();
+          if (canMake) {
+            const response = await request.show();
+            await response.complete('success');
+            processOrder('google_pay');
+            return;
+          }
+        } catch (e) { console.log('Google Pay not available, using standard flow'); }
+      }
       processOrder('google_pay');
     });
 
