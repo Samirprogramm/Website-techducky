@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://i.imgur.com; connect-src https://formsubmit.co; frame-ancestors 'none';" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://i.imgur.com; connect-src 'self' https://formsubmit.co; frame-ancestors 'none'; upgrade-insecure-requests;" />
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <meta http-equiv="X-Frame-Options" content="DENY" />
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), usb=(), serial=(), bluetooth=()" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <title>Tech Ducky — Ducky V1</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -943,6 +944,14 @@
       border-color: var(--accent);
     }
     .co-form-group input::placeholder { color: var(--text-3); }
+    .co-honeypot {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
     .co-form-row {
       display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
     }
@@ -2058,32 +2067,36 @@
     <div class="co-order-summary" id="coOrderSummary"></div>
 
     <form id="checkoutForm" autocomplete="on">
+      <div class="co-honeypot" aria-hidden="true">
+        <label for="coWebsite">Website</label>
+        <input type="text" id="coWebsite" name="website" autocomplete="off" tabindex="-1" />
+      </div>
       <div class="co-form-group">
         <label for="coEmail">E-Mail *</label>
-        <input type="email" id="coEmail" name="email" placeholder="deine@email.com" required autocomplete="email" />
+        <input type="email" id="coEmail" name="email" placeholder="deine@email.com" required autocomplete="email" inputmode="email" maxlength="160" />
       </div>
       <div class="co-form-row">
         <div class="co-form-group">
           <label for="coFirst">Vorname *</label>
-          <input type="text" id="coFirst" name="first" placeholder="Vorname" required autocomplete="given-name" />
+          <input type="text" id="coFirst" name="first" placeholder="Vorname" required autocomplete="given-name" maxlength="100" />
         </div>
         <div class="co-form-group">
           <label for="coLast">Nachname *</label>
-          <input type="text" id="coLast" name="last" placeholder="Nachname" required autocomplete="family-name" />
+          <input type="text" id="coLast" name="last" placeholder="Nachname" required autocomplete="family-name" maxlength="100" />
         </div>
       </div>
       <div class="co-form-group">
         <label for="coAddress">Strasse & Hausnummer *</label>
-        <input type="text" id="coAddress" name="address" placeholder="Musterstrasse 12" required autocomplete="street-address" />
+        <input type="text" id="coAddress" name="address" placeholder="Musterstrasse 12" required autocomplete="street-address" maxlength="300" />
       </div>
       <div class="co-form-row">
         <div class="co-form-group">
           <label for="coZip">PLZ *</label>
-          <input type="text" id="coZip" name="zip" placeholder="8000" required autocomplete="postal-code" />
+          <input type="text" id="coZip" name="zip" placeholder="8000" required autocomplete="postal-code" inputmode="numeric" maxlength="20" />
         </div>
         <div class="co-form-group">
           <label for="coCity">Ort *</label>
-          <input type="text" id="coCity" name="city" placeholder="Zürich" required autocomplete="address-level2" />
+          <input type="text" id="coCity" name="city" placeholder="Zürich" required autocomplete="address-level2" maxlength="100" />
         </div>
       </div>
       <div class="co-form-group">
@@ -2099,7 +2112,7 @@
       </div>
       <div class="co-form-group">
         <label for="coPhone">Telefon (optional)</label>
-        <input type="tel" id="coPhone" name="phone" placeholder="+41 79 123 45 67" autocomplete="tel" />
+        <input type="tel" id="coPhone" name="phone" placeholder="+41 79 123 45 67" autocomplete="tel" inputmode="tel" maxlength="30" />
       </div>
 
       <div class="co-divider">Bezahlmethode wählen</div>
@@ -2155,13 +2168,39 @@
     // ===== SECURITY: XSS Sanitization =====
     function esc(str) {
       const d = document.createElement('div');
-      d.textContent = str;
+      d.textContent = String(str ?? '');
       return d.innerHTML;
+    }
+
+    function normalizeInput(value) {
+      return String(value ?? '').replace(/\s+/g, ' ').trim();
+    }
+
+    function isValidName(value) {
+      return /^[\p{L}\p{M}][\p{L}\p{M}' -]{0,99}$/u.test(value);
+    }
+
+    function isValidAddress(value) {
+      return /^[\p{L}\p{M}\d][\p{L}\p{M}\d\s.,'\/-]{4,299}$/u.test(value);
+    }
+
+    function isValidCity(value) {
+      return /^[\p{L}\p{M}][\p{L}\p{M}\s.'-]{1,99}$/u.test(value);
+    }
+
+    function isValidPostalCode(value) {
+      return /^[A-Za-z0-9][A-Za-z0-9\s-]{1,19}$/.test(value);
+    }
+
+    function isValidPhone(value) {
+      return /^[+\d][\d\s()-]{5,29}$/.test(value);
     }
 
     // ===== SECURITY: Rate Limiting =====
     let lastSubmitTime = 0;
+    let checkoutFormOpenedAt = 0;
     const SUBMIT_COOLDOWN = 5000; // 5 Sekunden zwischen Bestellungen
+    const MIN_CHECKOUT_FILL_MS = 1200;
 
     // ===== PARTICLE CONSTELLATION BACKGROUND =====
     const canvas = document.getElementById('particleCanvas');
@@ -2386,34 +2425,73 @@
         cartEmpty.style.display = 'flex';
       } else {
         cartEmpty.style.display = 'none';
+        const fragment = document.createDocumentFragment();
         cart.items.forEach((item, idx) => {
           const div = document.createElement('div');
           div.className = 'cart-item';
-          div.innerHTML = `
-            <div class="cart-item-img"><img src="${LOGO_SRC}" alt="${esc(item.name)}" /></div>
-            <div class="cart-item-info">
-              <span class="cart-item-name">${esc(item.name)}</span>
-              <span class="cart-item-variant">All-in-One Hacking Gadget</span>
-              <div class="cart-item-bottom">
-                <div class="cart-qty">
-                  <button data-action="dec" data-idx="${idx}">\u2212</button>
-                  <span>${item.qty}</span>
-                  <button data-action="inc" data-idx="${idx}">+</button>
-                </div>
-                <span class="cart-item-price">CHF ${(item.price * item.qty).toFixed(2)}</span>
-              </div>
-            </div>`;
-          cartBody.appendChild(div);
+
+          const imageWrap = document.createElement('div');
+          imageWrap.className = 'cart-item-img';
+          const image = document.createElement('img');
+          image.src = LOGO_SRC;
+          image.alt = item.name;
+          imageWrap.appendChild(image);
+
+          const info = document.createElement('div');
+          info.className = 'cart-item-info';
+
+          const name = document.createElement('span');
+          name.className = 'cart-item-name';
+          name.textContent = item.name;
+
+          const variant = document.createElement('span');
+          variant.className = 'cart-item-variant';
+          variant.textContent = 'All-in-One Hacking Gadget';
+
+          const bottom = document.createElement('div');
+          bottom.className = 'cart-item-bottom';
+
+          const qtyWrap = document.createElement('div');
+          qtyWrap.className = 'cart-qty';
+
+          const decBtn = document.createElement('button');
+          decBtn.type = 'button';
+          decBtn.dataset.action = 'dec';
+          decBtn.dataset.idx = String(idx);
+          decBtn.textContent = '−';
+
+          const qtyValue = document.createElement('span');
+          qtyValue.textContent = String(item.qty);
+
+          const incBtn = document.createElement('button');
+          incBtn.type = 'button';
+          incBtn.dataset.action = 'inc';
+          incBtn.dataset.idx = String(idx);
+          incBtn.textContent = '+';
+
+          const price = document.createElement('span');
+          price.className = 'cart-item-price';
+          price.textContent = 'CHF ' + (item.price * item.qty).toFixed(2);
+
+          qtyWrap.append(decBtn, qtyValue, incBtn);
+          bottom.append(qtyWrap, price);
+          info.append(name, variant, bottom);
+          div.append(imageWrap, info);
+          fragment.appendChild(div);
         });
+        cartBody.appendChild(fragment);
       }
     }
 
     function addToCart(productId, name, price) {
+      const parsedPrice = parseFloat(price);
+      if (!productId || !name || !Number.isFinite(parsedPrice) || parsedPrice < 0) return;
+
       const existing = cart.items.find(i => i.id === productId);
       if (existing) {
         existing.qty++;
       } else {
-        cart.items.push({ id: productId, name, price: parseFloat(price), qty: 1 });
+        cart.items.push({ id: productId, name, price: parsedPrice, qty: 1 });
       }
       renderCart();
       // Badge bump animation
@@ -2500,22 +2578,68 @@
     const coSubmitBtn = document.getElementById('coSubmitBtn');
     const coSuccess = document.getElementById('coSuccess');
     const coOrderId = document.getElementById('coOrderId');
+    const coHoneypot = document.getElementById('coWebsite');
+    const coModalTitle = coFormModal.querySelector('h2');
+    const coModalSubtitle = coFormModal.querySelector('.modal-subtitle');
+    const coSteps = coFormModal.querySelector('.checkout-steps');
+    const coSecure = coFormModal.querySelector('.co-secure');
+
+    function renderCheckoutSummary() {
+      const fragment = document.createDocumentFragment();
+      const heading = document.createElement('h4');
+      heading.textContent = 'Bestellübersicht';
+      fragment.appendChild(heading);
+
+      cart.items.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'co-order-item';
+
+        const label = document.createElement('span');
+        label.textContent = item.name + ' ';
+
+        const qty = document.createElement('span');
+        qty.className = 'item-qty';
+        qty.textContent = '×' + item.qty;
+        label.appendChild(qty);
+
+        const price = document.createElement('span');
+        price.textContent = 'CHF ' + (item.price * item.qty).toFixed(2);
+
+        row.append(label, price);
+        fragment.appendChild(row);
+      });
+
+      const totalRow = document.createElement('div');
+      totalRow.className = 'co-order-total';
+
+      const totalLabel = document.createElement('span');
+      totalLabel.textContent = 'Total';
+
+      const totalValue = document.createElement('span');
+      totalValue.textContent = 'CHF ' + getTotalPrice().toFixed(2);
+
+      totalRow.append(totalLabel, totalValue);
+      fragment.appendChild(totalRow);
+
+      coOrderSummary.replaceChildren(fragment);
+    }
 
     function openCheckoutForm() {
       // Render order summary
-      let html = '<h4>Bestellübersicht</h4>';
-      cart.items.forEach(item => {
-        html += `<div class="co-order-item"><span>${esc(item.name)} <span class="item-qty">�${item.qty}</span></span><span>CHF ${(item.price * item.qty).toFixed(2)}</span></div>`;
-      });
-      html += `<div class="co-order-total"><span>Total</span><span>CHF ${getTotalPrice().toFixed(2)}</span></div>`;
-      coOrderSummary.innerHTML = html;
-      coTotalBtn.textContent = 'CHF ' + getTotalPrice().toFixed(2);
+      checkoutFormOpenedAt = Date.now();
+      coHoneypot.value = '';
+      renderCheckoutSummary();
 
       // Reset form state
       coForm.style.display = '';
+      coOrderSummary.style.display = '';
       coSuccess.style.display = 'none';
       coSubmitBtn.disabled = false;
       coSubmitBtn.innerHTML = '💳 Jetzt bestellen — <span id="coTotalBtn">CHF ' + getTotalPrice().toFixed(2) + '</span>';
+      coModalTitle.textContent = '🛒 Checkout';
+      coModalSubtitle.style.display = '';
+      coSteps.style.display = '';
+      coSecure.style.display = '';
 
       coFormOverlay.classList.add('open');
       coFormModal.classList.add('open');
@@ -2664,23 +2788,47 @@
             message: html
           })
         });
+        if (!res.ok) {
+          throw new Error('HTTP ' + res.status);
+        }
         const data = await res.json();
         console.log('FormSubmit:', data.success ? 'E-Mail gesendet' : 'Fehler');
+        return Boolean(data.success);
       } catch (err) {
         console.error('FormSubmit error:', err);
+        return false;
       }
     }
 
     async function processOrder(payMethod) {
       // Validate form
-      const email = document.getElementById('coEmail').value.trim();
-      const first = document.getElementById('coFirst').value.trim();
-      const last = document.getElementById('coLast').value.trim();
-      const address = document.getElementById('coAddress').value.trim();
-      const zip = document.getElementById('coZip').value.trim();
-      const city = document.getElementById('coCity').value.trim();
+      if (!cart.items.length) {
+        alert('Dein Warenkorb ist leer.');
+        return;
+      }
+
+      const email = normalizeInput(document.getElementById('coEmail').value);
+      const first = normalizeInput(document.getElementById('coFirst').value);
+      const last = normalizeInput(document.getElementById('coLast').value);
+      const address = normalizeInput(document.getElementById('coAddress').value);
+      const zip = normalizeInput(document.getElementById('coZip').value);
+      const city = normalizeInput(document.getElementById('coCity').value);
       const country = document.getElementById('coCountry').value;
-      const phone = document.getElementById('coPhone').value.trim();
+      const phone = normalizeInput(document.getElementById('coPhone').value);
+      const honeypot = normalizeInput(coHoneypot.value);
+
+      document.getElementById('coEmail').value = email;
+      document.getElementById('coFirst').value = first;
+      document.getElementById('coLast').value = last;
+      document.getElementById('coAddress').value = address;
+      document.getElementById('coZip').value = zip;
+      document.getElementById('coCity').value = city;
+      document.getElementById('coPhone').value = phone;
+
+      if (honeypot) {
+        console.warn('Blocked suspicious checkout submission.');
+        return;
+      }
 
       if (!email || !first || !last || !address || !zip || !city) {
         alert('Bitte fülle alle Pflichtfelder aus.');
@@ -2689,12 +2837,31 @@
 
       // Email format validation
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        alert('Bitte gib eine g�ltige E-Mail-Adresse ein.');
+        alert('Bitte gib eine gültige E-Mail-Adresse ein.');
+        return;
+      }
+
+      if (!isValidName(first) || !isValidName(last)) {
+        alert('Bitte gib einen gültigen Vor- und Nachnamen ein.');
+        return;
+      }
+
+      if (!isValidAddress(address)) {
+        alert('Bitte gib eine gültige Strasse und Hausnummer ein.');
+        return;
+      }
+
+      if (!isValidCity(city)) {
+        alert('Bitte gib einen gültigen Ort ein.');
         return;
       }
 
       // ===== SECURITY: Rate Limiting =====
       const now = Date.now();
+      if (checkoutFormOpenedAt && now - checkoutFormOpenedAt < MIN_CHECKOUT_FILL_MS) {
+        alert('Bitte prüfe deine Angaben kurz und versuche es erneut.');
+        return;
+      }
       if (now - lastSubmitTime < SUBMIT_COOLDOWN) {
         alert('Bitte warte einen Moment bevor du erneut bestellst.');
         return;
@@ -2703,19 +2870,19 @@
 
       // ===== SECURITY: Input Length Validation =====
       if (first.length > 100 || last.length > 100 || address.length > 300 || city.length > 100 || zip.length > 20 || phone.length > 30) {
-        alert('Eingabe zu lang. Bitte �berpr�fe deine Daten.');
+        alert('Eingabe zu lang. Bitte überprüfe deine Daten.');
         return;
       }
 
       // ZIP format validation
-      if (!/^[a-zA-Z0-9\s\-]{2,20}$/.test(zip)) {
-        alert('Bitte gib eine g�ltige PLZ ein.');
+      if (!isValidPostalCode(zip)) {
+        alert('Bitte gib eine gültige PLZ ein.');
         return;
       }
 
       // Phone validation (optional, if filled)
-      if (phone && !/^[+\d\s\-()]{6,30}$/.test(phone)) {
-        alert('Bitte gib eine g�ltige Telefonnummer ein.');
+      if (phone && !isValidPhone(phone)) {
+        alert('Bitte gib eine gültige Telefonnummer ein.');
         return;
       }
 
@@ -2728,7 +2895,7 @@
           const url = new URL(STRIPE_PAYMENT_LINK);
           url.searchParams.set('prefilled_email', email);
           // Bestelldaten per FormSubmit sichern bevor redirect
-          await sendOrderEmail({
+          const emailSent = await sendOrderEmail({
             orderId: generateOrderId(),
             payMethod,
             firstName: first, lastName: last, email, phone,
@@ -2737,8 +2904,14 @@
             subtotal: getTotalPrice().toFixed(2),
             total: 'CHF ' + getTotalPrice().toFixed(2)
           });
+          if (!emailSent) {
+            lastSubmitTime = 0;
+            alert('Die Bestellung konnte nicht gespeichert werden. Bitte versuche es erneut.');
+            return;
+          }
           window.location.href = url.toString();
         } catch(e) {
+          lastSubmitTime = 0;
           console.error('Stripe redirect error:', e);
           alert('Fehler beim Weiterleiten zu Stripe. Bitte versuche es erneut.');
         }
@@ -2746,7 +2919,6 @@
       }
 
       const orderId = generateOrderId();
-      const itemsText = cart.items.map(i => i.name + ' ×' + i.qty + ' = CHF ' + (i.price * i.qty).toFixed(2)).join(' | ');
       const totalText = 'CHF ' + getTotalPrice().toFixed(2);
 
       // Show loading
@@ -2754,7 +2926,7 @@
       coSubmitBtn.innerHTML = '<span class="spinner"></span> Bestellung wird verarbeitet...';
 
       // Send email notification
-      await sendOrderEmail({
+      const emailSent = await sendOrderEmail({
         orderId,
         payMethod,
         firstName: first,
@@ -2769,19 +2941,26 @@
         subtotal: getTotalPrice().toFixed(2),
         total: totalText
       });
+      if (!emailSent) {
+        lastSubmitTime = 0;
+        coSubmitBtn.disabled = false;
+        coSubmitBtn.innerHTML = '💳 Jetzt bestellen — <span id="coTotalBtn">CHF ' + getTotalPrice().toFixed(2) + '</span>';
+        alert('Deine Bestellung konnte nicht gesendet werden. Bitte versuche es erneut.');
+        return;
+      }
 
       // Show success
       coForm.style.display = 'none';
       coOrderSummary.style.display = 'none';
-      document.querySelector('.checkout-form-modal .modal-subtitle').style.display = 'none';
-      document.querySelector('.checkout-form-modal .checkout-steps').style.display = 'none';
-      document.querySelector('.checkout-form-modal .co-secure').style.display = 'none';
+      coModalSubtitle.style.display = 'none';
+      coSteps.style.display = 'none';
+      coSecure.style.display = 'none';
       coSuccess.style.display = '';
       coOrderId.textContent = 'Bestellnummer: ' + orderId;
-      document.querySelector('.checkout-form-modal h2').textContent = '🎉 Danke, ' + first + '!';
+      coModalTitle.textContent = '🎉 Danke, ' + first + '!';
 
       // Update steps
-      const steps = document.querySelectorAll('.checkout-form-modal .checkout-step');
+      const steps = coFormModal.querySelectorAll('.checkout-step');
       steps.forEach(s => { s.classList.remove('active'); s.classList.add('done'); });
 
       // Clear cart
