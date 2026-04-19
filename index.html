@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://i.imgur.com; connect-src https://formsubmit.co; frame-ancestors 'none';" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="DENY" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <title>Tech Ducky â€” Ducky V1</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -2097,6 +2101,17 @@
     const LOGO_SRC = 'data:image/jpeg;base64,' + LOGO_BASE64;
     document.querySelectorAll('img[src="logo.jpg"]').forEach(img => img.src = LOGO_SRC);
 
+    // ===== SECURITY: XSS Sanitization =====
+    function esc(str) {
+      const d = document.createElement('div');
+      d.textContent = str;
+      return d.innerHTML;
+    }
+
+    // ===== SECURITY: Rate Limiting =====
+    let lastSubmitTime = 0;
+    const SUBMIT_COOLDOWN = 5000; // 5 Sekunden zwischen Bestellungen
+
     // ===== PARTICLE CONSTELLATION BACKGROUND =====
     const canvas = document.getElementById('particleCanvas');
     const ctx = canvas.getContext('2d');
@@ -2324,9 +2339,9 @@
           const div = document.createElement('div');
           div.className = 'cart-item';
           div.innerHTML = `
-            <div class="cart-item-img"><img src="${LOGO_SRC}" alt="${item.name}" /></div>
+            <div class="cart-item-img"><img src="${LOGO_SRC}" alt="${esc(item.name)}" /></div>
             <div class="cart-item-info">
-              <span class="cart-item-name">${item.name}</span>
+              <span class="cart-item-name">${esc(item.name)}</span>
               <span class="cart-item-variant">All-in-One Hacking Gadget</span>
               <div class="cart-item-bottom">
                 <div class="cart-qty">
@@ -2439,7 +2454,7 @@
       // Render order summary
       let html = '<h4>BestellÃ¼bersicht</h4>';
       cart.items.forEach(item => {
-        html += `<div class="co-order-item"><span>${item.name} <span class="item-qty">Ã—${item.qty}</span></span><span>CHF ${(item.price * item.qty).toFixed(2)}</span></div>`;
+        html += `<div class="co-order-item"><span>${esc(item.name)} <span class="item-qty">×${item.qty}</span></span><span>CHF ${(item.price * item.qty).toFixed(2)}</span></div>`;
       });
       html += `<div class="co-order-total"><span>Total</span><span>CHF ${getTotalPrice().toFixed(2)}</span></div>`;
       coOrderSummary.innerHTML = html;
@@ -2515,7 +2530,7 @@
     <div style="padding:16px 20px;border-bottom:1px solid #f5f5f5;">
       <table style="width:100%;"><tr>
         <td style="vertical-align:top;">
-          <p style="margin:0;font-size:14px;font-weight:700;color:#1a1a2e;">${item.name}</p>
+          <p style="margin:0;font-size:14px;font-weight:700;color:#1a1a2e;">${esc(item.name)}</p>
           <p style="margin:3px 0 0;font-size:12px;color:#999;">All-in-One Hacking Gadget \u00b7 Menge: ${item.qty}</p>
         </td>
         <td style="text-align:right;vertical-align:top;white-space:nowrap;">
@@ -2547,9 +2562,9 @@
           <p style="margin:0;font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:1px;">\ud83d\udc64 Kunde</p>
         </div>
         <div style="padding:14px 18px;font-size:13px;line-height:1.9;color:#1a1a2e;">
-          <strong>${orderData.firstName} ${orderData.lastName}</strong><br>
-          ${orderData.email}<br>
-          ${orderData.phone || 'Kein Telefon'}
+          <strong>${esc(orderData.firstName)} ${esc(orderData.lastName)}</strong><br>
+          ${esc(orderData.email)}<br>
+          ${esc(orderData.phone) || 'Kein Telefon'}
         </div>
       </td>
       <!-- Shipping Address -->
@@ -2558,10 +2573,10 @@
           <p style="margin:0;font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:1px;">\ud83d\udce8 Lieferadresse</p>
         </div>
         <div style="padding:14px 18px;font-size:13px;line-height:1.9;color:#1a1a2e;">
-          <strong>${orderData.firstName} ${orderData.lastName}</strong><br>
-          ${orderData.address}<br>
-          ${orderData.zip} ${orderData.city}<br>
-          ${countryFull}
+          <strong>${esc(orderData.firstName)} ${esc(orderData.lastName)}</strong><br>
+          ${esc(orderData.address)}<br>
+          ${esc(orderData.zip)} ${esc(orderData.city)}<br>
+          ${esc(countryFull)}
         </div>
       </td>
     </tr></table>
@@ -2623,7 +2638,33 @@
 
       // Email format validation
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        alert('Bitte gib eine gÃ¼ltige E-Mail-Adresse ein.');
+        alert('Bitte gib eine gültige E-Mail-Adresse ein.');
+        return;
+      }
+
+      // ===== SECURITY: Rate Limiting =====
+      const now = Date.now();
+      if (now - lastSubmitTime < SUBMIT_COOLDOWN) {
+        alert('Bitte warte einen Moment bevor du erneut bestellst.');
+        return;
+      }
+      lastSubmitTime = now;
+
+      // ===== SECURITY: Input Length Validation =====
+      if (first.length > 100 || last.length > 100 || address.length > 300 || city.length > 100 || zip.length > 20 || phone.length > 30) {
+        alert('Eingabe zu lang. Bitte überprüfe deine Daten.');
+        return;
+      }
+
+      // ZIP format validation
+      if (!/^[a-zA-Z0-9\s\-]{2,20}$/.test(zip)) {
+        alert('Bitte gib eine gültige PLZ ein.');
+        return;
+      }
+
+      // Phone validation (optional, if filled)
+      if (phone && !/^[+\d\s\-()]{6,30}$/.test(phone)) {
+        alert('Bitte gib eine gültige Telefonnummer ein.');
         return;
       }
 
