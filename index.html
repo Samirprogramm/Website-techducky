@@ -2425,35 +2425,109 @@
     }
 
     async function sendOrderEmail(orderData) {
-      // =====================================================
-      // EMAIL VIA FORMSUBMIT.CO (kostenlos, unlimited, kein Account nötig)
-      //
-      // SETUP: Ersetze die E-Mail unten mit deiner echten E-Mail.
-      // Beim ersten Absenden bekommst du eine Bestätigungs-E-Mail.
-      // Klicke auf den Link darin — danach läuft alles automatisch.
-      // =====================================================
-      const YOUR_EMAIL = 'samir.sali207@gmail.com';  // <-- Deine E-Mail hier!
+      const YOUR_EMAIL = 'samir.sali207@gmail.com';
+
+      // Country code to full name
+      const countryNames = { CH: 'Schweiz', DE: 'Deutschland', AT: 'Österreich', FR: 'Frankreich', IT: 'Italien', OTHER: 'International' };
+      const countryFull = countryNames[orderData.country] || orderData.country;
+      const payLabels = { standard: 'Standardzahlung', apple_pay: 'Apple Pay', google_pay: 'Google Pay' };
+      const payLabel = payLabels[orderData.payMethod] || 'Standard';
+
+      // Build detailed HTML email
+      const html = `
+<div style="max-width:600px;margin:0 auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#1a1a2e;background:#ffffff;">
+  <!-- Header -->
+  <div style="background:linear-gradient(135deg,#7c5cfc,#9333ea);padding:40px 32px;text-align:center;border-radius:12px 12px 0 0;">
+    <h1 style="color:#fff;font-size:22px;margin:0 0 4px;">Tech<span style="color:#a78bfa;">Ducky</span></h1>
+    <p style="color:rgba(255,255,255,0.8);font-size:13px;margin:0;">Ducky V1 — Hardware Hacking Gadget</p>
+  </div>
+
+  <!-- Order ID Banner -->
+  <div style="background:#f8f7ff;padding:20px 32px;border-bottom:1px solid #e8e6f0;text-align:center;">
+    <p style="margin:0;font-size:12px;color:#888;text-transform:uppercase;letter-spacing:1px;">BESTELLUNG</p>
+    <p style="margin:4px 0 0;font-size:20px;font-weight:700;color:#7c5cfc;">${orderData.orderId}</p>
+  </div>
+
+  <!-- Thank you message -->
+  <div style="padding:28px 32px 20px;text-align:center;">
+    <p style="font-size:16px;font-weight:600;color:#1a1a2e;margin:0 0 6px;">Neue Bestellung eingegangen! 🎉</p>
+    <p style="font-size:13px;color:#666;margin:0;">${new Date().toLocaleString('de-CH')} · Zahlungsmethode: ${payLabel}</p>
+  </div>
+
+  <!-- Order Summary -->
+  <div style="margin:0 32px;border:1px solid #e8e6f0;border-radius:10px;overflow:hidden;">
+    <div style="background:#f8f7ff;padding:14px 20px;border-bottom:1px solid #e8e6f0;">
+      <p style="margin:0;font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:1px;">📦 Bestellübersicht</p>
+    </div>
+    ${orderData.cartItems.map(item => `
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid #f0eef5;">
+      <div>
+        <p style="margin:0;font-size:14px;font-weight:600;color:#1a1a2e;">${item.name} × ${item.qty}</p>
+        <p style="margin:2px 0 0;font-size:12px;color:#888;">All-in-One Hacking Gadget</p>
+      </div>
+      <p style="margin:0;font-size:14px;font-weight:700;color:#1a1a2e;">CHF ${(item.price * item.qty).toFixed(2)}</p>
+    </div>`).join('')}
+    <div style="padding:14px 20px;background:#f8f7ff;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <p style="margin:0;font-size:11px;color:#888;text-transform:uppercase;">Subtotal</p>
+        <p style="margin:0;font-size:13px;color:#555;">CHF ${orderData.subtotal}</p>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;">
+        <p style="margin:0;font-size:11px;color:#888;text-transform:uppercase;">Versand (CH)</p>
+        <p style="margin:0;font-size:13px;color:#555;">Inkl.</p>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:10px;border-top:2px solid #7c5cfc;">
+        <p style="margin:0;font-size:15px;font-weight:800;color:#1a1a2e;">TOTAL</p>
+        <p style="margin:0;font-size:18px;font-weight:800;color:#7c5cfc;">${orderData.total}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Customer Info -->
+  <div style="margin:20px 32px 0;border:1px solid #e8e6f0;border-radius:10px;overflow:hidden;">
+    <div style="background:#f8f7ff;padding:14px 20px;border-bottom:1px solid #e8e6f0;">
+      <p style="margin:0;font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:1px;">👤 Kundeninformationen</p>
+    </div>
+    <div style="padding:16px 20px;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <tr><td style="padding:6px 0;color:#888;width:120px;">Name</td><td style="padding:6px 0;color:#1a1a2e;font-weight:600;">${orderData.firstName} ${orderData.lastName}</td></tr>
+        <tr><td style="padding:6px 0;color:#888;">E-Mail</td><td style="padding:6px 0;color:#1a1a2e;font-weight:600;">${orderData.email}</td></tr>
+        <tr><td style="padding:6px 0;color:#888;">Telefon</td><td style="padding:6px 0;color:#1a1a2e;font-weight:600;">${orderData.phone || 'Nicht angegeben'}</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Shipping Address -->
+  <div style="margin:20px 32px 0;border:1px solid #e8e6f0;border-radius:10px;overflow:hidden;">
+    <div style="background:#f8f7ff;padding:14px 20px;border-bottom:1px solid #e8e6f0;">
+      <p style="margin:0;font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:1px;">📍 Lieferadresse</p>
+    </div>
+    <div style="padding:16px 20px;font-size:14px;line-height:1.8;color:#1a1a2e;">
+      <strong>${orderData.firstName} ${orderData.lastName}</strong><br>
+      ${orderData.address}<br>
+      ${orderData.zip} ${orderData.city}<br>
+      ${countryFull}
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div style="padding:28px 32px;text-align:center;margin-top:20px;">
+    <p style="font-size:12px;color:#aaa;margin:0;">© 2026 Tech Ducky · Ducky V1</p>
+    <p style="font-size:11px;color:#ccc;margin:6px 0 0;">Diese E-Mail wurde automatisch generiert.</p>
+  </div>
+</div>`;
 
       try {
         const res = await fetch('https://formsubmit.co/ajax/' + YOUR_EMAIL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify({
-            _subject: '🛒 Neue Bestellung: ' + orderData.orderId,
-            _template: 'table',
+            _subject: '🛒 Neue Bestellung: ' + orderData.orderId + ' — CHF ' + orderData.subtotal,
             _captcha: 'false',
-            'Bestellnummer': orderData.orderId,
-            'Datum': new Date().toLocaleString('de-CH'),
-            'Zahlungsmethode': orderData.payMethod || 'Standard',
-            'Kundenname': orderData.firstName + ' ' + orderData.lastName,
-            'E-Mail': orderData.email,
-            'Telefon': orderData.phone || 'Nicht angegeben',
-            'Strasse': orderData.address,
-            'PLZ': orderData.zip,
-            'Ort': orderData.city,
-            'Land': orderData.country,
-            'Bestellung': orderData.items,
-            'Total': orderData.total
+            _template: 'box',
+            _autoresponse: 'Danke für deine Bestellung bei Tech Ducky! Deine Bestellnummer: ' + orderData.orderId + '. Wir melden uns bald bei dir. 🦆',
+            _replyto: orderData.email,
+            message: html
           })
         });
         const data = await res.json();
@@ -2505,7 +2579,8 @@
         zip,
         city,
         country,
-        items: itemsText,
+        cartItems: [...cart.items],
+        subtotal: getTotalPrice().toFixed(2),
         total: totalText
       });
 
