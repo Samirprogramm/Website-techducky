@@ -1459,6 +1459,24 @@
       50% { box-shadow: 0 0 120px rgba(124,92,252,0.22), 0 40px 80px rgba(0,0,0,0.5), 0 0 30px rgba(34,211,238,0.06); }
     }
     .device-card { animation: deviceGlow 5s ease-in-out infinite; }
+
+    /* ===== PREFERS-REDUCED-MOTION ===== */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+      #bgCanvas::before, #bgCanvas::after, .bg-orb, .hero-orb, .device-orbit, .device-card, .cta-glow, .cta-glow-2, .hero-badge::after, .hero-title .grad, .bg-topology {
+        animation: none !important;
+        transition: none !important;
+      }
+      .nav, .nav-logo, .nav-links a, .nav-btn, .nav-hamburger span, .btn-primary, .btn-outline, .feat, .cat-card, .gal, .faq-item, .page-modal, .page-modal-overlay, .cart-drawer, .cart-overlay {
+        transition: none !important;
+      }
+      .bg-orb, .hero-orb { filter: none !important; }
+    }
     ::selection { background: rgba(124,92,252,0.3); color: var(--text); }
     [data-theme="light"] ::selection { background: rgba(109,74,237,0.2); }
     html { scrollbar-width: thin; scrollbar-color: rgba(124,92,252,0.2) transparent; }
