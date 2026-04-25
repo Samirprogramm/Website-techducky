@@ -13,38 +13,38 @@
     'ducky-v1': {
       id: 'ducky-v1',
       name: 'Ducky V1',
-      price: 79,
-      badge: 'Flagship',
-      summary: 'All-in-One wireless research device',
-      description: 'CC1101, NRF24, WiFi and IR inside one portable chassis.',
-      features: ['CC1101 Sub-GHz', 'NRF24 2.4 GHz', 'WiFi + IR', 'USB-C rechargeable']
+      price: 69.95,
+      badge: 'Research Device',
+      summary: 'Kompaktes Wireless-Lab fuer autorisierte Tests',
+      description: '2" LCD, 2x NRF24L01 500 mW, 1x CC1101, 3W IR und 2000 mAh Akku in einem portablen Geraet.',
+      features: ['2" LCD Screen', '2x NRF24L01 500 mW', '1x CC1101 + 3W IR', '2000 mAh Akku']
     },
     'ducky-v1-case-rubber': {
       id: 'ducky-v1-case-rubber',
       name: 'Ducky V1 Case (Rubber)',
       price: 19,
       badge: 'Accessory',
-      summary: 'Shock-absorbing rubber shell',
-      description: 'Adds grip, drop protection and a cleaner everyday carry.',
-      features: ['Soft-touch finish', 'Raised edge protection', 'Precise cut-outs', 'Quick snap-on fit']
+      summary: 'Robuste Huelle fuer Alltag und Transport',
+      description: 'Mehr Grip, Kanten-Schutz und ein sauberer Look fuer den taeglichen Einsatz.',
+      features: ['Soft-Touch Finish', 'Erhoehter Kantenschutz', 'Praezise Aussparungen', 'Schneller Snap-on Fit']
     },
     'enclosure-clear': {
       id: 'enclosure-clear',
       name: 'Enclosure Clear',
       price: 14,
       badge: 'Case',
-      summary: 'Transparent replacement enclosure',
-      description: 'Show off the hardware with a clean transparent shell.',
-      features: ['Clear polycarbonate', 'Lightweight build', 'Board visibility', 'Easy replacement']
+      summary: 'Transparentes Ersatzgehaeuse',
+      description: 'Zeigt die Hardware und schuetzt sie mit einem leichten, klaren Polycarbonat-Gehaeuse.',
+      features: ['Klares Polycarbonat', 'Leichte Bauweise', 'Sichtbare Hardware', 'Einfacher Wechsel']
     },
     'enclosure-black': {
       id: 'enclosure-black',
       name: 'Enclosure Black',
       price: 14,
       badge: 'Case',
-      summary: 'Matte black replacement enclosure',
-      description: 'Stealthier look with the same compact footprint.',
-      features: ['Matte black finish', 'Slim profile', 'Scratch resistant', 'Easy replacement']
+      summary: 'Matt-schwarzes Ersatzgehaeuse',
+      description: 'Schlichter Look mit derselben kompakten Form und alltagstauglicher Oberflaeche.',
+      features: ['Mattes Finish', 'Schlankes Profil', 'Kratzresistent', 'Einfacher Wechsel']
     }
   };
 });
