@@ -1,5 +1,12 @@
 {
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
   "dependencies": {
-    "uipro-cli": "^2.2.3"
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "nodemailer": "^8.0.5",
+    "stripe": "^22.0.2"
   }
 }
