@@ -20,6 +20,9 @@ const orderStorePath = path.join(__dirname, 'data', 'orders.json');
 const supportEmail = normalizeInput(process.env.SUPPORT_EMAIL) || 'support@techducky.ch';
 const adminEmail = normalizeInput(process.env.ADMIN_EMAIL);
 const smtpFrom = normalizeInput(process.env.SMTP_FROM);
+const bankIban = normalizeInput(process.env.BANK_IBAN);
+const bankAccountHolder = normalizeInput(process.env.BANK_ACCOUNT_HOLDER);
+const bankName = normalizeInput(process.env.BANK_NAME);
 const stripeWebhookSecret = normalizeInput(process.env.STRIPE_WEBHOOK_SECRET);
 const stripe = process.env.STRIPE_SECRET_KEY ? new Stripe(process.env.STRIPE_SECRET_KEY) : null;
 
@@ -30,14 +33,36 @@ const POSTAL_RE = /^[A-Za-z0-9][A-Za-z0-9\s-]{1,19}$/;
 const PHONE_RE = /^[+\d][\d\s()-]{5,29}$/;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const ALLOWED_COUNTRIES = new Set(['CH', 'DE', 'AT', 'FR', 'IT', 'OTHER']);
-const ALLOWED_PAY_METHODS = new Set(['standard', 'apple_pay', 'google_pay']);
+const ALLOWED_PAY_METHODS = new Set(['standard', 'apple_pay', 'google_pay', 'bank_transfer']);
+const CSP_DIRECTIVES = [
+  "default-src 'self'",
+  "base-uri 'self'",
+  "object-src 'none'",
+  "form-action 'self'",
+  "frame-src 'none'",
+  "worker-src 'none'",
+  "manifest-src 'self'",
+  "media-src 'self'",
+  "script-src 'self'",
+  "script-src-attr 'none'",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "font-src https://fonts.gstatic.com",
+  "img-src 'self' data: https://i.imgur.com",
+  "connect-src 'self'",
+  "frame-ancestors 'none'",
+  'upgrade-insecure-requests'
+].join('; ');
 
 let storeQueue = Promise.resolve();
+const rateLimitBuckets = new Map();
 
 app.disable('x-powered-by');
 app.use((req, res, next) => {
+  res.setHeader('Content-Security-Policy', CSP_DIRECTIVES);
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), payment=(self)');
 
   if (req.path.startsWith('/api/')) {
     res.setHeader('Cache-Control', 'no-store');
@@ -88,15 +113,18 @@ app.post('/api/stripe-webhook', express.raw({ type: 'application/json' }), async
 app.use(express.json({ limit: '100kb' }));
 
 app.get('/api/health', (req, res) => {
-  res.json({
-    ok: true,
-    stripeReady: Boolean(stripe),
-    webhookReady: Boolean(stripeWebhookSecret),
-    smtpReady: Boolean(createTransporter())
-  });
+  const health = { ok: true };
+
+  if (process.env.NODE_ENV !== 'production' || process.env.DETAILED_HEALTH === 'true') {
+    health.stripeReady = Boolean(stripe);
+    health.webhookReady = Boolean(stripeWebhookSecret);
+    health.smtpReady = Boolean(createTransporter());
+  }
+
+  res.json(health);
 });
 
-app.post('/api/create-checkout-session', async (req, res) => {
+app.post('/api/create-checkout-session', enforceRateLimit('checkout', 20, 15 * 60 * 1000), async (req, res) => {
   if (!hasTrustedOrigin(req)) {
     res.status(403).json({ error: 'Unbekannte Herkunft fuer Checkout-Anfrage.' });
     return;
@@ -203,7 +231,7 @@ app.post('/api/create-checkout-session', async (req, res) => {
   }
 });
 
-app.get('/api/checkout-session-status', async (req, res) => {
+app.get('/api/checkout-session-status', enforceRateLimit('checkout-status', 60, 15 * 60 * 1000), async (req, res) => {
   if (!stripe) {
     res.status(503).json({ error: 'Stripe ist nicht konfiguriert.' });
     return;
@@ -218,6 +246,10 @@ app.get('/api/checkout-session-status', async (req, res) => {
   try {
     const session = await stripe.checkout.sessions.retrieve(sessionId);
     const order = await syncCheckoutSession(session);
+    if (!order) {
+      res.status(404).json({ error: 'Bestellung wurde nicht gefunden.' });
+      return;
+    }
 
     res.json({
       paid: session.payment_status === 'paid',
@@ -242,6 +274,84 @@ app.get('/index.html', (req, res) => {
 app.get('/catalog.js', (req, res) => {
   res.type('application/javascript');
   res.sendFile(path.join(__dirname, 'catalog.js'));
+});
+
+app.post('/api/create-bank-transfer-order', enforceRateLimit('bank-transfer', 20, 15 * 60 * 1000), async (req, res) => {
+  if (!hasTrustedOrigin(req)) {
+    res.status(403).json({ error: 'Unbekannte Herkunft fuer Checkout-Anfrage.' });
+    return;
+  }
+
+  if (!bankIban || !bankAccountHolder) {
+    res.status(503).json({ error: 'Bankueberweisung ist noch nicht konfiguriert. BANK_IBAN und BANK_ACCOUNT_HOLDER fehlen.' });
+    return;
+  }
+
+  let payload;
+  try {
+    payload = sanitizeCheckoutPayload({
+      ...req.body,
+      requestedPayMethod: 'bank_transfer'
+    });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+    return;
+  }
+
+  const orderId = createOrderId();
+  const now = new Date().toISOString();
+  const subtotal = payload.items.reduce((sum, item) => sum + item.price * item.qty, 0);
+
+  const orderRecord = {
+    orderId,
+    status: 'awaiting_bank_transfer',
+    paymentStatus: 'pending_bank_transfer',
+    checkoutStatus: 'bank_transfer_instructions',
+    requestedPayMethod: 'bank_transfer',
+    createdAt: now,
+    updatedAt: now,
+    paidAt: null,
+    subtotal,
+    total: subtotal,
+    currency: 'CHF',
+    stripeSessionId: null,
+    stripePaymentIntentId: null,
+    customerEmailSent: false,
+    adminEmailSent: false,
+    lastEmailError: '',
+    bankTransfer: {
+      iban: bankIban,
+      accountHolder: bankAccountHolder,
+      bankName,
+      reference: orderId
+    },
+    customer: payload.customer,
+    items: payload.items
+  };
+
+  await withOrderStore(async store => {
+    store.orders[orderId] = orderRecord;
+  });
+
+  res.status(201).json({
+    orderId,
+    total: subtotal,
+    currency: 'CHF',
+    paymentStatus: 'pending_bank_transfer',
+    bankTransfer: {
+      iban: bankIban,
+      accountHolder: bankAccountHolder,
+      bankName,
+      reference: orderId
+    },
+    order: buildClientOrderSnapshot(orderRecord)
+  });
+});
+
+app.get('/app.js', (req, res) => {
+  res.type('application/javascript');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.sendFile(path.join(__dirname, 'app.js'));
 });
 
 app.get('/logo.jpg', (req, res) => {
@@ -307,14 +417,57 @@ function getCheckoutConfigErrors() {
 
 function hasTrustedOrigin(req) {
   const origin = req.get('origin');
-  if (!origin) {
+  const referer = req.get('referer');
+  const source = origin || referer;
+  if (!source) {
     return true;
   }
 
   try {
-    return new URL(origin).origin === new URL(baseUrl).origin;
+    return new URL(source).origin === new URL(baseUrl).origin;
   } catch {
     return false;
+  }
+}
+
+function enforceRateLimit(name, maxRequests, windowMs) {
+  return (req, res, next) => {
+    const now = Date.now();
+    const key = `${name}:${getClientIp(req)}`;
+    const bucket = rateLimitBuckets.get(key);
+
+    if (!bucket || bucket.resetAt <= now) {
+      rateLimitBuckets.set(key, { count: 1, resetAt: now + windowMs });
+      cleanupRateLimits(now);
+      next();
+      return;
+    }
+
+    bucket.count += 1;
+    if (bucket.count > maxRequests) {
+      const retryAfterSeconds = Math.ceil((bucket.resetAt - now) / 1000);
+      res.setHeader('Retry-After', String(retryAfterSeconds));
+      res.status(429).json({ error: 'Zu viele Anfragen. Bitte versuche es gleich noch einmal.' });
+      return;
+    }
+
+    next();
+  };
+}
+
+function getClientIp(req) {
+  return req.ip || (req.socket && req.socket.remoteAddress) || 'unknown';
+}
+
+function cleanupRateLimits(now) {
+  if (rateLimitBuckets.size < 500) {
+    return;
+  }
+
+  for (const [key, bucket] of rateLimitBuckets.entries()) {
+    if (bucket.resetAt <= now) {
+      rateLimitBuckets.delete(key);
+    }
   }
 }
 
@@ -484,33 +637,11 @@ async function syncCheckoutSession(session) {
 
   return withOrderStore(async store => {
     const now = new Date().toISOString();
-    const current = store.orders[orderId] || {
-      orderId,
-      status: 'pending_payment',
-      paymentStatus: 'unpaid',
-      checkoutStatus: 'open',
-      requestedPayMethod: normalizeInput(session.metadata && session.metadata.requestedPayMethod) || 'standard',
-      createdAt: now,
-      updatedAt: now,
-      paidAt: null,
-      subtotal: 0,
-      total: 0,
-      currency: 'CHF',
-      customerEmailSent: false,
-      adminEmailSent: false,
-      lastEmailError: '',
-      customer: {
-        email: normalizeInput(session.customer_details && session.customer_details.email),
-        firstName: '',
-        lastName: '',
-        address: '',
-        zip: '',
-        city: '',
-        country: 'OTHER',
-        phone: normalizeInput(session.customer_details && session.customer_details.phone)
-      },
-      items: []
-    };
+    const current = store.orders[orderId];
+    if (!current) {
+      console.warn(`Ignoring Stripe session for unknown order ${orderId}.`);
+      return null;
+    }
 
     current.updatedAt = now;
     current.checkoutStatus = session.status || current.checkoutStatus;
