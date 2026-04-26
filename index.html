@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,7 +21,8 @@
       -ms-touch-action: manipulation;
       overscroll-behavior-y: none;
     }
-    body {
+    body,
+    body *:not(input):not(textarea):not(select) {
       user-select: none;
       -webkit-user-select: none;
       -webkit-touch-callout: none;
@@ -1587,9 +1588,14 @@
     .faq-item[open] { box-shadow: 0 8px 40px rgba(124,92,252,0.08), 0 0 0 1px rgba(124,92,252,0.15); }
 
     /* ===== PROFESSIONAL POLISH ===== */
+    body,
+    body *:not(input):not(textarea):not(select) {
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+    }
+
     body {
-      user-select: text;
-      -webkit-user-select: text;
       background:
         radial-gradient(circle at 20% 8%, rgba(59,130,246,0.16), transparent 32%),
         radial-gradient(circle at 82% 18%, rgba(20,184,166,0.12), transparent 30%),
@@ -2652,12 +2658,12 @@
         <li><a href="#kaufen">Ducky V1</a></li>
         <li><a href="#features">Features</a></li>
         <li><a href="#specs">Specs</a></li>
-        <li><a href="#box">Lieferumfang</a></li>
-        <li><a href="#accessories">Zubehör</a></li>
+        <li><a href="#box">In the Box</a></li>
+        <li><a href="#accessories">Add-ons</a></li>
         <li><a href="#faq">FAQ</a></li>
       </ul>
-      <a href="#kaufen" class="nav-btn">Kaufen</a>
-      <button class="theme-toggle" id="themeToggle" aria-label="Hell/Dunkel umschalten" title="Hell/Dunkel umschalten">
+      <a href="#kaufen" class="nav-btn">Buy</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode" title="Toggle light/dark mode">
         <svg class="icon-moon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/></svg>
         <svg class="icon-sun" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
       </button>
@@ -2690,8 +2696,8 @@
       <a href="#kaufen" class="mm-link">Ducky V1</a>
       <a href="#features" class="mm-link">Features</a>
       <a href="#specs" class="mm-link">Specs</a>
-      <a href="#box" class="mm-link">Lieferumfang</a>
-      <a href="#accessories" class="mm-link">Zubehör</a>
+      <a href="#box" class="mm-link">In the Box</a>
+      <a href="#accessories" class="mm-link">Add-ons</a>
       <a href="#faq" class="mm-link">FAQ</a>
     </div>
     <div class="mobile-menu-footer">
@@ -2703,7 +2709,7 @@
   <div class="cart-overlay" id="cartOverlay"></div>
   <aside class="cart-drawer" id="cartDrawer">
     <div class="cart-head">
-      <h3>Warenkorb <span class="cart-head-count" id="cartHeadCount">0</span></h3>
+      <h3>Cart <span class="cart-head-count" id="cartHeadCount">0</span></h3>
       <button class="cart-close" id="cartClose">
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
@@ -2711,7 +2717,7 @@
     <div class="cart-body" id="cartBody">
       <div class="cart-empty" id="cartEmpty">
         <div class="cart-empty-icon">🛒</div>
-        <p>Dein Warenkorb ist leer</p>
+        <p>Your cart is empty</p>
       </div>
     </div>
     <div class="cart-footer">
@@ -2719,8 +2725,8 @@
         <span class="cart-total-label">Total</span>
         <span class="cart-total-val" id="cartTotal">CHF 0.00</span>
       </div>
-      <div class="cart-shipping">Kostenloser Versand in der Schweiz</div>
-      <button class="cart-checkout" id="cartCheckout" disabled>Zur Kasse</button>
+      <div class="cart-shipping">Free shipping in Switzerland</div>
+      <button class="cart-checkout" id="cartCheckout" disabled>Checkout</button>
     </div>
   </aside>
 
@@ -2730,63 +2736,63 @@
     <div class="hero-orb hero-orb-2"></div>
     <div class="container">
       <div class="hero-left">
-        <div class="hero-badge"><span class="dot"></span> Versand aus der Schweiz — erste Serie verfügbar</div>
+        <div class="hero-badge"><span class="dot"></span> Ships from Switzerland — first batch available</div>
         <h1 class="hero-title">
           <span class="line">Ducky V1</span>
         </h1>
-        <p class="hero-sub">Wireless Research Tool für autorisierte Labs: Sub-GHz, 2.4 GHz, WiFi, IR, 2" LCD und 2000 mAh Akku in einem klaren mobilen Setup.</p>
-        <div class="hero-store-card" aria-label="Ducky V1 kaufen">
+        <p class="hero-sub">Wireless research tool for authorized labs: Sub-GHz, 2.4 GHz, WiFi, IR, 2" LCD, and a 2000 mAh battery in a clean mobile setup.</p>
+        <div class="hero-store-card" aria-label="Buy Ducky V1">
           <div class="store-card-top">
             <span class="store-eyebrow">Ducky V1</span>
             <span class="store-stock">Shipping now</span>
           </div>
           <div class="store-price-row">
             <span class="store-price">CHF 69.95</span>
-            <span class="store-note">inkl. Versand in der Schweiz</span>
+            <span class="store-note">shipping included in Switzerland</span>
           </div>
-          <div class="store-options" aria-label="Produktdetails">
+          <div class="store-options" aria-label="Product details">
             <span><strong>Display</strong>2" LCD</span>
             <span><strong>2.4 GHz</strong>2x NRF24L01 500 mW</span>
             <span><strong>Sub-GHz</strong>1x CC1101</span>
             <span><strong>IR</strong>1x 3W IR</span>
           </div>
-          <div class="store-config" aria-label="Produktoptionen">
+          <div class="store-config" aria-label="Product options">
             <div class="config-group">
-              <span class="config-label">Farbe</span>
-              <div class="variant-pills" aria-label="Farbe auswählen">
+              <span class="config-label">Color</span>
+              <div class="variant-pills" aria-label="Choose color">
                 <button type="button" class="variant-pill active">Clear</button>
                 <button type="button" class="variant-pill">Black</button>
               </div>
             </div>
             <label class="bundle-row" for="bundleCase">
               <input type="checkbox" id="bundleCase" />
-              <span><strong>Silicone Case hinzufügen</strong><em>Schutzcase für CHF 19.00</em></span>
+              <span><strong>Add silicone case</strong><em>Protective case for CHF 19.00</em></span>
             </label>
           </div>
           <button class="btn-primary add-to-cart-btn store-buy-btn" id="heroBuyBtn" data-product="ducky-v1" data-name="Ducky V1" data-price="69.95">
-            In den Warenkorb
+            Add to Cart
           </button>
           <div class="store-choice">
-            <span>Lieferumfang</span>
-            <strong>Ducky V1, USB-C Kabel, Antenne, Quick-Start Guide</strong>
+            <span>In the Box</span>
+            <strong>Ducky V1, USB-C cable, antenna, Quick-Start Guide</strong>
           </div>
           <div class="store-assurance">
-            <span>Apple Pay / Google Pay im Checkout</span>
-            <span>IBAN-Banküberweisung verfügbar</span>
-            <span>30 Tage Rückgabe</span>
+            <span>Apple Pay / Google Pay at checkout</span>
+            <span>IBAN bank transfer available</span>
+            <span>30-day returns</span>
           </div>
         </div>
-        <div class="trust-row" aria-label="Produktvorteile">
-          <span>Sichere Zahlung</span>
-          <span>Schweizer Versand</span>
-          <span>Support aus CH</span>
+        <div class="trust-row" aria-label="Product benefits">
+          <span>Secure payment</span>
+          <span>Swiss shipping</span>
+          <span>Support from Switzerland</span>
         </div>
         <div class="hero-metrics">
-          <div class="metric"><span class="metric-val">4</span><span class="metric-label">Funkmodule</span></div>
+          <div class="metric"><span class="metric-val">4</span><span class="metric-label">radio modules</span></div>
           <div class="metric-sep"></div>
-          <div class="metric"><span class="metric-val">&lt;50g</span><span class="metric-label">Gewicht</span></div>
+          <div class="metric"><span class="metric-val">&lt;50g</span><span class="metric-label">weight</span></div>
           <div class="metric-sep"></div>
-          <div class="metric"><span class="metric-val">USB-C</span><span class="metric-label">Laden</span></div>
+          <div class="metric"><span class="metric-val">USB-C</span><span class="metric-label">charging</span></div>
           <div class="metric-sep"></div>
           <div class="metric"><span class="metric-val">2"</span><span class="metric-label">LCD Screen</span></div>
         </div>
@@ -2812,35 +2818,35 @@
           <div class="chip chip-3"><span class="chip-icon">📺</span>IR Blaster</div>
           <div class="chip chip-4"><span class="chip-icon">🌐</span>WiFi</div>
         </div>
-        <div class="product-media-meta" aria-label="Produktqualität">
-          <div><strong>Clean build</strong><span>kompaktes Gehäuse, klare Bedienung</span></div>
-          <div><strong>Portable lab</strong><span>2000 mAh Akku und USB-C</span></div>
-          <div><strong>Ready to learn</strong><span>für eigene und freigegebene Setups</span></div>
+        <div class="product-media-meta" aria-label="Product quality">
+          <div><strong>Clean build</strong><span>compact enclosure, clear controls</span></div>
+          <div><strong>Portable lab</strong><span>2000 mAh battery and USB-C</span></div>
+          <div><strong>Ready to learn</strong><span>for owned and approved setups</span></div>
         </div>
       </div>
     </div>
   </header>
 
-  <section class="proof-strip" aria-label="Shop Vorteile">
+  <section class="proof-strip" aria-label="Shop benefits">
     <div class="container proof-grid">
-      <div class="proof-item"><span>Versand</span><strong>Schweiz & EU</strong></div>
-      <div class="proof-item"><span>Payment</span><strong>Karte, Wallet, IBAN</strong></div>
-      <div class="proof-item"><span>Support</span><strong>Direkter Kontakt</strong></div>
-      <div class="proof-item"><span>Rückgabe</span><strong>30 Tage</strong></div>
+      <div class="proof-item"><span>Shipping</span><strong>Switzerland & EU</strong></div>
+      <div class="proof-item"><span>Payment</span><strong>Card, wallet, IBAN</strong></div>
+      <div class="proof-item"><span>Support</span><strong>Direct contact</strong></div>
+      <div class="proof-item"><span>Returns</span><strong>30 days</strong></div>
     </div>
   </section>
 
-  <section class="shop-assurance" aria-label="Shop Vertrauensbereich">
+  <section class="shop-assurance" aria-label="Shop trust section">
     <div class="container assurance-grid">
       <div class="assurance-copy">
         <span class="tag">Built for real use</span>
-        <h2>Ein Shop, der sich wie ein Produkt anfühlt.</h2>
-        <p>Ducky V1 wird als kompaktes Hardware-Tool präsentiert: klare Optionen, transparente Zahlung, Lieferumfang und Feature-Überblick ohne unnötige Ablenkung.</p>
+        <h2>A shop that feels as polished as the product.</h2>
+        <p>Ducky V1 is presented like a serious hardware product: clear options, transparent payment, box contents, and feature overview without unnecessary distraction.</p>
       </div>
       <div class="assurance-list">
-        <div><strong>Direkter Checkout</strong><span>Warenkorb, Karte/Wallet und Banküberweisung sind sichtbar getrennt.</span></div>
-        <div><strong>Klare Hardwaredaten</strong><span>Display, Funkmodule, IR und Akku stehen direkt beim Kauf.</span></div>
-        <div><strong>Saubere Dokumentation</strong><span>FAQ, Lieferumfang und rechtliche Hinweise sind im Shop eingebettet.</span></div>
+        <div><strong>Direct checkout</strong><span>Cart, card/wallet, and bank transfer flows are clearly separated.</span></div>
+        <div><strong>Clear hardware specs</strong><span>Display, radio modules, IR, and battery details are visible right at purchase.</span></div>
+        <div><strong>Clean documentation</strong><span>FAQ, box contents, and legal notes are built directly into the shop.</span></div>
       </div>
     </div>
   </section>
@@ -2849,13 +2855,13 @@
     <div class="container">
       <div class="section-head compact-head">
         <span class="tag">What's in the box</span>
-        <h2 class="section-title">Alles drin, <span class="grad">um direkt zu starten.</span></h2>
+        <h2 class="section-title">Everything you need <span class="grad">to get started.</span></h2>
       </div>
       <div class="box-grid">
-        <div class="box-card" data-anim><span>01</span><strong>Ducky V1</strong><p>Das kompakte Wireless Research Tool mit 2" LCD und integriertem Akku.</p></div>
-        <div class="box-card" data-anim><span>02</span><strong>USB-C Kabel</strong><p>Zum Laden, Aktualisieren und für die stabile Verbindung am Arbeitsplatz.</p></div>
-        <div class="box-card" data-anim><span>03</span><strong>Antenne</strong><p>Passend für die Funkmodule und portable Laboraufbauten.</p></div>
-        <div class="box-card" data-anim><span>04</span><strong>Quick-Start Guide</strong><p>Kurzer Einstieg mit Sicherheits- und Nutzungshinweisen.</p></div>
+        <div class="box-card" data-anim><span>01</span><strong>Ducky V1</strong><p>The compact wireless research tool with 2" LCD and integrated battery.</p></div>
+        <div class="box-card" data-anim><span>02</span><strong>USB-C cable</strong><p>For charging, updates, and a stable desktop connection.</p></div>
+        <div class="box-card" data-anim><span>03</span><strong>antenna</strong><p>Matched for the radio modules and portable lab setups.</p></div>
+        <div class="box-card" data-anim><span>04</span><strong>Quick-Start Guide</strong><p>A short setup guide with safety and usage notes.</p></div>
       </div>
     </div>
   </section>
@@ -2865,32 +2871,32 @@
     <div class="container">
       <div class="section-head">
         <span class="tag">Features</span>
-        <h2 class="section-title">Vier Module. <span class="grad">Ein Workflow.</span></h2>
-        <p class="section-sub">Alles, was du für autorisierte Tests, Laboraufbauten und Protokoll-Lernen brauchst, sitzt in einem klaren mobilen Gerät.</p>
+        <h2 class="section-title">Four modules. <span class="grad">One workflow.</span></h2>
+        <p class="section-sub">Everything you need for authorized testing, lab setups, and protocol learning lives in one clean mobile device.</p>
       </div>
       <div class="features-grid">
         <div class="feat" data-anim>
           <div class="feat-icon">📡</div>
-          <h3>Sub-GHz Analyse</h3>
-          <p>CC1101 für kontrollierte Tests im 300–928 MHz Bereich, Signalvergleich und dokumentierte Laborprojekte.</p>
+          <h3>Sub-GHz Analysis</h3>
+          <p>CC1101 for controlled testing in the 300-928 MHz range, signal comparison, and documented lab projects.</p>
           <span class="feat-chip">CC1101</span>
         </div>
         <div class="feat" data-anim>
           <div class="feat-icon">📶</div>
-          <h3>2.4 GHz Forschung</h3>
-          <p>NRF24L01 für Pairing-Analyse, Protokollverständnis und reproduzierbare Experimente im ISM-Band.</p>
+          <h3>2.4 GHz Research</h3>
+          <p>NRF24L01 for pairing analysis, protocol learning, and reproducible experiments in the ISM band.</p>
           <span class="feat-chip">NRF24L01</span>
         </div>
         <div class="feat" data-anim>
           <div class="feat-icon">🌐</div>
           <h3>WiFi Tools</h3>
-          <p>Netzwerkscans und lokale Verbindung für Remote-Bedienung in eigenen oder ausdrücklich freigegebenen Umgebungen.</p>
+          <p>Network scans and local connectivity for remote control in owned or explicitly approved environments.</p>
           <span class="feat-chip">802.11 b/g/n</span>
         </div>
         <div class="feat" data-anim>
           <div class="feat-icon">📺</div>
           <h3>Infrared Control</h3>
-          <p>IR-Signale empfangen, verstehen und in eigenen Setups testen — ideal für Lernprojekte und Geräteautomation.</p>
+          <p>Receive, understand, and test IR signals in your own setups — ideal for learning projects and device automation.</p>
           <span class="feat-chip">IR TX/RX</span>
         </div>
       </div>
@@ -2902,9 +2908,9 @@
     <div class="container">
       <div class="specs-wrap">
         <div class="specs-info">
-          <span class="tag">Technische Daten</span>
-          <h2 class="section-title">Gebaut für <span class="grad">Performance</span></h2>
-          <p class="section-sub">Ausgestattet mit 2" LCD Screen, zwei 500 mW NRF24L01 Modulen, CC1101, 3W IR und einem 2000 mAh Akku für portable Laborarbeit.</p>
+          <span class="tag">Technical Specs</span>
+          <h2 class="section-title">Engineered for <span class="grad">Performance</span></h2>
+          <p class="section-sub">Equipped with a 2" LCD screen, two 500 mW NRF24L01 modules, one CC1101, one 3W IR blaster, and a 2000 mAh battery for portable lab work.</p>
         </div>
         <div class="specs-list">
           <div class="spec" data-anim><span class="spec-k">Processor</span><span class="spec-v">ESP32-S3 Dual-Core 240 MHz</span></div>
@@ -2926,11 +2932,11 @@
   <section class="section" id="uses">
     <div class="container">
       <div class="section-head">
-        <span class="tag">Funktionen</span>
-        <h2 class="section-title">Viele Tools. <span class="grad">Sauber geordnet.</span></h2>
-        <p class="section-sub">Funk, IR, Bluetooth, Apps und Utility-Funktionen sind in Kategorien organisiert, damit du im Labor schnell findest, was du brauchst.</p>
+        <span class="tag">Features</span>
+        <h2 class="section-title">Many tools. <span class="grad">Cleanly organized.</span></h2>
+        <p class="section-sub">Radio, IR, Bluetooth, apps, and utility functions are organized into categories so you can quickly find what you need in the lab.</p>
         <div class="total-badge"><span class="count">34</span> features &middot; <span class="count">5</span> categories</div>
-        <div class="feature-tabs" aria-label="Feature Kategorien">
+        <div class="feature-tabs" aria-label="Feature categories">
           <a href="#uses">Wireless</a>
           <a href="#infrared">Infrared</a>
           <a href="#apps">Apps</a>
@@ -3169,13 +3175,13 @@
     <div class="container">
       <div class="section-head">
         <span class="tag">Gallery</span>
-        <h2 class="section-title">Produkt <span class="grad">im Überblick</span></h2>
+        <h2 class="section-title">Product <span class="grad">Overview</span></h2>
       </div>
       <div class="gallery-grid">
-        <div class="gal gal-1" data-anim><span class="gal-emoji">01</span><span>Ducky V1 — Frontansicht</span></div>
-        <div class="gal gal-2" data-anim><span class="gal-emoji">02</span><span>Sub-GHz Analyse</span></div>
-        <div class="gal gal-3" data-anim><span class="gal-emoji">03</span><span>Interne Hardware</span></div>
-        <div class="gal gal-4" data-anim><span class="gal-emoji">04</span><span>2" LCD Bedienung</span></div>
+        <div class="gal gal-1" data-anim><span class="gal-emoji">01</span><span>Ducky V1 — Front view</span></div>
+        <div class="gal gal-2" data-anim><span class="gal-emoji">02</span><span>Sub-GHz Analysis</span></div>
+        <div class="gal gal-3" data-anim><span class="gal-emoji">03</span><span>Internal hardware</span></div>
+        <div class="gal gal-4" data-anim><span class="gal-emoji">04</span><span>2" LCD controls</span></div>
       </div>
     </div>
   </section>
@@ -3185,8 +3191,8 @@
     <div class="container">
       <div class="section-head">
         <span class="tag">Add-ons</span>
-        <h2 class="section-title">Zubehör <span class="grad">für Ducky V1</span></h2>
-        <p class="section-sub">Das Hauptgerät kaufst du oben. Hier findest du nur optionale Cases und Ersatzteile für Transport, Schutz und sauberen Look.</p>
+        <h2 class="section-title">Add-ons <span class="grad">for Ducky V1</span></h2>
+        <p class="section-sub">Buy the main device above. This section contains optional cases and replacement parts for transport, protection, and a clean look.</p>
       </div>
       <div class="product-grid" id="productGrid"></div>
     </div>
@@ -3197,28 +3203,28 @@
     <div class="container">
       <div class="section-head">
         <span class="tag">FAQ</span>
-        <h2 class="section-title">Häufige <span class="grad">Fragen</span></h2>
+        <h2 class="section-title">Frequently Asked <span class="grad">Questions</span></h2>
       </div>
       <div class="faq-list">
         <details class="faq-item" data-anim>
-          <summary>Ist Ducky V1 legal nutzbar?</summary>
-          <div class="faq-body">Ducky V1 ist ein Forschungs- und Lerngerät. Nutze es nur in eigenen Umgebungen oder dort, wo du eine ausdrückliche Genehmigung hast.</div>
+          <summary>Is Ducky V1 legal to use?</summary>
+          <div class="faq-body">Ducky V1 is a research and learning device. Use it only in your own environments or where you have explicit permission.</div>
         </details>
         <details class="faq-item" data-anim>
-          <summary>Welche Firmware läuft darauf?</summary>
-          <div class="faq-body">Das Gerät wird mit angepasster Firmware ausgeliefert. Updates werden über USB-C bereitgestellt und auf Stabilität geprüft.</div>
+          <summary>What firmware does it run?</summary>
+          <div class="faq-body">The device ships with custom firmware. Updates are provided via USB-C and tested for stability.</div>
         </details>
         <details class="faq-item" data-anim>
-          <summary>Kann ich Funktionen erweitern?</summary>
-          <div class="faq-body">Ja. Ducky V1 ist auf Lernprojekte ausgelegt und kann über bereitgestellte Schnittstellen und Updates erweitert werden.</div>
+          <summary>Can I extend the features?</summary>
+          <div class="faq-body">Yes. Ducky V1 is designed for learning projects and can be extended through provided interfaces and updates.</div>
         </details>
         <details class="faq-item" data-anim>
-          <summary>Was ist im Lieferumfang?</summary>
-          <div class="faq-body">Ducky V1, USB-C Kabel, Antenne, Quick-Start Guide und ein kleines Sticker-Set. Cases sind separat im Shop erhältlich.</div>
+          <summary>What is in the box?</summary>
+          <div class="faq-body">Ducky V1, USB-C cable, antenna, quick-start guide, and a small sticker set. Cases are available separately in the shop.</div>
         </details>
         <details class="faq-item" data-anim>
-          <summary>Versendest du international?</summary>
-          <div class="faq-body">Ja. Versandzeiten hängen vom Zielland und Zoll ab. Innerhalb der Schweiz ist der Versand kostenlos.</div>
+          <summary>Do you ship internationally?</summary>
+          <div class="faq-body">Yes. Shipping times depend on the destination country and customs. Shipping within Switzerland is free.</div>
         </details>
       </div>
     </div>
@@ -3231,45 +3237,45 @@
         <div class="cta-glow"></div>
         <div class="cta-glow-2"></div>
         <div class="cta-inner">
-          <h2 class="cta-title">Bereit für dein <span class="grad">mobiles Lab?</span></h2>
-          <p class="cta-desc">Sichere dir Ducky V1 aus der ersten Serie und starte mit einem kompakten, klar aufgebauten Tool für autorisierte Forschung.</p>
+          <h2 class="cta-title">Ready for your <span class="grad">mobile lab?</span></h2>
+          <p class="cta-desc">Secure Ducky V1 from the first batch and start with a compact, clearly built tool for authorized research.</p>
           <div class="cta-price">
             <span class="cta-price-val">CHF 69.95</span>
-            <span class="cta-price-note">inkl. Versand (CH) · MwSt. kann anfallen</span>
+            <span class="cta-price-note">shipping included (CH) · VAT may apply</span>
           </div>
           <div class="hero-btns" style="justify-content:center">
             <button class="btn-primary add-to-cart-btn" data-product="ducky-v1" data-name="Ducky V1" data-price="69.95">
               <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              In den Warenkorb
+              Add to Cart
             </button>
-            <button class="btn-outline" id="preorderBtn" style="margin-left:12px">Vormerken</button>
-            <a href="#features" class="btn-outline">Mehr erfahren</a>
+            <button class="btn-outline" id="preorderBtn" style="margin-left:12px">Join Waitlist</button>
+            <a href="#features" class="btn-outline">Learn More</a>
           </div>
             <!-- PREORDER MODAL -->
             <div class="page-modal-overlay" id="preorderOverlay"></div>
             <div class="page-modal preorder-modal" id="preorderModal">
               <button class="page-modal-close" id="preorderClose">&times;</button>
-              <h2>Vormerken</h2>
-              <p class="modal-subtitle">Trage dich unverbindlich ein. Es wird keine Zahlung ausgelöst.</p>
+              <h2>Join Waitlist</h2>
+              <p class="modal-subtitle">Join without commitment. No payment will be triggered.</p>
               <form id="preorderForm" autocomplete="on">
                 <div class="co-form-group">
                   <label for="preorderEmail">E-Mail *</label>
-                  <input type="email" id="preorderEmail" name="email" placeholder="deine@email.com" required autocomplete="email" inputmode="email" maxlength="160" />
+                  <input type="email" id="preorderEmail" name="email" placeholder="you@example.com" required autocomplete="email" inputmode="email" maxlength="160" />
                 </div>
                 <div class="co-form-group">
-                  <label for="preorderCode">Verifizierungscode *</label>
-                  <input type="text" id="preorderCode" name="code" placeholder="Code aus E-Mail" required maxlength="8" />
-                  <button type="button" class="btn-secondary" id="sendCodeBtn" style="margin-top:8px">Code anfordern</button>
+                  <label for="preorderCode">Verification code *</label>
+                  <input type="text" id="preorderCode" name="code" placeholder="Code from email" required maxlength="8" />
+                  <button type="button" class="btn-secondary" id="sendCodeBtn" style="margin-top:8px">Request code</button>
                 </div>
-                <button type="submit" class="co-submit-btn" id="preorderSubmitBtn">Jetzt unverbindlich vormerken</button>
+                <button type="submit" class="co-submit-btn" id="preorderSubmitBtn">Join the waitlist</button>
               </form>
               <div class="co-success" id="preorderSuccess" style="display:none">
                 <div class="success-icon">✅</div>
-                <h3>Danke für dein Interesse!</h3>
-                <p>Du bist vorgemerkt. Wir melden uns, sobald neue Informationen zur Verfügbarkeit bereitstehen.</p>
+                <h3>Thanks for your interest!</h3>
+                <p>You are on the list. We will contact you when new availability information is ready.</p>
               </div>
             </div>
-          <p class="cta-secure">Sichere Zahlung · 30 Tage Rückgaberecht · Keine Tracking-Cookies</p>
+          <p class="cta-secure">Secure payment · 30-day returns · No tracking cookies</p>
         </div>
       </div>
     </div>
@@ -3280,8 +3286,8 @@
     <div class="container">
       <div class="legal-box" data-anim>
         <div class="legal-warn">⚠️</div>
-        <h3>Rechtlicher Hinweis</h3>
-        <p>Ducky V1 ist für <strong>autorisierte Sicherheitsforschung, Bildung und eigene Laborumgebungen</strong> gedacht. Nutzer sind selbst dafür verantwortlich, lokale Gesetze einzuhalten. Unautorisierte Funkmanipulation ist illegal.</p>
+        <h3>Legal Notice</h3>
+        <p>Ducky V1 is intended for <strong>authorized security research, education, and owned lab environments</strong>. Users are responsible for following local laws. Unauthorized radio manipulation is illegal.</p>
       </div>
     </div>
   </div>
@@ -3291,13 +3297,13 @@
     <div class="container">
       <div class="section-head">
         <span class="tag">Info</span>
-        <h2 class="section-title">Über <span class="grad">Tech Ducky</span></h2>
+        <h2 class="section-title">About <span class="grad">Tech Ducky</span></h2>
       </div>
       <div class="about-card" data-anim>
         <div class="about-avatar">👨‍💻</div>
         <h3>Samir</h3>
-        <p class="about-age">15 Jahre alt · Solo Developer & Designer</p>
-        <p>Ich bin Samir und entwickle Ducky V1 als eigenes Hardware- und Softwareprojekt — von der Elektronik über die Firmware bis zur Website. Ziel ist ein hochwertiges Lern- und Forschungstool für Menschen, die Funktechnik und Cybersecurity verantwortungsvoll verstehen möchten.</p>
+        <p class="about-age">15 years old · Solo developer & designer</p>
+        <p>I am Samir, and I build Ducky V1 as my own hardware and software project — from electronics and firmware to the website. The goal is a high-quality learning and research tool for people who want to understand radio technology and cybersecurity responsibly.</p>
         <div class="about-badges">
           <span class="about-badge">Hardware Design</span>
           <span class="about-badge">Firmware Development</span>
@@ -3316,7 +3322,7 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <a href="#" class="nav-logo"><img src="logo.jpg" alt="Tech Ducky Logo" class="logo-img" /><span>Tech<span class="highlight">Ducky</span></span></a>
-          <p>Kompakte Tools für Forschung, Lernen und verantwortungsvolle Wireless-Experimente.</p>
+          <p>Compact tools for research, learning, and responsible wireless experiments.</p>
         </div>
         <div class="footer-col">
           <h4>Product</h4>
@@ -3342,23 +3348,23 @@
   <div class="page-modal" id="privacyModal">
     <button class="page-modal-close" data-close-modal="privacy">&times;</button>
     <h2>🔒 Privacy Policy</h2>
-    <p class="modal-subtitle">Zuletzt aktualisiert: April 2026</p>
-    <h3>1. Allgemein</h3>
-    <p>Tech Ducky nimmt den Schutz deiner persönlichen Daten sehr ernst. Diese Datenschutzerklärung informiert dich darüber, welche Daten wir erheben, wie wir sie verwenden und welche Rechte du hast.</p>
-    <h3>2. Erhobene Daten</h3>
+    <p class="modal-subtitle">Last updated: April 2026</p>
+    <h3>1. General</h3>
+    <p>Tech Ducky takes the protection of your personal data seriously. This privacy policy explains what data we collect, how we use it, and which rights you have.</p>
+    <h3>2. Data We Collect</h3>
     <ul>
-      <li><strong>Bestelldaten:</strong> Name, E-Mail-Adresse, Lieferadresse und Zahlungsinformationen bei einer Bestellung.</li>
-      <li><strong>Technische Daten:</strong> IP-Adresse, Browsertyp und Geräteinformationen beim Besuch der Website (anonymisiert).</li>
-      <li><strong>Kommunikation:</strong> E-Mail-Inhalte bei Support-Anfragen.</li>
+      <li><strong>Order data:</strong> Name, email address, shipping address, and payment information when placing an order.</li>
+      <li><strong>Technical Specs:</strong> IP address, browser type, and device information when visiting the website (anonymized).</li>
+      <li><strong>Communication:</strong> Email content when contacting support.</li>
     </ul>
-    <h3>3. Verwendungszweck</h3>
-    <p>Deine Daten werden ausschliesslich zur Abwicklung von Bestellungen, zur Verbesserung unserer Website und zur Beantwortung deiner Anfragen verwendet. Wir verkaufen keine Daten an Dritte.</p>
+    <h3>3. Purpose of Use</h3>
+    <p>Your data is used only to process orders, improve our website, and answer your requests. We do not sell data to third parties.</p>
     <h3>4. Cookies</h3>
-    <p>Wir verwenden nur technisch notwendige Cookies (z.B. Theme-Einstellung). Es werden keine Tracking-Cookies oder Analyse-Tools von Drittanbietern eingesetzt.</p>
-    <h3>5. Deine Rechte</h3>
-    <p>Du hast jederzeit das Recht auf Auskunft, Berichtigung und Löschung deiner Daten. Kontaktiere uns unter <strong>support@techducky.ch</strong>.</p>
-    <h3>6. Kontakt</h3>
-    <p>Bei Fragen zum Datenschutz erreichst du uns unter <strong>support@techducky.ch</strong>.</p>
+    <p>We only use technically necessary cookies, such as the theme setting. We do not use tracking cookies or third-party analytics tools.</p>
+    <h3>5. Your Rights</h3>
+    <p>You have the right to access, correct, and delete your data at any time. Contact us at <strong>support@techducky.ch</strong>.</p>
+    <h3>6. Contact</h3>
+    <p>For privacy questions, contact us at <strong>support@techducky.ch</strong>.</p>
   </div>
 
   <!-- TERMS OF SERVICE -->
@@ -3366,23 +3372,23 @@
   <div class="page-modal" id="termsModal">
     <button class="page-modal-close" data-close-modal="terms">&times;</button>
     <h2>📋 Terms of Service</h2>
-    <p class="modal-subtitle">Zuletzt aktualisiert: April 2026</p>
-    <h3>1. Geltungsbereich</h3>
-    <p>Diese AGB gelten für alle Bestellungen und Käufe über die Website techducky.ch. Mit der Bestellung akzeptierst du diese Bedingungen.</p>
-    <h3>2. Produkt</h3>
-    <p>Ducky V1 ist ein Lern- und Forschungstool für autorisierte Sicherheitsforschung. Der Käufer ist allein verantwortlich für den legalen Einsatz des Geräts gemäss den Gesetzen seines Landes.</p>
-    <h3>3. Preise & Zahlung</h3>
+    <p class="modal-subtitle">Last updated: April 2026</p>
+    <h3>1. Scope</h3>
+    <p>These terms apply to all orders and purchases through techducky.ch. By placing an order, you accept these terms.</p>
+    <h3>2. Product</h3>
+    <p>Ducky V1 is a learning and research tool for authorized security research. The buyer is solely responsible for lawful use of the device under the laws of their country.</p>
+    <h3>3. Prices & Payment</h3>
     <ul>
-      <li>Alle Preise sind in CHF angegeben.</li>
-      <li>Versand innerhalb der Schweiz ist im Preis inbegriffen.</li>
-      <li>Internationale Lieferungen können zusätzliche Zoll- und Versandkosten verursachen.</li>
+      <li>All prices are listed in CHF.</li>
+      <li>Shipping within Switzerland is included in the price.</li>
+      <li>International deliveries may cause additional customs and shipping costs.</li>
     </ul>
-    <h3>4. Rückgaberecht</h3>
-    <p>Du kannst das Produkt innerhalb von 30 Tagen nach Erhalt zurückgeben, sofern es unbenutzt und in der Originalverpackung ist. Die Rücksendekosten trägt der Käufer.</p>
-    <h3>5. Haftungsausschluss</h3>
-    <p>Tech Ducky übernimmt keine Haftung für Schäden, die durch unsachgemässen, illegalen oder nicht autorisierten Gebrauch des Produkts entstehen. Das Gerät ist ausschliesslich für legale Zwecke bestimmt.</p>
-    <h3>6. Gerichtsstand</h3>
-    <p>Es gilt Schweizer Recht. Gerichtsstand ist der Wohnort des Betreibers.</p>
+    <h3>4. Returns</h3>
+    <p>You may return the product within 30 days of receipt if it is unused and in its original packaging. Return shipping costs are paid by the buyer.</p>
+    <h3>5. Disclaimer</h3>
+    <p>Tech Ducky accepts no liability for damage caused by improper, illegal, or unauthorized use of the product. The device is intended exclusively for legal purposes.</p>
+    <h3>6. Jurisdiction</h3>
+    <p>Swiss law applies. Jurisdiction is the operator's place of residence.</p>
   </div>
 
   <!-- FIRMWARE -->
@@ -3390,19 +3396,19 @@
   <div class="page-modal" id="firmwareModal">
     <button class="page-modal-close" data-close-modal="firmware">&times;</button>
     <h2>⚙️ Firmware</h2>
-    <p class="modal-subtitle">Ducky V1 Firmware-Informationen</p>
+    <p class="modal-subtitle">Ducky V1 firmware information</p>
     <h3>Closed Source</h3>
-    <p>Die Firmware von Ducky V1 ist <strong>Closed Source</strong> und proprietär. Der Quellcode wird nicht öffentlich zur Verfügung gestellt. Dies schützt die Integrität des Produkts und verhindert die Erstellung von bösartigen Firmware-Modifikationen.</p>
-    <h3>Firmware-Updates</h3>
-    <p>Updates werden regelmässig veröffentlicht und können direkt über USB-C auf das Gerät geflasht werden. Alle Updates sind kostenlos und fügen neue Features, Bugfixes und Sicherheitsverbesserungen hinzu.</p>
+    <p>The Ducky V1 firmware is <strong>closed source</strong> and proprietary. The source code is not made public. This helps protect product integrity and prevents malicious firmware modifications.</p>
+    <h3>Firmware Updates</h3>
+    <p>Updates are published regularly and can be flashed directly to the device via USB-C. All updates are free and add new features, bug fixes, and security improvements.</p>
     <h3>Custom Plugins</h3>
-    <p>Obwohl die Kern-Firmware Closed Source ist, unterstützt Ducky V1 ein Plugin-System, mit dem du eigene Erweiterungen und Scripts schreiben kannst. Die Plugin-API-Dokumentation wird mit dem Gerät bereitgestellt.</p>
-    <h3>Warum Closed Source?</h3>
+    <p>Although the core firmware is closed source, Ducky V1 supports a plugin system for custom extensions and scripts. Plugin API documentation is provided with the device.</p>
+    <h3>Why closed source?</h3>
     <ul>
-      <li>Schutz vor missbräuchlichen Modifikationen</li>
-      <li>Qualitätssicherung und Stabilität</li>
-      <li>Regelmässige geprüfte Updates vom Entwickler</li>
-      <li>Sicherheit für den Endnutzer</li>
+      <li>Protection against abusive modifications</li>
+      <li>Quality assurance and stability</li>
+      <li>Regular verified updates from the developer</li>
+      <li>Safety for the end user</li>
     </ul>
   </div>
 
@@ -3411,17 +3417,17 @@
   <div class="page-modal" id="communityModal">
     <button class="page-modal-close" data-close-modal="community">&times;</button>
     <h2>🌍 Community</h2>
-    <p class="modal-subtitle">Werde Teil der Tech Ducky Community</p>
+    <p class="modal-subtitle">Become part of the Tech Ducky community</p>
     <h3>Discord Server</h3>
-    <p>Tritt unserem Discord-Server bei und tausche dich mit anderen Ducky V1-Besitzern aus. Teile deine Projekte, frage nach Hilfe und bleibe über die neusten Updates informiert.</p>
-    <h3>Teile deine Projekte</h3>
-    <p>Hast du etwas Cooles mit Ducky V1 gebaut? Zeig es der Community! Wir featuren regelmässig kreative Projekte aus der Community auf unserer Website und auf Social Media.</p>
-    <h3>Beta-Tester werden</h3>
-    <p>Melde dich als Beta-Tester an und erhalte frühzeitigen Zugang zu neuen Firmware-Versionen und Features. Dein Feedback hilft uns, Ducky V1 noch besser zu machen.</p>
-    <h3>Mitmachen</h3>
+    <p>Join our Discord server and connect with other Ducky V1 owners. Share your projects, ask for help, and stay informed about the latest updates.</p>
+    <h3>Share your projects</h3>
+    <p>Built something cool with Ducky V1? Show it to the community. We regularly feature creative community projects on our website and social media.</p>
+    <h3>Become a beta tester</h3>
+    <p>Apply as a beta tester and get early access to new firmware versions and features. Your feedback helps us make Ducky V1 even better.</p>
+    <h3>Get involved</h3>
     <ul>
-      <li>Discord Server für Echtzeit-Austausch</li>
-      <li>GitHub für Bug Reports und Feature Requests</li>
+      <li>Discord server for real-time discussion</li>
+      <li>GitHub for bug reports and feature requests</li>
       <li>Support via <strong>support@techducky.ch</strong></li>
     </ul>
   </div>
@@ -3430,67 +3436,67 @@
   <div class="page-modal-overlay" id="checkoutLegalOverlay"></div>
   <div class="page-modal checkout-legal-modal" id="checkoutLegalModal">
     <button class="page-modal-close" id="checkoutLegalClose">&times;</button>
-    <h2>⚖️ Kaufvertrag & Haftungsausschluss</h2>
-    <p class="modal-subtitle">Bitte lies die folgenden Bedingungen sorgfältig durch, bevor du fortfährst.</p>
+    <h2>⚖️ Purchase Agreement & Liability Disclaimer</h2>
+    <p class="modal-subtitle">Please read the following terms carefully before you continue.</p>
     <div class="legal-scroll">
-      <h3>1. Zweckbestimmung des Produkts</h3>
-      <p>Das Produkt <strong>"Ducky V1"</strong> (nachfolgend "das Gerät") ist ein elektronisches Multifunktionswerkzeug, das <strong>ausschliesslich für legale Zwecke</strong> entwickelt und vertrieben wird. Dazu zählen insbesondere: autorisierte Sicherheitsforschung, Penetrationstests mit schriftlicher Genehmigung des Systemeigentümers, akademische und bildungsbezogene Zwecke im Bereich der Cybersicherheit, Funkfrequenzanalyse im Rahmen geltender Gesetze, persönliche Elektronikprojekte sowie die Erforschung und das Erlernen von Kommunikationsprotokollen.</p>
+      <h3>1. Intended Product Use</h3>
+      <p>The product <strong>"Ducky V1"</strong> (the "device") is an electronic multifunction tool developed and sold <strong>exclusively for legal purposes</strong>. This includes authorized security research, penetration testing with written permission from the system owner, academic and educational cybersecurity work, radio-frequency analysis within applicable law, personal electronics projects, and learning communication protocols.</p>
 
-      <h3>2. Vollständiger Haftungsausschluss</h3>
-      <p>Der Verkäufer, Entwickler und Betreiber von Tech Ducky (nachfolgend "der Anbieter") übernimmt <strong>keinerlei Haftung, Verantwortung oder Schuld</strong> für jegliche Handlungen, die der Käufer oder Dritte mit dem Gerät durchführen. Dies umfasst, ist aber nicht beschränkt auf:</p>
+      <h3>2. Full Liability Disclaimer</h3>
+      <p>The seller, developer, and operator of Tech Ducky (the "provider") accepts <strong>no liability, responsibility, or fault</strong> for any actions performed by the buyer or third parties using the device. This includes, but is not limited to:</p>
       <ul>
-        <li>Unbefugtes Abfangen, Aufzeichnen, Manipulieren oder Stören von drahtlosen Signalen, Funkkommunikation oder Netzwerken</li>
-        <li>Jamming (Störung) von Funkfrequenzen, WiFi-Netzwerken, Bluetooth-Verbindungen oder sonstigen drahtlosen Kommunikationssystemen</li>
-        <li>Unbefugter Zugriff auf fremde Computersysteme, Netzwerke, Geräte oder Infrastrukturen</li>
-        <li>Verletzung von Datenschutzgesetzen, einschliesslich des Schweizer Datenschutzgesetzes (DSG), der EU-Datenschutz-Grundverordnung (DSGVO) und aller anwendbaren nationalen und internationalen Datenschutzvorschriften</li>
-        <li>Verstösse gegen das Fernmeldegesetz (FMG), das Strafgesetzbuch (StGB) oder gleichwertige Gesetze in anderen Jurisdiktionen</li>
-        <li>Jede Form von Cyberangriffen, einschliesslich aber nicht beschränkt auf Denial-of-Service-Angriffe, Man-in-the-Middle-Angriffe, Replay-Angriffe oder Social Engineering</li>
-        <li>Sachschäden, finanzielle Verluste, Datenverlust oder immaterielle Schäden, die direkt oder indirekt durch die Nutzung des Geräts entstehen</li>
-        <li>Körperliche Schäden oder gesundheitliche Beeinträchtigungen, die durch den Missbrauch des Geräts oder seiner Funkmodule verursacht werden könnten</li>
-        <li>Schäden an Drittgeräten, -systemen oder -infrastrukturen</li>
-        <li>Jegliche Bussgelder, Strafen, Gerichtskosten oder sonstige finanzielle Konsequenzen, die dem Käufer oder Dritten durch die Nutzung des Geräts entstehen</li>
+        <li>Unauthorized interception, recording, manipulation, or disruption of wireless signals, radio communication, or networks</li>
+        <li>Jamming or disruption of radio frequencies, WiFi networks, Bluetooth connections, or other wireless communication systems</li>
+        <li>Unauthorized access to third-party computer systems, networks, devices, or infrastructure</li>
+        <li>Violation of privacy laws, including the Swiss Data Protection Act, the EU GDPR, and any applicable national or international privacy regulations</li>
+        <li>Violations of telecommunications law, criminal law, or equivalent laws in other jurisdictions</li>
+        <li>Any form of cyberattack, including but not limited to denial-of-service attacks, man-in-the-middle attacks, replay attacks, or social engineering</li>
+        <li>Property damage, financial losses, data loss, or intangible damages arising directly or indirectly from device use</li>
+        <li>Physical harm or health impairments that could be caused by misuse of the device or its radio modules</li>
+        <li>Damage to third-party devices, systems, or infrastructure</li>
+        <li>Any fines, penalties, court costs, or other financial consequences incurred by the buyer or third parties through device use</li>
       </ul>
 
-      <h3>3. Eigenverantwortung des Käufers</h3>
-      <p>Mit dem Kauf dieses Geräts bestätigt der Käufer ausdrücklich, dass er die <strong>volle und alleinige Verantwortung</strong> für jegliche Nutzung des Geräts übernimmt. Der Käufer verpflichtet sich:</p>
+      <h3>3. Buyer Responsibility</h3>
+      <p>By purchasing this device, the buyer expressly confirms that they accept <strong>full and sole responsibility</strong> for any use of the device. The buyer agrees to:</p>
       <ul>
-        <li>Das Gerät ausschliesslich in Übereinstimmung mit allen geltenden Gesetzen und Vorschriften seines Landes, Bundesstaates, Kantons oder seiner Gemeinde zu verwenden</li>
-        <li>Vor jeder Nutzung die lokale Rechtslage bezüglich Funkfrequenzen, Cybersicherheit und Datenschutz zu prüfen</li>
-        <li>Penetrationstests und Sicherheitsanalysen nur mit ausdrücklicher schriftlicher Genehmigung des Eigentümers der betroffenen Systeme durchzuführen</li>
-        <li>Das Gerät nicht an Personen weiterzugeben, die es für illegale Zwecke nutzen könnten</li>
-        <li>Keine Firmware-Modifikationen vorzunehmen, die die Nutzung des Geräts für illegale Aktivitäten erleichtern oder ermöglichen</li>
-        <li>Das Gerät nicht in der Nähe von kritischer Infrastruktur, Flughäfen, Krankenhäusern, Militäreinrichtungen oder anderen geschützten Bereichen einzusetzen, es sei denn, dies ist ausdrücklich genehmigt</li>
+        <li>Use the device only in accordance with all applicable laws and regulations of their country, state, canton, or municipality</li>
+        <li>Check local laws regarding radio frequencies, cybersecurity, and privacy before each use</li>
+        <li>Perform penetration tests and security analysis only with explicit written permission from the owner of the affected systems</li>
+        <li>Not provide the device to persons who may use it for illegal purposes</li>
+        <li>Not make firmware modifications that facilitate or enable illegal activity</li>
+        <li>Not use the device near critical infrastructure, airports, hospitals, military facilities, or other protected areas unless expressly authorized</li>
       </ul>
 
-      <h3>4. Altersbestätigung</h3>
-      <p>Der Käufer bestätigt, dass er <strong>mindestens 18 Jahre alt</strong> ist oder die ausdrückliche Einwilligung eines Erziehungsberechtigten hat. Bei minderjährigen Käufern übernimmt der Erziehungsberechtigte die volle Verantwortung für die Nutzung des Geräts.</p>
+      <h3>4. Age Confirmation</h3>
+      <p>The buyer confirms that they are <strong>at least 18 years old</strong> or have explicit consent from a legal guardian. For underage buyers, the legal guardian accepts full responsibility for device use.</p>
 
-      <h3>5. Keine Garantie für spezifische Zwecke</h3>
-      <p>Das Gerät wird <strong>"wie besehen" (as-is)</strong> verkauft. Der Anbieter gibt keine Garantie, dass das Gerät für einen bestimmten Zweck geeignet ist. Funkreichweite, Kompatibilität und Leistung können je nach Umgebung, Gesetzgebung und anderen Faktoren variieren.</p>
+      <h3>5. No Warranty for Specific Purposes</h3>
+      <p>The device is sold <strong>"as is"</strong>. The provider does not guarantee that the device is suitable for any specific purpose. Radio range, compatibility, and performance may vary depending on environment, law, and other factors.</p>
 
-      <h3>6. Internationale Rechtslage</h3>
-      <p>Der Käufer nimmt zur Kenntnis, dass die Rechtslage bezüglich des Besitzes und der Nutzung von Funk- und Sicherheitstools <strong>von Land zu Land unterschiedlich</strong> ist. Es liegt in der alleinigen Verantwortung des Käufers, sicherzustellen, dass der Besitz, Import und die Nutzung des Geräts in seinem Land legal ist. Der Anbieter übernimmt keine Verantwortung für Zollbeschlagnahmungen, Importverbote oder rechtliche Konsequenzen im Zielland des Käufers.</p>
+      <h3>6. International Legal Situation</h3>
+      <p>The buyer acknowledges that laws regarding possession and use of radio and security tools <strong>differ from country to country</strong>. It is the buyer's sole responsibility to ensure that possession, import, and use of the device are legal in their country. The provider accepts no responsibility for customs seizures, import bans, or legal consequences in the buyer's destination country.</p>
 
-      <h3>7. Freistellungsklausel (Indemnification)</h3>
-      <p>Der Käufer erklärt sich bereit, den Anbieter, dessen Mitarbeiter, Partner und verbundene Unternehmen von <strong>sämtlichen Ansprüchen, Klagen, Forderungen, Verlusten, Schäden, Kosten und Ausgaben</strong> (einschliesslich Anwaltskosten) freizustellen, die sich aus oder in Verbindung mit der Nutzung des Geräts durch den Käufer oder Dritte ergeben, unabhängig davon, ob diese Nutzung autorisiert war oder nicht.</p>
+      <h3>7. Indemnification</h3>
+      <p>The buyer agrees to indemnify the provider, its employees, partners, and affiliated companies against <strong>all claims, lawsuits, demands, losses, damages, costs, and expenses</strong> (including legal fees) arising from or related to use of the device by the buyer or third parties, whether that use was authorized or not.</p>
 
-      <h3>8. Keine Aufforderung zu illegalen Handlungen</h3>
-      <p>Weder die Website, noch die Produktbeschreibung, noch die Firmware oder sonstige Materialien des Anbieters stellen eine <strong>Aufforderung, Anleitung oder Ermutigung zu illegalen Handlungen</strong> dar. Alle Funktionsbeschreibungen dienen ausschliesslich informativen und bildungsbezogenen Zwecken. Der Anbieter distanziert sich ausdrücklich von jeder missbräuchlichen Verwendung des Geräts.</p>
+      <h3>8. No Encouragement of Illegal Acts</h3>
+      <p>Neither the website, product description, firmware, nor any other provider materials constitute <strong>a request, instruction, or encouragement to perform illegal acts</strong>. All feature descriptions are for informational and educational purposes only. The provider expressly distances itself from any misuse of the device.</p>
 
-      <h3>9. Salvatorische Klausel</h3>
-      <p>Sollte eine Bestimmung dieses Haftungsausschlusses unwirksam oder undurchsetzbar sein, bleiben die übrigen Bestimmungen davon <strong>unberührt und vollständig wirksam</strong>. Die unwirksame Bestimmung wird durch eine wirksame Bestimmung ersetzt, die dem wirtschaftlichen Zweck der ursprünglichen Bestimmung am nächsten kommt.</p>
+      <h3>9. Severability</h3>
+      <p>If any provision of this disclaimer is invalid or unenforceable, the remaining provisions remain <strong>unaffected and fully valid</strong>. The invalid provision will be replaced by a valid provision that most closely reflects the economic purpose of the original provision.</p>
 
-      <h3>10. Anwendbares Recht und Gerichtsstand</h3>
-      <p>Dieser Haftungsausschluss unterliegt <strong>Schweizer Recht</strong>. Für alle Streitigkeiten, die sich aus oder in Verbindung mit diesem Haftungsausschluss ergeben, sind ausschliesslich die Gerichte am Wohnsitz des Anbieters zuständig, sofern zwingende gesetzliche Vorschriften nichts anderes bestimmen.</p>
+      <h3>10. Applicable Law and Jurisdiction</h3>
+      <p>This disclaimer is governed by <strong>Swiss law</strong>. For all disputes arising from or in connection with this disclaimer, the courts at the provider's place of residence have exclusive jurisdiction unless mandatory law provides otherwise.</p>
 
-      <h3>11. Änderungen</h3>
-      <p>Der Anbieter behält sich das Recht vor, diesen Haftungsausschluss jederzeit und ohne Vorankündigung zu ändern. Die jeweils aktuelle Version ist auf der Website einsehbar. Durch die fortgesetzte Nutzung des Geräts nach einer Änderung akzeptiert der Käufer die geänderten Bedingungen.</p>
+      <h3>11. Changes</h3>
+      <p>The provider reserves the right to change this disclaimer at any time without prior notice. The current version is available on the website. Continued use of the device after a change constitutes acceptance of the updated terms.</p>
     </div>
     <div class="checkout-accept-row" id="checkoutAcceptRow">
       <input type="checkbox" id="checkoutAcceptBox" />
-      <label for="checkoutAcceptBox">Ich habe den vollständigen Haftungsausschluss gelesen und verstanden. Ich akzeptiere <strong>alle oben genannten Bedingungen</strong> und bestätige, dass ich die <strong>volle und alleinige Verantwortung</strong> für die Nutzung des Geräts übernehme. Ich bin mir bewusst, dass der Anbieter <strong>keinerlei Haftung</strong> für illegale, unbefugte oder missbräuchliche Nutzung des Geräts übernimmt.</label>
+      <label for="checkoutAcceptBox">I have read and understood the full disclaimer. I accept <strong>all terms above</strong> and confirm that I accept <strong>full and sole responsibility</strong> for using the device. I understand that the provider accepts <strong>no liability</strong> for illegal, unauthorized, or abusive use of the device.</label>
     </div>
-    <button class="checkout-proceed-btn" id="checkoutProceedBtn" disabled>✅ Ich akzeptiere — Weiter zur Bezahlung</button>
+    <button class="checkout-proceed-btn" id="checkoutProceedBtn" disabled>✅ I accept — Continue to payment</button>
   </div>
 
   <!-- CHECKOUT FORM -->
@@ -3498,7 +3504,7 @@
   <div class="page-modal checkout-form-modal" id="checkoutFormModal">
     <button class="page-modal-close" id="checkoutFormClose">&times;</button>
     <h2>🛒 Checkout</h2>
-    <p class="modal-subtitle">Lieferadresse & Bezahlung</p>
+    <p class="modal-subtitle">Shipping Address & Payment</p>
     <div class="checkout-steps">
       <div class="checkout-step done"></div>
       <div class="checkout-step active"></div>
@@ -3515,49 +3521,49 @@
       </div>
       <div class="co-form-group">
         <label for="coEmail">E-Mail *</label>
-        <input type="email" id="coEmail" name="email" placeholder="deine@email.com" required autocomplete="email" inputmode="email" maxlength="160" />
+        <input type="email" id="coEmail" name="email" placeholder="you@example.com" required autocomplete="email" inputmode="email" maxlength="160" />
       </div>
       <div class="co-form-row">
         <div class="co-form-group">
-          <label for="coFirst">Vorname *</label>
-          <input type="text" id="coFirst" name="first" placeholder="Vorname" required autocomplete="given-name" maxlength="100" />
+          <label for="coFirst">First name *</label>
+          <input type="text" id="coFirst" name="first" placeholder="First name" required autocomplete="given-name" maxlength="100" />
         </div>
         <div class="co-form-group">
-          <label for="coLast">Nachname *</label>
-          <input type="text" id="coLast" name="last" placeholder="Nachname" required autocomplete="family-name" maxlength="100" />
+          <label for="coLast">Last name *</label>
+          <input type="text" id="coLast" name="last" placeholder="Last name" required autocomplete="family-name" maxlength="100" />
         </div>
       </div>
       <div class="co-form-group">
-        <label for="coAddress">Strasse & Hausnummer *</label>
-        <input type="text" id="coAddress" name="address" placeholder="Musterstrasse 12" required autocomplete="street-address" maxlength="300" />
+        <label for="coAddress">Street & house number *</label>
+        <input type="text" id="coAddress" name="address" placeholder="Example Street 12" required autocomplete="street-address" maxlength="300" />
       </div>
       <div class="co-form-row">
         <div class="co-form-group">
-          <label for="coZip">PLZ *</label>
+          <label for="coZip">Postal code *</label>
           <input type="text" id="coZip" name="zip" placeholder="8000" required autocomplete="postal-code" inputmode="numeric" maxlength="20" />
         </div>
         <div class="co-form-group">
-          <label for="coCity">Ort *</label>
-          <input type="text" id="coCity" name="city" placeholder="Zürich" required autocomplete="address-level2" maxlength="100" />
+          <label for="coCity">City *</label>
+          <input type="text" id="coCity" name="city" placeholder="Zurich" required autocomplete="address-level2" maxlength="100" />
         </div>
       </div>
       <div class="co-form-group">
-        <label for="coCountry">Land *</label>
+        <label for="coCountry">Country *</label>
         <select id="coCountry" name="country" required autocomplete="country">
-          <option value="CH" selected>🇨🇭 Schweiz</option>
-          <option value="DE">🇩🇪 Deutschland</option>
-          <option value="AT">🇦🇹 Österreich</option>
-          <option value="FR">🇫🇷 Frankreich</option>
-          <option value="IT">🇮🇹 Italien</option>
-          <option value="OTHER">🌍 Anderes Land</option>
+          <option value="CH" selected>🇨🇭 Switzerland</option>
+          <option value="DE">🇩🇪 Germany</option>
+          <option value="AT">🇦🇹 Austria</option>
+          <option value="FR">🇫🇷 France</option>
+          <option value="IT">🇮🇹 Italy</option>
+          <option value="OTHER">🌍 Other country</option>
         </select>
       </div>
       <div class="co-form-group">
-        <label for="coPhone">Telefon (optional)</label>
+        <label for="coPhone">Phone (optional)</label>
         <input type="tel" id="coPhone" name="phone" placeholder="+41 79 123 45 67" autocomplete="tel" inputmode="tel" maxlength="30" />
       </div>
 
-      <div class="co-divider">Bezahlmethode wählen</div>
+      <div class="co-divider">Choose payment method</div>
 
       <div class="pay-buttons">
         <button type="button" class="pay-btn pay-btn-apple" id="payApple">
@@ -3570,29 +3576,29 @@
         </button>
         <button type="button" class="pay-btn pay-btn-bank" id="payBank">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 10h18"/><path d="M5 10V8l7-4 7 4v2"/><path d="M6 10v8"/><path d="M10 10v8"/><path d="M14 10v8"/><path d="M18 10v8"/><path d="M4 18h16"/><path d="M3 21h18"/></svg>
-          Banküberweisung auf IBAN
+          Bank transfer to IBAN
         </button>
       </div>
 
-      <div class="co-divider">oder</div>
+      <div class="co-divider">or</div>
 
       <button type="submit" class="co-submit-btn" id="coSubmitBtn">
-        💳 Mit Karte bezahlen — <span id="coTotalBtn">CHF 0.00</span>
+        💳 Pay by card — <span id="coTotalBtn">CHF 0.00</span>
       </button>
     </form>
 
-    <p class="co-secure">🔒 Sichere Verbindung · Deine Daten werden verschlüsselt übertragen</p>
+    <p class="co-secure">🔒 Secure connection · Your data is encrypted in transit</p>
 
     <!-- Success state (hidden by default) -->
     <div class="co-success" id="coSuccess" style="display:none">
       <div class="success-icon">✅</div>
-      <h3>Zahlung bestätigt!</h3>
-      <p>Deine Zahlung wurde bestätigt. Die Bestätigungs-E-Mail wird jetzt verarbeitet.</p>
+      <h3>Payment confirmed!</h3>
+      <p>Your payment has been confirmed. The confirmation email is now being processed.</p>
       <div class="order-id" id="coOrderId"></div>
     </div>
   </div>
 
   <script src="catalog.js"></script>
-  <script src="app.js?v=20260425-7"></script>
+  <script src="app.js?v=20260425-10"></script>
 </body>
 </html>
