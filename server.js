@@ -16,6 +16,7 @@ const {
 const app = express();
 const port = Number(process.env.PORT || 3000);
 const baseUrl = String(process.env.BASE_URL || `http://localhost:${port}`).replace(/\/+$/, '');
+const isHttpsBaseUrl = baseUrl.startsWith('https://');
 const orderStorePath = path.join(__dirname, 'data', 'orders.json');
 const supportEmail = normalizeInput(process.env.SUPPORT_EMAIL) || 'support@techducky.ch';
 const adminEmail = normalizeInput(process.env.ADMIN_EMAIL);
@@ -62,7 +63,15 @@ app.use((req, res, next) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
   res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+  res.setHeader('Cross-Origin-Resource-Policy', 'same-origin');
+  res.setHeader('Origin-Agent-Cluster', '?1');
+  res.setHeader('X-Download-Options', 'noopen');
+  res.setHeader('X-Permitted-Cross-Domain-Policies', 'none');
   res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), payment=(self)');
+
+  if (isHttpsBaseUrl) {
+    res.setHeader('Strict-Transport-Security', 'max-age=15552000; includeSubDomains');
+  }
 
   if (req.path.startsWith('/api/')) {
     res.setHeader('Cache-Control', 'no-store');
@@ -126,13 +135,7 @@ app.get('/api/health', (req, res) => {
 
 app.post('/api/create-checkout-session', enforceRateLimit('checkout', 20, 15 * 60 * 1000), async (req, res) => {
   if (!hasTrustedOrigin(req)) {
-    res.status(403).json({ error: 'Unbekannte Herkunft fuer Checkout-Anfrage.' });
-    return;
-  }
-
-  const configErrors = getCheckoutConfigErrors();
-  if (configErrors.length) {
-    res.status(503).json({ error: configErrors.join(' ') });
+    res.status(403).json({ error: 'Unknown origin for checkout request.' });
     return;
   }
 
@@ -141,6 +144,18 @@ app.post('/api/create-checkout-session', enforceRateLimit('checkout', 20, 15 * 6
     payload = sanitizeCheckoutPayload(req.body);
   } catch (error) {
     res.status(400).json({ error: error.message });
+    return;
+  }
+
+  if (payload.requestedPayMethod === 'bank_transfer') {
+    res.status(400).json({ error: 'Please use the bank transfer endpoint.' });
+    return;
+  }
+
+  const configErrors = getCheckoutConfigErrors();
+  if (configErrors.length) {
+    console.warn('Checkout setup incomplete:', configErrors.join(' '));
+    res.status(503).json({ error: 'Checkout is not fully configured yet.' });
     return;
   }
 
@@ -176,7 +191,7 @@ app.post('/api/create-checkout-session', enforceRateLimit('checkout', 20, 15 * 6
   try {
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
-      locale: 'de',
+      locale: 'en',
       billing_address_collection: 'required',
       customer_email: payload.customer.email,
       client_reference_id: orderId,
@@ -227,19 +242,19 @@ app.post('/api/create-checkout-session', enforceRateLimit('checkout', 20, 15 * 6
     });
 
     console.error('Stripe checkout session creation failed:', error);
-    res.status(500).json({ error: 'Stripe-Session konnte nicht erstellt werden.' });
+    res.status(500).json({ error: 'Stripe session could not be created.' });
   }
 });
 
 app.get('/api/checkout-session-status', enforceRateLimit('checkout-status', 60, 15 * 60 * 1000), async (req, res) => {
   if (!stripe) {
-    res.status(503).json({ error: 'Stripe ist nicht konfiguriert.' });
+    res.status(503).json({ error: 'Stripe is not configured.' });
     return;
   }
 
   const sessionId = normalizeInput(req.query.session_id);
   if (!sessionId || !/^cs_/i.test(sessionId)) {
-    res.status(400).json({ error: 'Ungueltige Stripe-Session.' });
+    res.status(400).json({ error: 'Invalid Stripe session.' });
     return;
   }
 
@@ -247,7 +262,7 @@ app.get('/api/checkout-session-status', enforceRateLimit('checkout-status', 60, 
     const session = await stripe.checkout.sessions.retrieve(sessionId);
     const order = await syncCheckoutSession(session);
     if (!order) {
-      res.status(404).json({ error: 'Bestellung wurde nicht gefunden.' });
+      res.status(404).json({ error: 'Order was not found.' });
       return;
     }
 
@@ -259,7 +274,7 @@ app.get('/api/checkout-session-status', enforceRateLimit('checkout-status', 60, 
     });
   } catch (error) {
     console.error('Stripe checkout session lookup failed:', error);
-    res.status(500).json({ error: 'Checkout-Status konnte nicht geladen werden.' });
+    res.status(500).json({ error: 'Checkout status could not be loaded.' });
   }
 });
 
@@ -278,12 +293,13 @@ app.get('/catalog.js', (req, res) => {
 
 app.post('/api/create-bank-transfer-order', enforceRateLimit('bank-transfer', 20, 15 * 60 * 1000), async (req, res) => {
   if (!hasTrustedOrigin(req)) {
-    res.status(403).json({ error: 'Unbekannte Herkunft fuer Checkout-Anfrage.' });
+    res.status(403).json({ error: 'Unknown origin for checkout request.' });
     return;
   }
 
   if (!bankIban || !bankAccountHolder) {
-    res.status(503).json({ error: 'Bankueberweisung ist noch nicht konfiguriert. BANK_IBAN und BANK_ACCOUNT_HOLDER fehlen.' });
+    console.warn('Bank transfer setup incomplete: BANK_IBAN or BANK_ACCOUNT_HOLDER is missing.');
+    res.status(503).json({ error: 'Bank transfer is not fully configured yet.' });
     return;
   }
 
@@ -362,6 +378,29 @@ app.get('/logo.jpg', (req, res) => {
   });
 });
 
+app.use('/api', (req, res) => {
+  res.status(404).json({ error: 'API endpoint not found.' });
+});
+
+app.use((req, res) => {
+  res.status(404).type('text/plain').send('Not found');
+});
+
+app.use((error, req, res, next) => {
+  console.error('Unhandled request error:', error);
+  if (res.headersSent) {
+    next(error);
+    return;
+  }
+
+  if (req.path.startsWith('/api/')) {
+    res.status(500).json({ error: 'Internal server error.' });
+    return;
+  }
+
+  res.status(500).type('text/plain').send('Internal server error');
+});
+
 app.listen(port, async () => {
   await ensureOrderStore();
   const configErrors = getCheckoutConfigErrors();
@@ -373,7 +412,7 @@ app.listen(port, async () => {
 });
 
 function normalizeInput(value) {
-  return String(value ?? '').replace(/\s+/g, ' ').trim();
+  return String(value ?? '').replace(/[\u0000-\u001F\u007F]/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
 function createTransporter() {
@@ -401,15 +440,15 @@ function getCheckoutConfigErrors() {
   const errors = [];
 
   if (!stripe) {
-    errors.push('STRIPE_SECRET_KEY fehlt.');
+    errors.push('STRIPE_SECRET_KEY is missing.');
   }
 
   if (!stripeWebhookSecret) {
-    errors.push('STRIPE_WEBHOOK_SECRET fehlt.');
+    errors.push('STRIPE_WEBHOOK_SECRET is missing.');
   }
 
   if (!createTransporter()) {
-    errors.push('SMTP-Konfiguration fehlt oder ist unvollstaendig.');
+    errors.push('SMTP configuration is missing or incomplete.');
   }
 
   return errors;
@@ -420,7 +459,7 @@ function hasTrustedOrigin(req) {
   const referer = req.get('referer');
   const source = origin || referer;
   if (!source) {
-    return true;
+    return req.method === 'GET' || req.method === 'HEAD';
   }
 
   try {
@@ -447,7 +486,7 @@ function enforceRateLimit(name, maxRequests, windowMs) {
     if (bucket.count > maxRequests) {
       const retryAfterSeconds = Math.ceil((bucket.resetAt - now) / 1000);
       res.setHeader('Retry-After', String(retryAfterSeconds));
-      res.status(429).json({ error: 'Zu viele Anfragen. Bitte versuche es gleich noch einmal.' });
+      res.status(429).json({ error: 'Too many requests. Please try again shortly.' });
       return;
     }
 
@@ -477,7 +516,7 @@ function sanitizeCheckoutPayload(body) {
   const requestedPayMethod = normalizeInput(body && body.requestedPayMethod);
 
   if (!ALLOWED_PAY_METHODS.has(requestedPayMethod)) {
-    throw new Error('Ungueltige Zahlungsart.');
+    throw new Error('Invalid payment method.');
   }
 
   return {
@@ -498,25 +537,25 @@ function sanitizeCustomer(customer) {
   const phone = normalizeInput(customer && customer.phone);
 
   if (!EMAIL_RE.test(email)) {
-    throw new Error('Bitte gib eine gueltige E-Mail-Adresse ein.');
+    throw new Error('Please enter a valid email address.');
   }
   if (!NAME_RE.test(firstName) || !NAME_RE.test(lastName)) {
-    throw new Error('Bitte gib einen gueltigen Vor- und Nachnamen ein.');
+    throw new Error('Please enter a valid first and last name.');
   }
   if (!ADDRESS_RE.test(address)) {
-    throw new Error('Bitte gib eine gueltige Strasse und Hausnummer ein.');
+    throw new Error('Please enter a valid street and house number.');
   }
   if (!CITY_RE.test(city)) {
-    throw new Error('Bitte gib einen gueltigen Ort ein.');
+    throw new Error('Please enter a valid city.');
   }
   if (!POSTAL_RE.test(zip)) {
-    throw new Error('Bitte gib eine gueltige PLZ ein.');
+    throw new Error('Please enter a valid postal code.');
   }
   if (!ALLOWED_COUNTRIES.has(country)) {
-    throw new Error('Bitte waehle ein gueltiges Land aus.');
+    throw new Error('Please choose a valid country.');
   }
   if (phone && !PHONE_RE.test(phone)) {
-    throw new Error('Bitte gib eine gueltige Telefonnummer ein.');
+    throw new Error('Please enter a valid phone number.');
   }
 
   return {
@@ -533,7 +572,7 @@ function sanitizeCustomer(customer) {
 
 function sanitizeItems(items) {
   if (!Array.isArray(items) || items.length === 0 || items.length > 25) {
-    throw new Error('Dein Warenkorb ist leer oder ungueltig.');
+    throw new Error('Your cart is empty or invalid.');
   }
 
   return items.map(item => {
@@ -542,11 +581,11 @@ function sanitizeItems(items) {
     const product = PRODUCT_CATALOG[id];
 
     if (!product) {
-      throw new Error('Ein Artikel im Warenkorb ist ungueltig.');
+      throw new Error('One cart item is invalid.');
     }
 
     if (!Number.isInteger(qty) || qty < 1 || qty > 25) {
-      throw new Error('Eine Artikelmenge ist ungueltig.');
+      throw new Error('One item quantity is invalid.');
     }
 
     return {
